@@ -22,11 +22,6 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="D:/Universidad/Objetos 2/mockitoFramework/mockito-inline-3.6.0.jar">
-		<attributes>
-			<attribute name="module" value="true"/>
-		</attributes>
-	</classpathentry>
 	<classpathentry kind="lib" path="D:/Universidad/Objetos 2/mockitoFramework/objenesis-3.1.jar">
 		<attributes>
 			<attribute name="module" value="true"/>
