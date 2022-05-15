@@ -59,7 +59,7 @@ public class UserTest {
 	void testUserOpineInASample() throws SampleCanNotBeOpine {
 		when(sample.wasSendByTheUser(user)).thenReturn(false);
 		when(sample.isVerify()).thenReturn(false);
-		sample.addOpinionInPhoto(opinion);
+		user.opineSample(sample, opinion);
 		verify(sample, times(1)).addOpinionInPhoto(opinion);
 	}
 }

@@ -22,4 +22,9 @@ public class Sample {
 	public void addOpinionInPhoto(Opinion opinion) {
 		// TODO Auto-generated method stub
 	}
+
+	public boolean wasOpineByTheUser(User user) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }
