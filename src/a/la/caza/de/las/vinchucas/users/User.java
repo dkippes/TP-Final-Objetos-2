@@ -38,7 +38,7 @@ public class User {
 		if(sample.wasSendByTheUser(this) || sample.isVerify() || sample.wasOpineByTheUser(this)) {
 			throw new SampleCanNotBeOpine("Sample can not be opine by the user");
 		}
-		this.knowledge.basic();
+		this.knowledge.basic();	
 		sample.addOpinionInPhoto(opinion, this);
 	}
 

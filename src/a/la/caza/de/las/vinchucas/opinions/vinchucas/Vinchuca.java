@@ -4,7 +4,4 @@ import a.la.caza.de.las.vinchucas.opinions.Opinion;
 import a.la.caza.de.las.vinchucas.users.User;
 
 public class Vinchuca extends Opinion{
-	public Vinchuca(User user) {
-		super(user);
-	}
 }

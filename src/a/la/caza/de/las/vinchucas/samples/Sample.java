@@ -4,6 +4,7 @@ import a.la.caza.de.las.vinchucas.opinions.Opinion;
 import a.la.caza.de.las.vinchucas.users.User;
 
 public class Sample {
+	private Photo photo;
 
 	public Sample(Location location, Photo photo, User user) {
 		// TODO Auto-generated constructor stub
@@ -20,6 +21,8 @@ public class Sample {
 	}
 
 	public void addOpinionInPhoto(Opinion opinion, User user) {
+		opinion.setUser(user);
+		photo.addOpinion(opinion);
 		// TODO Auto-generated method stub
 	}
 

@@ -15,8 +15,7 @@ public class OpinionTest {
 	}
 	@Test 
 	void testCreationOfNothingOpinion() {
-	  User tomas  = new User("Tomas") ;
-	  Opinion op1 = new Nothing(tomas);
+	  Opinion op1 = new Nothing();
 	  assertEquals(op1.getClass().getSimpleName(), "Nothing");
 	}
 	

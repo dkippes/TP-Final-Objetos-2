@@ -60,6 +60,6 @@ public class UserTest {
 		when(sample.wasSendByTheUser(user)).thenReturn(false);
 		when(sample.isVerify()).thenReturn(false);
 		user.opineSample(sample, opinion);
-		verify(sample, times(1)).addOpinionInPhoto(opinion);
+		verify(sample, times(1)).addOpinionInPhoto(opinion, user);
 	}
 }
