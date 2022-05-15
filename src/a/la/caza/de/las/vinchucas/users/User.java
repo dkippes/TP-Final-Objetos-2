@@ -9,10 +9,15 @@ import a.la.caza.de.las.vinchucas.samples.Photo;
 import a.la.caza.de.las.vinchucas.samples.Sample;
 
 public class User {
+	private String name;
 	private List<Sample> samples;
 	
-	public User() {
+	public User(String name) {
+		this.name = name;
 		this.samples = new ArrayList<>();
+	}
+	public String getName() {
+		return this.name;
 	}
 	
 	public void sendSample(Location location, Photo photo) {

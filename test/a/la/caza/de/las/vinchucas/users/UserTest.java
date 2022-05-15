@@ -25,7 +25,7 @@ public class UserTest {
 	
 	@BeforeEach
 	void setUp() {
-		user = new User();
+		user = new User("Tomas");
 		location = mock(Location.class);
 		photo = mock(Photo.class);
 		sample = mock(Sample.class);
