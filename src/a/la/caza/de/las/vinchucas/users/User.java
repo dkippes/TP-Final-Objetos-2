@@ -39,7 +39,7 @@ public class User {
 			throw new SampleCanNotBeOpine("Sample can not be opine by the user");
 		}
 		this.knowledge.basic();
-		sample.addOpinionInPhoto(opinion);
+		sample.addOpinionInPhoto(opinion, this);
 	}
 
 	public List<Sample> getSamples() {

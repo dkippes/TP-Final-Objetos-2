@@ -9,4 +9,7 @@ public abstract class Opinion {
 		this.user= user;
 	}
 
+	public void setUser(User user) {
+		this.user = user;
+	}
 }

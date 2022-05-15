@@ -14,10 +14,10 @@ public class OpinionTest {
 		
 	}
 	@Test 
-	void test() {
+	void testCreationOfNothingOpinion() {
 	  User tomas  = new User("Tomas") ;
 	  Opinion op1 = new Nothing(tomas);
-	  assertEquals(op1.getClass(), "Tomas");
+	  assertEquals(op1.getClass().getSimpleName(), "Nothing");
 	}
 	
 }

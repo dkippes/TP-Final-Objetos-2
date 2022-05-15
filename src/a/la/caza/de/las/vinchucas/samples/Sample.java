@@ -19,7 +19,7 @@ public class Sample {
 		return false;
 	}
 
-	public void addOpinionInPhoto(Opinion opinion) {
+	public void addOpinionInPhoto(Opinion opinion, User user) {
 		// TODO Auto-generated method stub
 	}
 
