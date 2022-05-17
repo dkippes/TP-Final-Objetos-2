@@ -23,12 +23,22 @@ public class WebApplication {
 		return webApplication;
 	}
 	
-	public void registerSample(Sample sample) {
-		
+	public WebApplication registerSample(Sample sample) {
+		registeredSamples.add(sample);
+		return this;
 	}
 
-	public void registerUser(User user) {
-		
+	public WebApplication registerUser(User user) {
+		registeredUsers.add(user);
+		return this;
+	}
+
+	public Set<User> getRegisteredUsers() {
+		return this.registeredUsers;
+	}
+	
+	public Set<Sample> getRegisteredSamples() {
+		return this.registeredSamples;
 	}
 }
 
