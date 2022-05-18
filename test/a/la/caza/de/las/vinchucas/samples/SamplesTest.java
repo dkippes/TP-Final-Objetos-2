@@ -10,6 +10,7 @@ import java.util.Map;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import a.la.caza.de.las.vinchucas.WebApplication;
 import a.la.caza.de.las.vinchucas.opinions.Opinion;
 import a.la.caza.de.las.vinchucas.users.User;
 
@@ -30,6 +31,7 @@ public class SamplesTest {
 		sample = new Sample(location, photo, user);
 	}
 
+	
 	@Test
 	void testAddUserOpinionInSample() {
 		when(opinion.getDateOfIssue()).thenReturn(LocalDate.now());

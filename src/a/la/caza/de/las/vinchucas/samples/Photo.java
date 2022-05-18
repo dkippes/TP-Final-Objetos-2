@@ -11,4 +11,12 @@ public class Photo {
 		this.name = name;
 		this.photoType = photoType;
 	}
+
+	public String getName() {
+		return name;
+	}
+
+	public String getPhotoType() {
+		return photoType.getPhotoType();
+	}
 }

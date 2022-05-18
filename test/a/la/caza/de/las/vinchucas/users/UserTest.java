@@ -1,14 +1,13 @@
 package a.la.caza.de.las.vinchucas.users;
 
+import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import a.la.caza.de.las.vinchucas.WebApplication;
-import a.la.caza.de.las.vinchucas.exceptions.SampleCanNotBeOpine;
+
 import a.la.caza.de.las.vinchucas.opinions.Opinion;
 import a.la.caza.de.las.vinchucas.samples.Location;
 import a.la.caza.de.las.vinchucas.samples.Photo;
@@ -34,7 +33,14 @@ public class UserTest {
 		sample = mock(Sample.class);
 		opinion = mock(Opinion.class);
 	}
-
+	
+	@Test 
+	void testGetNameUserAndId() {
+		User newUser = new User("Diego", webApplication);
+		assertEquals(newUser.getName(), "Diego");
+		assertTrue(newUser.getId() > 0);
+	}
+		
 	@Test
 	void testCreateANewUserWithoutSamplesUploaded() {
 		assertEquals(user.getSamplesSend().size(), 0);
@@ -47,7 +53,7 @@ public class UserTest {
 	}
 
 	@Test
-	void testUserOpineInASample() throws SampleCanNotBeOpine {
+	void testUserOpineInASample() {
 		user.opineSample(sample, opinion);
 		verify(sample, times(1)).addUserOpinion(opinion, user);
 	}

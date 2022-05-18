@@ -16,4 +16,8 @@ public class Opinion {
 	public LocalDate getDateOfIssue() {
 		return dateOfIssue;
 	}
+
+	public String getOpinionType() {
+		return opinionType.getOpinionType();
+	}
 }
