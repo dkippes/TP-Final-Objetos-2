@@ -7,6 +7,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
+import a.la.caza.de.las.vinchucas.WebApplication;
 import a.la.caza.de.las.vinchucas.exceptions.SampleCanNotBeOpine;
 import a.la.caza.de.las.vinchucas.opinions.Opinion;
 import a.la.caza.de.las.vinchucas.samples.Location;
@@ -17,6 +18,7 @@ import static org.mockito.Mockito.*;
 
 public class UserTest {
 	
+	WebApplication webApplication;
 	User user;
 	Location location;
 	Photo photo;
@@ -25,7 +27,8 @@ public class UserTest {
 	
 	@BeforeEach
 	void setUp() {
-		user = new User("Tomas");
+		webApplication = mock(WebApplication.class);
+		user = new User("Tomas", webApplication);
 		location = mock(Location.class);
 		photo = mock(Photo.class);
 		sample = mock(Sample.class);
@@ -34,32 +37,18 @@ public class UserTest {
 
 	@Test
 	void testCreateANewUserWithoutSamplesUploaded() {
-		assertEquals(user.getSamples().size(), 0);
+		assertEquals(user.getSamplesSend().size(), 0);
 	}
 	
 	@Test
 	void testUserSendANewSample() {
-		user.sendSample(location, photo);
-		assertEquals(user.getSamples().size(), 1);
+		user.sendSample(new Sample(location, photo, user));
+		assertEquals(user.getSamplesSend().size(), 1);
 	}
-	
-	@Test
-	void testUserOpineInHisExample() throws SampleCanNotBeOpine {
-		when(sample.wasSendByTheUser(user)).thenReturn(true);
-		assertThrows(SampleCanNotBeOpine.class, () -> user.opineSample(sample, opinion));
-	}
-	
-	@Test
-	void testUserOpineInAVerifySample() throws SampleCanNotBeOpine {
-		when(sample.isVerify()).thenReturn(true);
-		assertThrows(SampleCanNotBeOpine.class, () -> user.opineSample(sample, opinion));
-	}
-	
+
 	@Test
 	void testUserOpineInASample() throws SampleCanNotBeOpine {
-		when(sample.wasSendByTheUser(user)).thenReturn(false);
-		when(sample.isVerify()).thenReturn(false);
 		user.opineSample(sample, opinion);
-		verify(sample, times(1)).addOpinionInPhoto(opinion, user);
+		verify(sample, times(1)).addUserOpinion(opinion, user);
 	}
 }

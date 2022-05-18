@@ -2,6 +2,8 @@ package a.la.caza.de.las.vinchucas.users;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import a.la.caza.de.las.vinchucas.WebApplication;
 import a.la.caza.de.las.vinchucas.exceptions.SampleCanNotBeOpine;
 import a.la.caza.de.las.vinchucas.opinions.Opinion;
 import a.la.caza.de.las.vinchucas.samples.Location;
@@ -12,37 +14,29 @@ import a.la.caza.de.las.vinchucas.users.knowledge.KnowledgeBasic;
 
 public class User {
 	private String name;
-	private Knowledge knowledge;
-	private List<Sample> samples;
+	private List<Sample> samplesSend;
+	private WebApplication webApplication;
 	
-	public User(String name) {
+	public User(String name, WebApplication webApplication) {
 		this.name = name;
-		this.samples = new ArrayList<>();
-		this.setKnowledge(new KnowledgeBasic());
+		this.samplesSend = new ArrayList<>();
+		//this.setKnowledge(new KnowledgeBasic());
+		this.webApplication = webApplication;
 	}
 	public String getName() {
 		return this.name;
 	}
-	
-	private void setKnowledge(Knowledge knowledge) {
-		this.knowledge = knowledge;
-		this.knowledge.setUser(this);
-	}
 
-	public void sendSample(Location location, Photo photo) {
-		samples.add(new Sample(location, photo, this));
+	public void sendSample(Sample sample) {
+		samplesSend.add(sample);
+		this.webApplication.registerSample(sample);
 	}
 	
 	public void opineSample(Sample sample, Opinion opinion) throws SampleCanNotBeOpine {
-		// TODO: Agregar verificacion cuando un usuario expert haya votado
-		if(sample.wasSendByTheUser(this) || sample.isVerify() || sample.wasOpineByTheUser(this)) {
-			throw new SampleCanNotBeOpine("Sample can not be opine by the user");
-		}
-		this.knowledge.basic();	
-		sample.addOpinionInPhoto(opinion, this);
+		sample.addUserOpinion(opinion, this);
 	}
 
-	public List<Sample> getSamples() {
-		return samples;
+	public List<Sample> getSamplesSend() {
+		return samplesSend;
 	}
 }
