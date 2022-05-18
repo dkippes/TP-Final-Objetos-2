@@ -8,7 +8,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import a.la.caza.de.las.vinchucas.WebApplication;
-
+import a.la.caza.de.las.vinchucas.exceptions.UserAlreadyVote;
 import a.la.caza.de.las.vinchucas.opinions.Opinion;
 import a.la.caza.de.las.vinchucas.samples.Location;
 import a.la.caza.de.las.vinchucas.samples.Photo;
@@ -63,7 +63,7 @@ public class UserTest {
 	
 	@Test
 	void testUserSendANewSample() {
-		user.sendSample(new Sample(location, photo, user));
+		user.sendSample(sample);
 		assertEquals(user.getSamplesSend().size(), 1);
 	}
 
