@@ -1,5 +1,6 @@
 package a.la.caza.de.las.vinchucas.users;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -12,6 +13,7 @@ import a.la.caza.de.las.vinchucas.opinions.Opinion;
 import a.la.caza.de.las.vinchucas.samples.Location;
 import a.la.caza.de.las.vinchucas.samples.Photo;
 import a.la.caza.de.las.vinchucas.samples.Sample;
+import a.la.caza.de.las.vinchucas.users.knowledge.KnowledgeExpert;
 
 import static org.mockito.Mockito.*;
 
@@ -39,6 +41,19 @@ public class UserTest {
 		User newUser = new User("Diego", webApplication);
 		assertEquals(newUser.getName(), "Diego");
 		assertTrue(newUser.getId() > 0);
+	}
+	
+	@Test 
+	void testWhenUserIsCreatedHisKnowledgeIsBasic() {
+		assertTrue(user.hasBasicKnowledge());
+		assertFalse(user.hasExpertKnowledge());
+	}
+	
+	@Test 
+	void testWhenUserIsExpert() {
+		user.setKnowledge(new KnowledgeExpert());
+		assertFalse(user.hasBasicKnowledge());
+		assertTrue(user.hasExpertKnowledge());
 	}
 		
 	@Test
