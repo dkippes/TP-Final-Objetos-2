@@ -17,28 +17,28 @@ public class Sample {
 	private User user;
 	private Photo photo;
 	private Location location;
-	private Map<User, Opinion> opinionHistory;
+	private List<Opinion> opinionHistory;
 	private LocalDate creationDate;
 	private LocalDate lastVotation;
 	private SampleState state;
 
-	public Sample(Location location, Photo photo, User user, Opinion opinion) throws UserAlreadyVote {
+	public Sample(Location location, Photo photo, Opinion opinion) throws UserAlreadyVote {
 		this.location = location;
 		this.photo = photo;
-		this.user = user;
+		this.user = opinion.getUser();
 		this.creationDate = LocalDate.now();
-		this.opinionHistory = new HashMap<>();
+		this.opinionHistory = new ArrayList<>();
 		this.state = new BasicVotedSampleState();
-		this.addOpinion(opinion, user);
+		this.addOpinion(opinion);
 	}
 	
-	public void addOpinion(Opinion opinion, User user) throws UserAlreadyVote {
-		this.state.addOpinion(this, opinion, user);
+	public void addOpinion(Opinion opinion) throws UserAlreadyVote {
+		this.state.addOpinion(this, opinion);
 	}
 
 	public Sample addUserOpinion(Opinion opinion, User user) {
 		this.lastVotation = opinion.getDateOfIssue();
-		this.opinionHistory.put(user, opinion);
+		this.opinionHistory.add(opinion);
 		user.sendSample(this);
 		return this;
 	}

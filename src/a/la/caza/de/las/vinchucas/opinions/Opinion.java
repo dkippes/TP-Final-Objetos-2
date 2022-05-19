@@ -5,10 +5,12 @@ import java.time.LocalDate;
 import a.la.caza.de.las.vinchucas.users.User;
 
 public class Opinion {
+	private User user;
 	private OpinionType opinionType;
 	private LocalDate dateOfIssue;
 	
-	public Opinion(OpinionType opinionType) {
+	public Opinion(OpinionType opinionType, User user) {
+		this.user= user;
 		this.opinionType = opinionType;
 		this.dateOfIssue = LocalDate.now();
 	}
@@ -19,5 +21,8 @@ public class Opinion {
 
 	public String getOpinionType() {
 		return opinionType.getOpinionType();
+	}
+	public User getUser() {
+		return user;
 	}
 }
