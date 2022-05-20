@@ -8,18 +8,15 @@ import a.la.caza.de.las.vinchucas.users.User;
 public class VerifySampleState implements SampleState {
 
 	@Override
-	public SampleState addOpinion(Sample sample, Opinion opinion) {
-		return this;
+	public void addOpinion(Sample sample, Opinion opinion) {
 	}
 
 	@Override
-	public SampleState updatedState(Sample sample) {
-		return this;
+	public void updatedState(Sample sample, Opinion opinion) {
 	}
 
 	@Override
 	public Vote getLevelVerification(Sample sample) {
 		return Vote.VERIFIED;
 	}
-
 }

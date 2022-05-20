@@ -18,4 +18,8 @@ public enum OpinionType {
 	public String getOpinionType(){
         return opinionType;
     }
+	
+	public String getUndefinedOpinion() {
+		return "UNDEFINED";
+	}
 }

@@ -55,21 +55,10 @@ public class UserTest {
 		assertFalse(user.hasBasicKnowledge());
 		assertTrue(user.hasExpertKnowledge());
 	}
-		
-	@Test
-	void testCreateANewUserWithoutSamplesUploaded() {
-		assertEquals(user.getSamplesSend().size(), 0);
-	}
-	
-	@Test
-	void testUserSendANewSample() {
-		user.sendSample(sample);
-		assertEquals(user.getSamplesSend().size(), 1);
-	}
 
 	@Test
-	void testUserOpineInASample() {
+	void testUserOpineInASample() throws UserAlreadyVote {
 		user.opineSample(sample, opinion);
-		verify(sample, times(1)).addUserOpinion(opinion, user);
+		verify(sample, times(1)).addOpinion(opinion);
 	}
 }
