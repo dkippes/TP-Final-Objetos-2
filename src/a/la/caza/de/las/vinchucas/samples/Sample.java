@@ -27,9 +27,9 @@ public class Sample {
 		this.photo = photo;
 		this.user = opinion.getUser();
 		this.creationDate = LocalDate.now();
-		this.opinionHistory = new ArrayList<>();
+		this.opinionHistory = List.of(opinion);
+		this.lastVotation = opinion.getDateOfIssue();
 		this.state = new BasicVotedSampleState();
-		this.addOpinion(opinion);
 	}
 	
 	public void addOpinion(Opinion opinion) throws UserAlreadyVote {
@@ -43,7 +43,7 @@ public class Sample {
 		return this;
 	}
 	
-	public Map<User, Opinion> getOpinionHistory() {
+	public List<Opinion> getOpinionHistory() {
 		return opinionHistory;
 	}
 	
@@ -64,6 +64,10 @@ public class Sample {
 	}
 
 	public boolean userHasVoteBefore(User user) {
-		return opinionHistory.containsKey(user);
+		return false;
+	}
+
+	public User getUser() {
+		return user;
 	}
 }

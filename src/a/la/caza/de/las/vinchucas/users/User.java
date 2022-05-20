@@ -15,7 +15,6 @@ import a.la.caza.de.las.vinchucas.users.knowledge.KnowledgeBasic;
 public class User {
 	private int id;
 	private String name;
-	private List<Sample> samplesSend;
 	private WebApplication webApplication;
 	private Knowledge knowledge;
 	private static int counter;
@@ -23,7 +22,6 @@ public class User {
 	public User(String name, WebApplication webApplication) {
 		this.id= counter++;
 		this.name = name;
-		this.samplesSend = new ArrayList<>();
 		this.webApplication = webApplication;
 		this.knowledge = new KnowledgeBasic();
 	}
@@ -37,16 +35,11 @@ public class User {
 	}
 	
 	public void sendSample(Sample sample) {
-		samplesSend.add(sample);
 		this.webApplication.registerSample(sample);
 	}
 	
 	public void opineSample(Sample sample, Opinion opinion) {
 		sample.addUserOpinion(opinion, this);
-	}
-
-	public List<Sample> getSamplesSend() {
-		return samplesSend;
 	}
 	
 	public boolean hasBasicKnowledge() {
@@ -60,4 +53,5 @@ public class User {
 	public void setKnowledge(Knowledge knowledge) {
 		this.knowledge = knowledge;
 	}
+	
 }

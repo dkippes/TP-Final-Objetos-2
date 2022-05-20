@@ -8,7 +8,7 @@ import a.la.caza.de.las.vinchucas.users.User;
 public class ExpectVotedSampleState implements SampleState {
 
 	@Override
-	public SampleState addOpinion(Sample sample, Opinion opinion, User user) {
+	public SampleState addOpinion(Sample sample, Opinion opinion) {
 		return this;
 	}
 
