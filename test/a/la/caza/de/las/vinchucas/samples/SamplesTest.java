@@ -14,7 +14,7 @@ import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import a.la.caza.de.las.vinchucas.WebApplication;
-import a.la.caza.de.las.vinchucas.exceptions.UserAlreadyVote;
+import a.la.caza.de.las.vinchucas.exceptions.UserAlreadyVoteException;
 import a.la.caza.de.las.vinchucas.opinions.Opinion;
 import a.la.caza.de.las.vinchucas.opinions.OpinionType;
 import a.la.caza.de.las.vinchucas.samples.verification.level.Vote;
@@ -29,7 +29,7 @@ public class SamplesTest {
 	User user;
 
 	@BeforeEach
-	void setUp() throws UserAlreadyVote {
+	void setUp() throws Exception {
 		location = mock(Location.class);
 		opinion = mock(Opinion.class);
 		photo = mock(Photo.class);
@@ -42,7 +42,7 @@ public class SamplesTest {
 	}
 
 	@Test
-	void testSampleIsVotedWhenIsCreated() throws UserAlreadyVote {
+	void testSampleIsVotedWhenIsCreated() throws Exception {
 		assertEquals(sample.getLevelVerification(), Vote.VOTED);
 		assertEquals(sample.getUser().getName(), "Tomas");
 		assertEquals(sample.getCreationDate(), LocalDate.now());
@@ -50,7 +50,7 @@ public class SamplesTest {
 	}
 
 	@Test
-	void testAddOpinionWhenTheUserHasBasicKnowledge() throws UserAlreadyVote {
+	void testAddOpinionWhenTheUserHasBasicKnowledge() throws Exception {
 		when(opinion.getDateOfIssue()).thenReturn(LocalDate.of(2020, 10, 5));
 		when(opinion.getUser()).thenReturn(user);
 		when(user.getName()).thenReturn("Diego");
@@ -63,7 +63,7 @@ public class SamplesTest {
 	}
 
 	@Test
-	void testAddOpinionWhenTheUserHasExpertKnowledge() throws UserAlreadyVote {
+	void testAddOpinionWhenTheUserHasExpertKnowledge() throws Exception {
 		addOpinionDiego(opinion, sample);
 		
 		assertEquals(sample.getLevelVerification(), Vote.VOTED);
@@ -73,7 +73,7 @@ public class SamplesTest {
 	}
 
 	@Test
-	void testSampleIsVerifyWhen2ExpertVoted() throws UserAlreadyVote {
+	void testSampleIsVerifyWhen2ExpertVoted() throws Exception {
 		addOpinionDiego(opinion, sample);
 		addOpinionJuanito(opinion, sample);
 
@@ -84,7 +84,7 @@ public class SamplesTest {
 	}
 
 	@Test
-	void testIsVerifyTheUserWhoSendTheSampleAndOtherExpertVoted() throws UserAlreadyVote {
+	void testIsVerifyTheUserWhoSendTheSampleAndOtherExpertVoted() throws Exception {
 		addOpinionDiego(opinion, sample);
 		addOpinionJuanito(opinion, sample);
 
@@ -95,7 +95,7 @@ public class SamplesTest {
 	}
 	
 	@Test
-	void testIsVerifyAlthoughtAnotherUserVoted() throws UserAlreadyVote {
+	void testIsVerifyAlthoughtAnotherUserVoted() throws Exception {
 		addOpinionDiego(opinion, sample);
 		addOpinionJuanito(opinion, sample);
 		addOpinionJuanito(opinion, sample);
@@ -108,13 +108,13 @@ public class SamplesTest {
 	
 	@Test
 	@Disabled
-	void testActualResultWhenSampleIsCreatedIsGuasayana() throws UserAlreadyVote {
+	void testActualResultWhenSampleIsCreatedIsGuasayana() throws Exception {
 
 		assertEquals(sample.getActualResult(), "Vinchuca Guasayana");
 	}
 	
 	@Test
-	void testActualResultWhenSampleIsCreatedIsUndefined() throws UserAlreadyVote {
+	void testActualResultWhenSampleIsCreatedIsUndefined() throws Exception {
 		//when(opinion.getDateOfIssue()).thenReturn(LocalDate.now());
 		//when(opinion.getUser()).thenReturn(user);
 		//when(opinion.getOpinionType()).thenReturn("Vinchuca Guasayana");
@@ -139,7 +139,7 @@ public class SamplesTest {
 		assertEquals(sample.getActualResult(), "UNDEFINED");
 	}
 	
-	private void addOpinionJuanito(Opinion opinion, Sample sample) throws UserAlreadyVote {
+	private void addOpinionJuanito(Opinion opinion, Sample sample) throws Exception {
 		when(opinion.getDateOfIssue()).thenReturn(LocalDate.of(2019, 7, 15));
 		when(opinion.getUser()).thenReturn(user);
 		when(user.getName()).thenReturn("Juanito");
@@ -147,7 +147,7 @@ public class SamplesTest {
 		sample.addOpinion(opinion);
 	}
 	
-	private void addOpinionDiego(Opinion opinion, Sample sample) throws UserAlreadyVote {
+	private void addOpinionDiego(Opinion opinion, Sample sample) throws Exception {
 		when(opinion.getDateOfIssue()).thenReturn(LocalDate.of(2019, 7, 15));
 		when(opinion.getUser()).thenReturn(user);
 		when(user.getName()).thenReturn("Diego");

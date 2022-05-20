@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import a.la.caza.de.las.vinchucas.WebApplication;
-import a.la.caza.de.las.vinchucas.exceptions.UserAlreadyVote;
+import a.la.caza.de.las.vinchucas.exceptions.UserAlreadyVoteException;
 import a.la.caza.de.las.vinchucas.opinions.Opinion;
 import a.la.caza.de.las.vinchucas.samples.Location;
 import a.la.caza.de.las.vinchucas.samples.Photo;
@@ -39,7 +39,7 @@ public class User {
 		this.webApplication.registerSample(sample);
 	}
 	
-	public void opineSample(Sample sample, Opinion opinion) throws UserAlreadyVote {
+	public void opineSample(Sample sample, Opinion opinion) throws Exception {
 		sample.addOpinion(opinion);
 	}
 	

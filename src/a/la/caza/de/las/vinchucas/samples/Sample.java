@@ -12,7 +12,7 @@ import java.util.function.BinaryOperator;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import a.la.caza.de.las.vinchucas.exceptions.UserAlreadyVote;
+import a.la.caza.de.las.vinchucas.exceptions.UserAlreadyVoteException;
 import a.la.caza.de.las.vinchucas.opinions.Opinion;
 import a.la.caza.de.las.vinchucas.opinions.OpinionType;
 import a.la.caza.de.las.vinchucas.samples.state.BasicVotedSampleState;
@@ -28,7 +28,7 @@ public class Sample {
 	private LocalDate creationDate;
 	private SampleState state;
 
-	public Sample(Location location, Photo photo, Opinion opinion) throws UserAlreadyVote {
+	public Sample(Location location, Photo photo, Opinion opinion) throws Exception {
 		this.location = location;
 		this.photo = photo;
 		this.user = opinion.getUser();
@@ -38,7 +38,7 @@ public class Sample {
 		this.addOpinion(opinion);
 	}
 	
-	public void addOpinion(Opinion opinion) throws UserAlreadyVote {
+	public void addOpinion(Opinion opinion) throws Exception {
 		this.state.addOpinion(this, opinion);
 	}
 

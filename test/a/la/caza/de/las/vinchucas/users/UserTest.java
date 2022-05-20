@@ -8,7 +8,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import a.la.caza.de.las.vinchucas.WebApplication;
-import a.la.caza.de.las.vinchucas.exceptions.UserAlreadyVote;
+import a.la.caza.de.las.vinchucas.exceptions.UserAlreadyVoteException;
 import a.la.caza.de.las.vinchucas.opinions.Opinion;
 import a.la.caza.de.las.vinchucas.samples.Location;
 import a.la.caza.de.las.vinchucas.samples.Photo;
@@ -57,7 +57,7 @@ public class UserTest {
 	}
 
 	@Test
-	void testUserOpineInASample() throws UserAlreadyVote {
+	void testUserOpineInASample() throws Exception {
 		user.opineSample(sample, opinion);
 		verify(sample, times(1)).addOpinion(opinion);
 	}
