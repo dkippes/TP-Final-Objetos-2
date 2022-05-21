@@ -16,15 +16,16 @@ import a.la.caza.de.las.vinchucas.users.knowledge.KnowledgeBasic;
 public class User {
 	private int id;
 	private String name;
-	private WebApplication webApplication;
 	private Knowledge knowledge;
 	private static int counter;
+	private WebApplication webApplication;
 	
-	public User(String name, WebApplication webApplication) {
+	public User(String name, Knowledge knowledge) {
 		this.id= counter++;
 		this.name = name;
-		this.webApplication = webApplication;
-		this.knowledge = new KnowledgeBasic();
+		this.knowledge = knowledge;
+		this.webApplication = WebApplication.createApp();
+		this.knowledge.checkStatusUser(this);
 	}
 	
 	public String getName() {
@@ -35,12 +36,22 @@ public class User {
 		return id;
 	}
 	
+	public WebApplication getWebApplication() {
+		return webApplication;
+	}
+	
+	public void setWebApplication(WebApplication webApplication) {
+		this.webApplication = webApplication;
+	}
+	
 	public void sendSample(Sample sample) {
-		this.webApplication.registerSample(sample);
+		webApplication.registerSample(sample);
+		this.knowledge.checkStatusUser(this);
 	}
 	
 	public void opineSample(Sample sample, Opinion opinion) throws Exception {
 		sample.addOpinion(opinion);
+		this.knowledge.checkStatusUser(this);
 	}
 	
 	public boolean hasBasicKnowledge() {
@@ -58,5 +69,6 @@ public class User {
 	public boolean isExpert() {
 		return false;
 	}
+	
 	
 }

@@ -1,5 +1,13 @@
 package a.la.caza.de.las.vinchucas.users.knowledge;
 
-public class KnowledgeSpecialist extends KnowledgeExpert {
+import a.la.caza.de.las.vinchucas.WebApplication;
+import a.la.caza.de.las.vinchucas.users.User;
 
+public class KnowledgeSpecialist extends KnowledgeExpert {
+	
+	@Override
+	public void checkStatusUser(User user) {
+		
+	}
+	
 }

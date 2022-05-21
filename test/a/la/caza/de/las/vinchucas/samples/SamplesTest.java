@@ -19,6 +19,7 @@ import a.la.caza.de.las.vinchucas.opinions.Opinion;
 import a.la.caza.de.las.vinchucas.opinions.OpinionType;
 import a.la.caza.de.las.vinchucas.samples.verification.level.Vote;
 import a.la.caza.de.las.vinchucas.users.User;
+import a.la.caza.de.las.vinchucas.users.knowledge.KnowledgeBasic;
 
 public class SamplesTest {
 
@@ -119,19 +120,19 @@ public class SamplesTest {
 		//when(opinion.getUser()).thenReturn(user);
 		//when(opinion.getOpinionType()).thenReturn("Vinchuca Guasayana");
 		//when(user.getName()).thenReturn("Tomas");
-		sample = new Sample(location, photo, new Opinion(OpinionType.VINCHUCA_GUASAYANA, new User("Tomas", WebApplication.createApp())));
+		sample = new Sample(location, photo, new Opinion(OpinionType.VINCHUCA_GUASAYANA, new User("Tomas", new KnowledgeBasic())));
 		
-		Opinion opinion2 = new Opinion(OpinionType.IMAGE_UNCLEAR, new User("Diego", WebApplication.createApp()));
+		Opinion opinion2 = new Opinion(OpinionType.IMAGE_UNCLEAR, new User("Diego", new KnowledgeBasic()));
 		//when(opinion.getDateOfIssue()).thenReturn(LocalDate.of(2020, 10, 5));
 		//when(opinion.getUser()).thenReturn(user);
 		//when(user.getName()).thenReturn("Diego");
 		//when(opinion.getOpinionType()).thenReturn("Image Unclear");
 		sample.addOpinion(opinion2);
 		
-		Opinion opinion3 = new Opinion(OpinionType.VINCHUCA_GUASAYANA, new User("Julio", WebApplication.createApp()));
-		Opinion opinion4 = new Opinion(OpinionType.IMAGE_UNCLEAR, new User("Julio", WebApplication.createApp()));
+		Opinion opinion3 = new Opinion(OpinionType.VINCHUCA_GUASAYANA, new User("Julio", new KnowledgeBasic()));
+		Opinion opinion4 = new Opinion(OpinionType.IMAGE_UNCLEAR, new User("Julio", new KnowledgeBasic()));
 		
-		Opinion opinion5 = new Opinion(OpinionType.NOTHING, new User("Julio", WebApplication.createApp()));
+		Opinion opinion5 = new Opinion(OpinionType.NOTHING, new User("Julio", new KnowledgeBasic()));
 		sample.addOpinion(opinion3);
 		sample.addOpinion(opinion4);
 		sample.addOpinion(opinion5);

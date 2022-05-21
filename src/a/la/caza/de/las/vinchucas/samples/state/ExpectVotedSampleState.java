@@ -7,7 +7,7 @@ import a.la.caza.de.las.vinchucas.samples.Sample;
 import a.la.caza.de.las.vinchucas.samples.verification.level.Vote;
 import a.la.caza.de.las.vinchucas.users.User;
 
-public class ExpectVotedSampleState extends SampleState {
+public class ExpectVotedSampleState extends SampleStateImpl {
 
 	@Override
 	public void addOpinion(Sample sample, Opinion opinion) throws Exception {

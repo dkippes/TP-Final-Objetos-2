@@ -8,7 +8,7 @@ import a.la.caza.de.las.vinchucas.samples.Sample;
 import a.la.caza.de.las.vinchucas.samples.verification.level.Vote;
 import a.la.caza.de.las.vinchucas.users.User;
 
-public class BasicVotedSampleState extends SampleState {
+public class BasicVotedSampleState extends SampleStateImpl {
 
 	@Override
 	public void addOpinion(Sample sample, Opinion opinion) throws UserAlreadyVoteException {
