@@ -11,6 +11,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import a.la.caza.de.las.vinchucas.users.User;
+import a.la.caza.de.las.vinchucas.users.knowledge.KnowledgeBasic;
 
 public class OpinionTest {
 
@@ -19,11 +20,11 @@ public class OpinionTest {
 
 	@BeforeEach
 	void setUp() {
-		user = mock(User.class);
+		user = new User("Diego", new KnowledgeBasic());
 	}
 
 	@Test
-	void testCreationOpinion() {
+	void testCreationOpinion() throws CloneNotSupportedException {
 		nothing = new Opinion(OpinionType.NOTHING, user);
 		imageUnclear = new Opinion(OpinionType.IMAGE_UNCLEAR, user);
 		vinchucaInfestans = new Opinion(OpinionType.VINCHUCA_INFESTANS, user);
@@ -31,7 +32,8 @@ public class OpinionTest {
 		vinchucaGuasayana = new Opinion(OpinionType.VINCHUCA_GUASAYANA, user);
 		chinchePhtia = new Opinion(OpinionType.CHINCHE_PHTIA, user);
 		chincheFoliada = new Opinion(OpinionType.CHINCHE_FOLIADA, user);
-		assertAll(() -> assertEquals(nothing.getUser(), user),
+		assertAll(() -> assertEquals(nothing.getUser().getId(), user.getId()),
+				() -> assertEquals(nothing.getUser().getName(), user.getName()),
 				() -> assertEquals(nothing.getDateOfIssue(), LocalDate.now()),
 				() -> assertEquals(nothing.getOpinionType(), "Nothing"),
 				() -> assertEquals(imageUnclear.getOpinionType(), "Image Unclear"),

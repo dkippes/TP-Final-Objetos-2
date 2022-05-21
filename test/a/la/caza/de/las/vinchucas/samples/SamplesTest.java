@@ -19,6 +19,7 @@ import a.la.caza.de.las.vinchucas.opinions.Opinion;
 import a.la.caza.de.las.vinchucas.opinions.OpinionType;
 import a.la.caza.de.las.vinchucas.samples.verification.level.Vote;
 import a.la.caza.de.las.vinchucas.users.User;
+import a.la.caza.de.las.vinchucas.users.knowledge.Knowledge;
 import a.la.caza.de.las.vinchucas.users.knowledge.KnowledgeBasic;
 
 public class SamplesTest {

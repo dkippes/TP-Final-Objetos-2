@@ -12,6 +12,7 @@ import org.mockito.Mockito;
 import a.la.caza.de.las.vinchucas.WebApplication;
 import a.la.caza.de.las.vinchucas.exceptions.UserAlreadyVoteException;
 import a.la.caza.de.las.vinchucas.opinions.Opinion;
+import a.la.caza.de.las.vinchucas.opinions.OpinionType;
 import a.la.caza.de.las.vinchucas.samples.Location;
 import a.la.caza.de.las.vinchucas.samples.Photo;
 import a.la.caza.de.las.vinchucas.samples.Sample;
@@ -91,6 +92,17 @@ public class UserTest {
 		user.sendSample(sample);
 		assertTrue(user.hasBasicKnowledge());
 		assertFalse(user.hasExpertKnowledge());
+	}
+	
+	@Test 
+	void testUserRemindBasicInTheOpinionAlthoutIsUpgradeToExpert() throws Exception {
+		user = new User("Diego", new KnowledgeBasic());
+		Opinion o = new Opinion(OpinionType.IMAGE_UNCLEAR, user);
+		sample = new Sample(location, photo, o);
+		user.sendSample(sample);
+		user.setKnowledge(new KnowledgeExpert());
+		assertTrue(o.getUser().hasBasicKnowledge());
+		assertTrue(user.hasExpertKnowledge());
 	}
 	
 	@Test

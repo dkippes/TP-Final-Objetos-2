@@ -2,6 +2,7 @@ package a.la.caza.de.las.vinchucas.opinions;
 
 import java.time.LocalDate;
 
+import a.la.caza.de.las.vinchucas.WebApplication;
 import a.la.caza.de.las.vinchucas.users.User;
 
 public class Opinion {
@@ -9,8 +10,8 @@ public class Opinion {
 	private OpinionType opinionType;
 	private LocalDate dateOfIssue;
 
-	public Opinion(OpinionType opinionType, User user) {
-		this.user = user;
+	public Opinion(OpinionType opinionType, User user) throws CloneNotSupportedException {
+		this.user = user.clone();
 		this.opinionType = opinionType;
 		this.dateOfIssue = LocalDate.now();
 	}
