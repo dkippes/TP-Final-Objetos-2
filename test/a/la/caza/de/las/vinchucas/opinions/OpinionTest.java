@@ -10,6 +10,7 @@ import java.time.LocalDate;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import a.la.caza.de.las.vinchucas.WebApplication;
 import a.la.caza.de.las.vinchucas.users.User;
 import a.la.caza.de.las.vinchucas.users.knowledge.KnowledgeBasic;
 
@@ -17,10 +18,12 @@ public class OpinionTest {
 
 	Opinion nothing, imageUnclear, vinchucaInfestans, vinchucaSordida, vinchucaGuasayana, chinchePhtia, chincheFoliada;
 	User user;
+	WebApplication webApplication;
 
 	@BeforeEach
 	void setUp() {
-		user = new User("Diego", new KnowledgeBasic());
+		webApplication = mock(WebApplication.class);
+		user = new User("Diego", new KnowledgeBasic(), webApplication);
 	}
 
 	@Test

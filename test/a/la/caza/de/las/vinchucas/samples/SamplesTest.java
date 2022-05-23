@@ -21,6 +21,7 @@ import a.la.caza.de.las.vinchucas.samples.verification.level.Vote;
 import a.la.caza.de.las.vinchucas.users.User;
 import a.la.caza.de.las.vinchucas.users.knowledge.Knowledge;
 import a.la.caza.de.las.vinchucas.users.knowledge.KnowledgeBasic;
+import a.la.caza.de.las.vinchucas.users.knowledge.KnowledgeExpert;
 
 public class SamplesTest {
 
@@ -29,6 +30,7 @@ public class SamplesTest {
 	Photo photo;
 	Opinion opinion;
 	User user;
+	WebApplication weApplication;
 
 	@BeforeEach
 	void setUp() throws Exception {
@@ -36,6 +38,7 @@ public class SamplesTest {
 		opinion = mock(Opinion.class);
 		photo = mock(Photo.class);
 		user = mock(User.class);
+		weApplication = mock(WebApplication.class);
 		when(opinion.getDateOfIssue()).thenReturn(LocalDate.now());
 		when(opinion.getUser()).thenReturn(user);
 		when(opinion.getOpinionType()).thenReturn("Vinchuca Guasayana");
@@ -109,36 +112,42 @@ public class SamplesTest {
 	}
 	
 	@Test
-	@Disabled
-	void testActualResultWhenSampleIsCreatedIsGuasayana() throws Exception {
-
-		assertEquals(sample.getActualResult(), "Vinchuca Guasayana");
-	}
-	
-	@Test
 	void testActualResultWhenSampleIsCreatedIsUndefined() throws Exception {
 		//when(opinion.getDateOfIssue()).thenReturn(LocalDate.now());
 		//when(opinion.getUser()).thenReturn(user);
 		//when(opinion.getOpinionType()).thenReturn("Vinchuca Guasayana");
 		//when(user.getName()).thenReturn("Tomas");
-		sample = new Sample(location, photo, new Opinion(OpinionType.VINCHUCA_GUASAYANA, new User("Tomas", new KnowledgeBasic())));
+		sample = new Sample(location, photo, new Opinion(OpinionType.VINCHUCA_GUASAYANA, new User("Tomas", new KnowledgeBasic(), WebApplication.createApp())));
 		
-		Opinion opinion2 = new Opinion(OpinionType.IMAGE_UNCLEAR, new User("Diego", new KnowledgeBasic()));
+		Opinion opinion2 = new Opinion(OpinionType.IMAGE_UNCLEAR, new User("Diego", new KnowledgeBasic(), WebApplication.createApp()));
 		//when(opinion.getDateOfIssue()).thenReturn(LocalDate.of(2020, 10, 5));
 		//when(opinion.getUser()).thenReturn(user);
 		//when(user.getName()).thenReturn("Diego");
 		//when(opinion.getOpinionType()).thenReturn("Image Unclear");
 		sample.addOpinion(opinion2);
 		
-		Opinion opinion3 = new Opinion(OpinionType.VINCHUCA_GUASAYANA, new User("Julio", new KnowledgeBasic()));
-		Opinion opinion4 = new Opinion(OpinionType.IMAGE_UNCLEAR, new User("Julio", new KnowledgeBasic()));
+		Opinion opinion3 = new Opinion(OpinionType.VINCHUCA_GUASAYANA, new User("Julio", new KnowledgeBasic(), WebApplication.createApp()));
+		Opinion opinion4 = new Opinion(OpinionType.IMAGE_UNCLEAR, new User("Julio", new KnowledgeBasic(), WebApplication.createApp()));
 		
-		Opinion opinion5 = new Opinion(OpinionType.NOTHING, new User("Julio", new KnowledgeBasic()));
+		Opinion opinion5 = new Opinion(OpinionType.NOTHING, new User("Julio", new KnowledgeBasic(), WebApplication.createApp()));
 		sample.addOpinion(opinion3);
 		sample.addOpinion(opinion4);
 		sample.addOpinion(opinion5);
 		
 		assertEquals(sample.getActualResult(), "UNDEFINED");
+	}
+	
+	@Test
+	void testActualResultShouldBeChincheFoliada() throws Exception {
+		sample.addOpinion(new Opinion(OpinionType.CHINCHE_FOLIADA, new User("Diego", new KnowledgeBasic(), WebApplication.createApp())));
+		sample.addOpinion(new Opinion(OpinionType.CHINCHE_FOLIADA, new User("Pepe", new KnowledgeBasic(), weApplication.createApp())));
+		assertEquals("Chinche Foliada", sample.getActualResult());;
+	}
+	
+	@Test
+	void testActualResultWhenSampleIsCreatedIsImageUnclear() throws Exception {
+		Sample sampleTest = new Sample(location, photo, new Opinion(OpinionType.IMAGE_UNCLEAR, new User("Diego", new KnowledgeExpert(), weApplication)));
+		assertEquals("Image Unclear", sampleTest.getActualResult());;
 	}
 	
 	private void addOpinionJuanito(Opinion opinion, Sample sample) throws Exception {

@@ -4,10 +4,12 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Optional;
+import java.util.TreeMap;
 import java.util.function.BinaryOperator;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -37,7 +39,7 @@ public class Sample {
 		this.state = new BasicVotedSampleState();
 		this.addOpinion(opinion);
 	}
-	
+
 	public void addOpinion(Opinion opinion) throws Exception {
 		this.state.addOpinion(this, opinion);
 	}
@@ -45,23 +47,23 @@ public class Sample {
 	public void addUserOpinion(Opinion opinion) {
 		this.opinionHistory.add(opinion);
 	}
-	
+
 	public List<Opinion> getOpinionHistory() {
 		return opinionHistory;
 	}
-	
+
 	public LocalDate getLastVotation() {
 		return opinionHistory.get(opinionHistory.size() - 1).getDateOfIssue();
 	}
-	
+
 	public LocalDate getCreationDate() {
 		return creationDate;
 	}
-	
+
 	public Vote getLevelVerification() {
 		return this.state.getLevelVerification(this);
 	}
-	
+
 	public void setState(SampleStateImpl state) {
 		this.state = state;
 	}
@@ -73,23 +75,27 @@ public class Sample {
 	public boolean userAlreadyVote(List<Opinion> opinionHistory, User user) {
 		return opinionHistory.stream().anyMatch(u -> u.equals(user));
 	}
-	
+
 	public String getActualResult() {
-		List<String> opinions = opinionHistory.stream()
-				.map(o -> o.getOpinionType())
-				.collect(Collectors.toList());
-		Map<String, Integer> mapOpinions = new HashMap<>();
+		List<String> opinions = opinionHistory.stream().map(o -> o.getOpinionType()).collect(Collectors.toList());
+		Map<String, Integer> mapOpinions = new TreeMap<>();
 		opinions.forEach(o -> mapOpinions.put(o, Collections.frequency(opinions, o)));
-		
-		List<Entry<String, Integer>> sorted =
-				mapOpinions.entrySet().stream()
-			       .sorted(Map.Entry.comparingByValue())
-			       .collect(Collectors.toList());
-		
-		if(sorted.size() >= 2 || sorted.get(sorted.size() - 1).getValue() == sorted.get(sorted.size() - 2).getValue()) {
-			return "UNDEFINED";
+
+		Map.Entry<String, Integer> maxEntry = null;
+
+		for (Map.Entry<String, Integer> entry : mapOpinions.entrySet()) {
+			if (maxEntry == null || entry.getValue().compareTo(maxEntry.getValue()) > 0) {
+				maxEntry = entry;
+			}
 		}
-		return sorted.get(0).getKey();
+
+		mapOpinions.remove(maxEntry.getKey());
+
+		if (mapOpinions.containsValue(maxEntry.getValue())) {
+			return OpinionType.getUndefinedOpinion();
+		}
+
+		return maxEntry.getKey();
 	}
 
 }

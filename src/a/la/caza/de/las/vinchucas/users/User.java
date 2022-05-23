@@ -19,11 +19,11 @@ public class User implements Cloneable {
 	private static int counter;
 	private WebApplication webApplication;
 
-	public User(String name, Knowledge knowledge) {
+	public User(String name, Knowledge knowledge, WebApplication webApplication) {
 		this.id = counter++;
 		this.name = name;
 		this.knowledge = knowledge;
-		this.webApplication = WebApplication.createApp();
+		this.webApplication = webApplication;
 		this.knowledge.checkStatusUser(this);
 	}
 

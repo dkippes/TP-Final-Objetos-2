@@ -8,7 +8,7 @@ public class UserFactory implements Factory<User> {
 
 	@Override
 	public User create() {
-		User user = new User("Diego", new KnowledgeBasic());
+		User user = new User("Diego", new KnowledgeBasic(), WebApplication.createApp());
 		return user;
 	}
 
