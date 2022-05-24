@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import a.la.caza.de.las.vinchucas.opinions.Opinion;
 import a.la.caza.de.las.vinchucas.samples.Sample;
@@ -47,12 +48,12 @@ public class WebApplication {
 	public List<Opinion> getUserOpinions(User user) {
 		return this.getRegisteredSamples().stream()
 				.flatMap(sample -> sample.getOpinionHistory().stream())
-				.filter(userOpinion -> user.equals(userOpinion.getUser())).toList();
+				.filter(userOpinion -> user.equals(userOpinion.getUser())).collect(Collectors.toList());
 	}
 
 	public List<Sample> getUserSamples(User user) {
 		return this.getRegisteredSamples().stream()
-				.filter(sampleByUser -> user.equals(sampleByUser.getUser())).toList();
+				.filter(sampleByUser -> user.equals(sampleByUser.getUser())).collect(Collectors.toList());
 	}
 	
 	public long manyOpinionMadeByUserBeforeAnyDays(User user, int daysBefore) {
