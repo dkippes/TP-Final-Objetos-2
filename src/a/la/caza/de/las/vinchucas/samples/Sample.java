@@ -73,7 +73,7 @@ public class Sample {
 	}
 
 	public boolean userAlreadyVote(List<Opinion> opinionHistory, User user) {
-		return opinionHistory.stream().anyMatch(u -> u.equals(user));
+		return opinionHistory.stream().anyMatch(u -> u.getUser().getId() == user.getId());
 	}
 
 	public String getActualResult() {

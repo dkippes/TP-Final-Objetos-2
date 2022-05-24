@@ -56,14 +56,17 @@ public class SamplesTest {
 
 	@Test
 	void testAddOpinionWhenTheUserHasBasicKnowledge() throws Exception {
+		User userRoberto = mock(User.class);
+		Opinion opinion = mock(Opinion.class);
 		when(opinion.getDateOfIssue()).thenReturn(LocalDate.of(2020, 10, 5));
-		when(opinion.getUser()).thenReturn(user);
-		when(user.getName()).thenReturn("Diego");
+		when(opinion.getUser()).thenReturn(userRoberto);
+		when(userRoberto.getName()).thenReturn("Roberto");
+		when(userRoberto.getId()).thenReturn(15434534);
 		sample.addOpinion(opinion);
 		
 		assertEquals(sample.getLevelVerification(), Vote.VOTED);
 		assertTrue(sample.getOpinionHistory().size() == 2);
-		assertEquals(sample.getOpinionHistory().get(1).getUser().getName(), "Diego");
+		assertEquals(sample.getOpinionHistory().get(1).getUser().getName(), "Roberto");
 		assertEquals(sample.getLastVotation(), LocalDate.of(2020, 10, 5));
 	}
 
@@ -151,18 +154,24 @@ public class SamplesTest {
 	}
 	
 	private void addOpinionJuanito(Opinion opinion, Sample sample) throws Exception {
-		when(opinion.getDateOfIssue()).thenReturn(LocalDate.of(2019, 7, 15));
-		when(opinion.getUser()).thenReturn(user);
-		when(user.getName()).thenReturn("Juanito");
-		when(user.isExpert()).thenReturn(true);
-		sample.addOpinion(opinion);
+		User userJuancito = mock(User.class);
+		Opinion opinionJuan = mock(Opinion.class);
+		when(opinionJuan.getDateOfIssue()).thenReturn(LocalDate.of(2019, 7, 15));
+		when(opinionJuan.getUser()).thenReturn(userJuancito);
+		when(userJuancito.getName()).thenReturn("Juanito");
+		when(userJuancito.getId()).thenReturn(2206);
+		when(userJuancito.hasExpertKnowledge()).thenReturn(true);
+		sample.addOpinion(opinionJuan);
 	}
 	
 	private void addOpinionDiego(Opinion opinion, Sample sample) throws Exception {
-		when(opinion.getDateOfIssue()).thenReturn(LocalDate.of(2019, 7, 15));
-		when(opinion.getUser()).thenReturn(user);
-		when(user.getName()).thenReturn("Diego");
-		when(user.isExpert()).thenReturn(true);
-		sample.addOpinion(opinion);
+		User userDiego = mock(User.class);
+		Opinion opinionDiego = mock(Opinion.class);
+		when(opinionDiego.getDateOfIssue()).thenReturn(LocalDate.of(2019, 7, 15));
+		when(opinionDiego.getUser()).thenReturn(userDiego);
+		when(userDiego.getName()).thenReturn("Diego");
+		when(userDiego.getId()).thenReturn(1000);
+		when(userDiego.hasExpertKnowledge()).thenReturn(true);
+		sample.addOpinion(opinionDiego);
 	}
 }

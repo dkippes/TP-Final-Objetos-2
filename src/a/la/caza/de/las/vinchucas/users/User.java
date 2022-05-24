@@ -65,10 +65,6 @@ public class User implements Cloneable {
 		this.knowledge = knowledge;
 	}
 
-	public boolean isExpert() {
-		return false;
-	}
-
 	public User clone() throws CloneNotSupportedException {
 		return (User) super.clone();
 	}
@@ -80,4 +76,6 @@ public class User implements Cloneable {
 	public void updateKnowledgeBaseOnCondition() {
 		this.knowledge.checkStatusUser(this);
 	}
+	
+	
 }

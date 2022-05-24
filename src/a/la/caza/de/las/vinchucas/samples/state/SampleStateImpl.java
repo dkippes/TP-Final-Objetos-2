@@ -29,6 +29,6 @@ public abstract class SampleStateImpl implements ISampleState, UserValidations {
 	
 	@Override
 	public boolean userIsExpert(Opinion opinion) {
-		return opinion.getUser().isExpert();
+		return opinion.getUser().hasExpertKnowledge();
 	}
 }

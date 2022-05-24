@@ -3,11 +3,14 @@ package a.la.caza.de.las.vinchucas.users;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.runner.RunWith;
 import org.mockito.MockedStatic;
 import org.mockito.Mockito;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import a.la.caza.de.las.vinchucas.WebApplication;
 import a.la.caza.de.las.vinchucas.exceptions.UserAlreadyVoteException;
@@ -22,6 +25,10 @@ import a.la.caza.de.las.vinchucas.users.knowledge.KnowledgeExpert;
 import a.la.caza.de.las.vinchucas.users.knowledge.KnowledgeSpecialist;
 
 import static org.mockito.Mockito.*;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class UserTest {
 	
@@ -93,6 +100,27 @@ public class UserTest {
 		user.sendSample(sample);
 		assertTrue(user.hasBasicKnowledge());
 		assertFalse(user.hasExpertKnowledge());
+	}
+	
+	@Test
+	void testUserVoteBeforeSoItThrowAnException() throws Exception {
+		doCallRealMethod().when(sample).addOpinion(opinion);
+		assertThrows(Exception.class, () -> user.opineSample(sample, opinion));
+	}
+	
+	@Test
+	void testUserExpertVoteBeforeSoItThrowAnException() throws Exception {
+		user = new User("Diego", new KnowledgeBasic(), webApplication);
+		user.setWebApplication(webApplication);
+		when(webApplication.manyOpinionMadeByUserBeforeAnyDays(user, 30)).thenReturn(30L);
+		when(webApplication.manySamplesSendByUserBeforeAnyDays(user, 30)).thenReturn(30L);
+		user.sendSample(sample);
+		User uNew = new User("Test", new KnowledgeBasic(), webApplication);
+		doCallRealMethod().when(sample).addOpinion(opinion);
+		uNew.opineSample(sample, new Opinion(OpinionType.CHINCHE_FOLIADA, uNew));
+		//when(user.hasExpertKnowledge()).thenReturn(false);
+		
+		assertThrows(Exception.class, () -> user.opineSample(sample, opinion));
 	}
 	
 	@Test 
