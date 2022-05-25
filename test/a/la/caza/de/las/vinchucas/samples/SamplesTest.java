@@ -22,6 +22,7 @@ import a.la.caza.de.las.vinchucas.users.User;
 import a.la.caza.de.las.vinchucas.users.knowledge.Knowledge;
 import a.la.caza.de.las.vinchucas.users.knowledge.KnowledgeBasic;
 import a.la.caza.de.las.vinchucas.users.knowledge.KnowledgeExpert;
+import a.la.caza.de.las.vinchucas.users.knowledge.KnowledgeSpecialist;
 
 public class SamplesTest {
 
@@ -75,8 +76,8 @@ public class SamplesTest {
 		addOpinionDiego(opinion, sample);
 		
 		assertEquals(sample.getLevelVerification(), Vote.VOTED);
-		assertTrue(sample.getOpinionHistory().size() == 1);
-		assertEquals(sample.getOpinionHistory().get(0).getUser().getName(), "Diego");
+		assertTrue(sample.getOpinionHistory().size() == 2);
+		assertEquals(sample.getOpinionHistory().get(1).getUser().getName(), "Diego");
 		assertEquals(sample.getLastVotation(), LocalDate.of(2019, 7, 15));
 	}
 
@@ -86,8 +87,8 @@ public class SamplesTest {
 		addOpinionJuanito(opinion, sample);
 
 		assertEquals(sample.getLevelVerification(), Vote.VERIFIED);
-		assertTrue(sample.getOpinionHistory().size() == 2);
-		assertEquals(sample.getOpinionHistory().get(1).getUser().getName(), "Juanito");
+		assertTrue(sample.getOpinionHistory().size() == 3);
+		assertEquals(sample.getOpinionHistory().get(2).getUser().getName(), "Juanito");
 		assertEquals(sample.getLastVotation(), LocalDate.of(2019, 7, 15));
 	}
 
@@ -97,8 +98,8 @@ public class SamplesTest {
 		addOpinionJuanito(opinion, sample);
 
 		assertEquals(sample.getLevelVerification(), Vote.VERIFIED);
-		assertTrue(sample.getOpinionHistory().size() == 2);
-		assertEquals(sample.getOpinionHistory().get(1).getUser().getName(), "Juanito");
+		assertTrue(sample.getOpinionHistory().size() == 3);
+		assertEquals(sample.getOpinionHistory().get(2).getUser().getName(), "Juanito");
 		assertEquals(sample.getLastVotation(), LocalDate.of(2019, 7, 15));
 	}
 	
@@ -109,8 +110,8 @@ public class SamplesTest {
 		addOpinionJuanito(opinion, sample);
 
 		assertEquals(sample.getLevelVerification(), Vote.VERIFIED);
-		assertTrue(sample.getOpinionHistory().size() == 2);
-		assertEquals(sample.getOpinionHistory().get(1).getUser().getName(), "Juanito");
+		assertTrue(sample.getOpinionHistory().size() == 3);
+		assertEquals(sample.getOpinionHistory().get(2).getUser().getName(), "Juanito");
 		assertEquals(sample.getLastVotation(), LocalDate.of(2019, 7, 15));
 	}
 	
@@ -138,6 +139,24 @@ public class SamplesTest {
 		sample.addOpinion(opinion5);
 		
 		assertEquals(sample.getActualResult(), "UNDEFINED");
+	}
+	
+	@Test
+	void testActualResultIsChincheFolidaWhenIsVerified() throws Exception {
+		sample = new Sample(location, photo, new Opinion(OpinionType.CHINCHE_FOLIADA, new User("Tomas", new KnowledgeSpecialist(), WebApplication.createApp())));
+		
+		Opinion opinion2 = new Opinion(OpinionType.IMAGE_UNCLEAR, new User("Diego", new KnowledgeSpecialist(), WebApplication.createApp()));
+		sample.addOpinion(opinion2);		
+		assertEquals(sample.getActualResult(), "Chinche Foliada");
+	}
+	
+	@Test
+	void testActualResultIsChincheFolidaWhenIsVotedByOneExpert() throws Exception {
+		sample = new Sample(location, photo, new Opinion(OpinionType.IMAGE_UNCLEAR, new User("Tomas", new KnowledgeBasic(), WebApplication.createApp())));
+		
+		Opinion opinion2 = new Opinion(OpinionType.CHINCHE_FOLIADA, new User("Diego", new KnowledgeSpecialist(), WebApplication.createApp()));
+		sample.addOpinion(opinion2);		
+		assertEquals(sample.getActualResult(), "Chinche Foliada");
 	}
 	
 	@Test

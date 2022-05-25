@@ -77,6 +77,12 @@ public class Sample {
 	}
 
 	public String getActualResult() {
+		if(this.opinionHistory.stream().anyMatch(o -> o.getUser().hasExpertKnowledge())) {
+			return opinionHistory.stream()
+					.filter(o -> o.getUser().hasExpertKnowledge())
+					.findFirst().get().getOpinionType();
+		}
+		
 		List<String> opinions = opinionHistory.stream().map(o -> o.getOpinionType()).collect(Collectors.toList());
 		Map<String, Integer> mapOpinions = new TreeMap<>();
 		opinions.forEach(o -> mapOpinions.put(o, Collections.frequency(opinions, o)));
