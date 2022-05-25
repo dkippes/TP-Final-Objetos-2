@@ -20,7 +20,6 @@ public class BasicVotedSampleState extends SampleStateImpl {
 	@Override
 	public void updatedState(Sample sample, Opinion opinion) {
 		if(super.userIsExpert(opinion)) {
-			sample.getOpinionHistory().clear();
 			sample.setState(new ExpectVotedSampleState());
 		}
 	}
@@ -29,6 +28,4 @@ public class BasicVotedSampleState extends SampleStateImpl {
 	public Vote getLevelVerification(Sample sample) {
 		return Vote.VOTED;
 	}
-	
-	
 }

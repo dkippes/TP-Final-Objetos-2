@@ -44,6 +44,7 @@ public class OpinionTest {
 				() -> assertEquals(vinchucaSordida.getOpinionType(), "Vinchuca Sordida"),
 				() -> assertEquals(vinchucaGuasayana.getOpinionType(), "Vinchuca Guasayana"),
 				() -> assertEquals(chinchePhtia.getOpinionType(), "Chinche Phtia"),
-				() -> assertEquals(chincheFoliada.getOpinionType(), "Chinche Foliada"));
+				() -> assertEquals(chincheFoliada.getOpinionType(), "Chinche Foliada"),
+				() -> assertEquals(OpinionType.getUndefinedOpinion(), "UNDEFINED"));
 	}
 }
