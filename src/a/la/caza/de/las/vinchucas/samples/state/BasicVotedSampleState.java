@@ -20,7 +20,7 @@ public class BasicVotedSampleState extends SampleStateImpl {
 	@Override
 	public void updatedState(Sample sample, Opinion opinion) {
 		if(super.userIsExpert(opinion)) {
-			sample.getOpinionHistory().clear();
+			//sample.getOpinionHistory().clear(); // TODO: Refactor para no borrar el historial
 			sample.setState(new ExpectVotedSampleState());
 		}
 	}

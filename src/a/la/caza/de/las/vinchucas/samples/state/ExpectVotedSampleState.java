@@ -19,9 +19,7 @@ public class ExpectVotedSampleState extends SampleStateImpl {
 
 	@Override
 	public void updatedState(Sample sample, Opinion opinion) {
-		if(super.userIsExpert(opinion)) {
-			sample.setState(new VerifySampleState());
-		}
+		sample.setState(new VerifySampleState());
 	}
 
 	@Override
