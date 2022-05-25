@@ -97,7 +97,7 @@ public class SamplesTest {
 		addOpinionJuanito(opinion, sample);
 
 		assertEquals(sample.getLevelVerification(), Vote.VERIFIED);
-		assertTrue(sample.getOpinionHistory().size() == 2);
+		assertTrue(sample.getOpinionHistory().size() == 3);
 		assertEquals(sample.getOpinionHistory().get(1).getUser().getName(), "Juanito");
 		assertEquals(sample.getLastVotation(), LocalDate.of(2019, 7, 15));
 	}
@@ -109,7 +109,7 @@ public class SamplesTest {
 		addOpinionJuanito(opinion, sample);
 
 		assertEquals(sample.getLevelVerification(), Vote.VERIFIED);
-		assertTrue(sample.getOpinionHistory().size() == 2);
+		assertTrue(sample.getOpinionHistory().size() == 3);
 		assertEquals(sample.getOpinionHistory().get(1).getUser().getName(), "Juanito");
 		assertEquals(sample.getLastVotation(), LocalDate.of(2019, 7, 15));
 	}
