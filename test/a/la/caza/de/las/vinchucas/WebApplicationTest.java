@@ -6,6 +6,7 @@ import static org.mockito.Mockito.doCallRealMethod;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -45,22 +46,26 @@ public class WebApplicationTest {
 
 	@Test 
 	void testGetUserOpinions() {
+		Opinion opinion = mock(Opinion.class);
+		when(user.getId()).thenReturn(1);
+		when(opinion.getUser()).thenReturn(user);
+		when(sample.getOpinionHistory()).thenReturn(List.of(opinion));
 		webApplication.registerSample(sample);
 		webApplication.registerUser(user);
-		Opinion o = new Opinion(OpinionType.CHINCHE_FOLIADA, new User("Diego", new KnowledgeBasic(), webApplication));
-		doCallRealMethod().when(sample).getOpinionHistory().add(o);
-		doCallRealMethod().when(sample).getOpinionHistory();
-		User user = mock(User.class);
 		assertEquals(webApplication.getUserOpinions(user).size(), 1);
 	}
 	
 	@Test 
 	void testmanyOpinionMadeByUserBeforeAnyDays() {
+		user = mock(User.class);
+		sample = mock(Sample.class);
+		Opinion opinion = mock(Opinion.class);
+		when(user.getId()).thenReturn(1);
+		when(opinion.getUser()).thenReturn(user);
+		when(opinion.getDateOfIssue()).thenReturn(LocalDate.now());
+		when(sample.getOpinionHistory()).thenReturn(List.of(opinion));
 		webApplication.registerSample(sample);
 		webApplication.registerUser(user);
-		Opinion opinion = new Opinion(OpinionType.CHINCHE_FOLIADA, user);
-		when(sample.getOpinionHistory()).thenReturn(List.of(opinion));
-		//doCallRealMethod().when(sample).getOpinionHistory().add(o);
 		assertEquals(webApplication.manyOpinionMadeByUserBeforeAnyDays(user, 30), 1);
 	}
 }
