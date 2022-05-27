@@ -44,7 +44,7 @@ public class User implements Cloneable {
 	}
 
 	public void sendSample(Sample sample) {
-		webApplication.registerSample(sample);
+		this.webApplication.registerSample(sample);
 		this.knowledge.checkStatusUser(this);
 	}
 

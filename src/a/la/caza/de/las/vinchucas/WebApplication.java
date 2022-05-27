@@ -11,20 +11,12 @@ import a.la.caza.de.las.vinchucas.samples.Sample;
 import a.la.caza.de.las.vinchucas.users.User;
 
 public class WebApplication {
-	private static WebApplication webApplication;
 	private Set<User> registeredUsers;
 	private Set<Sample> registeredSamples;
 
 	public WebApplication() {
 		registeredUsers = new HashSet<>();
 		registeredSamples = new HashSet<>();
-	}
-
-	public static WebApplication createApp() {
-		if (webApplication == null) {
-			return webApplication = new WebApplication();
-		}
-		return webApplication;
 	}
 
 	public WebApplication registerSample(Sample sample) {
@@ -47,8 +39,10 @@ public class WebApplication {
 
 	public List<Opinion> getUserOpinions(User user) {
 		return this.getRegisteredSamples().stream()
-				.flatMap(sample -> sample.getOpinionHistory().stream())
-				.filter(userOpinion -> user.equals(userOpinion.getUser())).collect(Collectors.toList());
+				.flatMap(sample -> 
+				sample.getOpinionHistory().stream())
+					.filter(userOpinion -> user.equals(userOpinion.getUser()))
+					.collect(Collectors.toList());
 	}
 
 	public List<Sample> getUserSamples(User user) {

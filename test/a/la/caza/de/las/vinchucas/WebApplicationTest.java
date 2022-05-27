@@ -13,8 +13,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import a.la.caza.de.las.vinchucas.opinions.Opinion;
+import a.la.caza.de.las.vinchucas.opinions.OpinionType;
 import a.la.caza.de.las.vinchucas.samples.Sample;
 import a.la.caza.de.las.vinchucas.users.User;
+import a.la.caza.de.las.vinchucas.users.knowledge.KnowledgeBasic;
 
 public class WebApplicationTest {
 	
@@ -24,15 +26,9 @@ public class WebApplicationTest {
 
 	@BeforeEach
 	void setUp() {
-		webApplication = WebApplication.createApp();
+		webApplication = new WebApplication();
 		user = mock(User.class);
 		sample = mock(Sample.class);
-	}
-	
-	@Test
-	void testCreateSingleWebApp() {
-		WebApplication webApplicationExpected = WebApplication.createApp();
-		assertEquals(webApplicationExpected, webApplication);
 	}
 	
 	@Test 
@@ -51,12 +47,20 @@ public class WebApplicationTest {
 	void testGetUserOpinions() {
 		webApplication.registerSample(sample);
 		webApplication.registerUser(user);
-		Opinion o = mock(Opinion.class);
-		//when(sample.getOpinionHistory()).thenReturn(List.of(o));
+		Opinion o = new Opinion(OpinionType.CHINCHE_FOLIADA, new User("Diego", new KnowledgeBasic(), webApplication));
 		doCallRealMethod().when(sample).getOpinionHistory().add(o);
 		doCallRealMethod().when(sample).getOpinionHistory();
 		User user = mock(User.class);
-		webApplication.getUserOpinions(user);
 		assertEquals(webApplication.getUserOpinions(user).size(), 1);
+	}
+	
+	@Test 
+	void testmanyOpinionMadeByUserBeforeAnyDays() {
+		webApplication.registerSample(sample);
+		webApplication.registerUser(user);
+		Opinion opinion = new Opinion(OpinionType.CHINCHE_FOLIADA, user);
+		when(sample.getOpinionHistory()).thenReturn(List.of(opinion));
+		//doCallRealMethod().when(sample).getOpinionHistory().add(o);
+		assertEquals(webApplication.manyOpinionMadeByUserBeforeAnyDays(user, 30), 1);
 	}
 }

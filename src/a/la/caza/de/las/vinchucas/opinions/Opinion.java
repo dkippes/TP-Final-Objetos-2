@@ -10,8 +10,8 @@ public class Opinion {
 	private OpinionType opinionType;
 	private LocalDate dateOfIssue;
 
-	public Opinion(OpinionType opinionType, User user) throws CloneNotSupportedException {
-		this.user = user.clone();
+	public Opinion(OpinionType opinionType, User user) {
+		cloneUser(user);
 		this.opinionType = opinionType;
 		this.dateOfIssue = LocalDate.now();
 	}
@@ -26,5 +26,13 @@ public class Opinion {
 
 	public User getUser() {
 		return user;
+	}
+	
+	private void cloneUser(User user) {
+		try {
+			this.user = user.clone();
+		} catch (CloneNotSupportedException e) {
+			e.printStackTrace();
+		}
 	}
 }

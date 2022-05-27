@@ -27,7 +27,7 @@ public class OpinionTest {
 	}
 
 	@Test
-	void testCreationOpinion() throws CloneNotSupportedException {
+	void testCreationOpinion() {
 		nothing = new Opinion(OpinionType.NOTHING, user);
 		imageUnclear = new Opinion(OpinionType.IMAGE_UNCLEAR, user);
 		vinchucaInfestans = new Opinion(OpinionType.VINCHUCA_INFESTANS, user);
