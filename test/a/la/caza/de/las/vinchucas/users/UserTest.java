@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.mockito.MockedStatic;
@@ -14,6 +15,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 import a.la.caza.de.las.vinchucas.WebApplication;
 import a.la.caza.de.las.vinchucas.exceptions.UserAlreadyVoteException;
+import a.la.caza.de.las.vinchucas.exceptions.UserValidationException;
 import a.la.caza.de.las.vinchucas.opinions.Opinion;
 import a.la.caza.de.las.vinchucas.opinions.OpinionType;
 import a.la.caza.de.las.vinchucas.samples.Location;
@@ -44,7 +46,7 @@ public class UserTest {
 	void setUp() {
 		knowledge = mock(Knowledge.class);
 		webApplication = mock(WebApplication.class);
-		user = new User("Tomas", knowledge, webApplication);
+		user = new User("Diego", knowledge, webApplication);
 		location = mock(Location.class);
 		photo = mock(Photo.class);
 		sample = mock(Sample.class);
@@ -52,10 +54,11 @@ public class UserTest {
 	}
 	
 	@Test 
-	void testGetNameUserAndId() {
-		User newUser = new User("Diego", knowledge, webApplication);
-		assertEquals(newUser.getName(), "Diego");
-		assertTrue(newUser.getId() > 0);
+	void testCreateAnUser() {
+		assertEquals("Diego", user.getName());
+		assertTrue(user.getId() > 0);
+		assertEquals(user.getKnowledge(), knowledge);
+		assertEquals(user.getWebApplication(), webApplication);
 	}
 	
 	@Test 
@@ -67,7 +70,7 @@ public class UserTest {
 	}
 	
 	@Test 
-	void testUserCantBeCreatedHasExpertAndComeBackToBasicKnowledge() {
+	void testUserCantBeCreatedHasExpertIsDoesntMeetTheRequirementsAndSetWithBasicKnowledge() {
 		user = new User("Diego", new KnowledgeExpert(), webApplication);
 		assertTrue(user.hasBasicKnowledge());
 		assertFalse(user.hasExpertKnowledge());
@@ -81,9 +84,18 @@ public class UserTest {
 	}
 	
 	@Test 
-	void testUserCanBeUpdatedToExpert() {
+	void testUserIsUpdatedToExpert() {
 		user = new User("Diego", new KnowledgeBasic(), webApplication);
-		user.setWebApplication(webApplication);
+		when(webApplication.manyOpinionMadeByUserBeforeAnyDays(user, 30)).thenReturn(30L);
+		when(webApplication.manySamplesSendByUserBeforeAnyDays(user, 30)).thenReturn(30L);
+		user.updateKnowledgeBaseOnCondition();
+		assertFalse(user.hasBasicKnowledge());
+		assertTrue(user.hasExpertKnowledge());
+	}
+	
+	@Test 
+	void testUserIsUpdatedWhenHeSendASampleToExpert() {
+		user = new User("Diego", new KnowledgeBasic(), webApplication);
 		when(webApplication.manyOpinionMadeByUserBeforeAnyDays(user, 30)).thenReturn(30L);
 		when(webApplication.manySamplesSendByUserBeforeAnyDays(user, 30)).thenReturn(30L);
 		user.sendSample(sample);
@@ -94,61 +106,45 @@ public class UserTest {
 	@Test 
 	void testUserIsDowngradedToBasic() {
 		user = new User("Diego", new KnowledgeBasic(), webApplication);
-		user.setKnowledge(new KnowledgeExpert());
 		when(webApplication.manyOpinionMadeByUserBeforeAnyDays(user, 30)).thenReturn(10L);
 		when(webApplication.manySamplesSendByUserBeforeAnyDays(user, 30)).thenReturn(10L);
-		user.sendSample(sample);
+		user.updateKnowledgeBaseOnCondition();
 		assertTrue(user.hasBasicKnowledge());
 		assertFalse(user.hasExpertKnowledge());
 	}
 	
-	@Test
-	void testUserVoteBeforeSoItThrowAnException() throws Exception {
-		doCallRealMethod().when(sample).addOpinion(opinion);
-		assertThrows(Exception.class, () -> user.opineSample(sample, opinion));
-	}
-	
-	@Test
-	void testUserExpertVoteBeforeSoItThrowAnException() throws Exception {
-		user = new User("Diego", new KnowledgeBasic(), webApplication);
-		user.setWebApplication(webApplication);
-		when(webApplication.manyOpinionMadeByUserBeforeAnyDays(user, 30)).thenReturn(30L);
-		when(webApplication.manySamplesSendByUserBeforeAnyDays(user, 30)).thenReturn(30L);
-		user.sendSample(sample);
-		User uNew = new User("Test", new KnowledgeBasic(), webApplication);
-		doCallRealMethod().when(sample).addOpinion(opinion);
-		uNew.opineSample(sample, new Opinion(OpinionType.CHINCHE_FOLIADA, uNew));
-		//when(user.hasExpertKnowledge()).thenReturn(false);
-		
-		assertThrows(Exception.class, () -> user.opineSample(sample, opinion));
-	}
-	
 	@Test 
-	void testUserRemindBasicInTheOpinionAlthoutIsUpgradeToExpert() throws Exception {
-		user = new User("Diego", new KnowledgeBasic(), webApplication);
-		Opinion o = new Opinion(OpinionType.IMAGE_UNCLEAR, user);
-		sample = new Sample(location, photo, o);
-		user.sendSample(sample);
-		user.setKnowledge(new KnowledgeExpert());
-		assertTrue(o.getUser().hasBasicKnowledge());
+	void testUserCantBeDowngradedToBasicIfHeIsAnSpecialist() {
+		user = new User("Diego", new KnowledgeSpecialist(), webApplication);
+		when(webApplication.manyOpinionMadeByUserBeforeAnyDays(user, 30)).thenReturn(10L);
+		when(webApplication.manySamplesSendByUserBeforeAnyDays(user, 30)).thenReturn(10L);
+		user.updateKnowledgeBaseOnCondition();
+		assertFalse(user.hasBasicKnowledge());
 		assertTrue(user.hasExpertKnowledge());
 	}
 	
 	@Test
-	void testUserOpineInASample() throws Exception {
+	void testUserAddOpinion() throws UserValidationException {
 		user.opineSample(sample, opinion);
 		verify(sample, times(1)).addOpinion(opinion);
+		verify(knowledge, times(2)).checkStatusUser(user);
 	}
 	
 	@Test
-	void testUserCanBeUpdatedHisKnowledgeWhenEverItWantsIt() throws Exception {
-		user.setKnowledge(new KnowledgeBasic());
-		user.updateKnowledgeBaseOnCondition();
-		assertEquals(user.getKnowledge().getClass(), new KnowledgeBasic().getClass());
+	void testUserSetANewWebApplication() throws UserValidationException {
+		WebApplication newWebApp = mock(WebApplication.class);
+		user.setWebApplication(newWebApp);
+		assertEquals(newWebApp, user.getWebApplication());
 	}
 	
 	@Test
-	void testUserExpertDowngradeToBasicBecauseHeDoesntHaveManyReviews() throws Exception {
+	void testUserCanBeCloneSoItDoesntChangeHerKnowledgeInTheOpinion() throws CloneNotSupportedException {
+		User userCloned = user.clone();
+		assertEquals(userCloned.getId(), user.getId());
+	}
+	
+	@Test
+	void testUserExpertDowngradeToBasicBecauseHeDoesntHaveManyReviews() throws UserValidationException {
 		user.setKnowledge(new KnowledgeExpert());
 		when(webApplication.manySamplesSendByUserBeforeAnyDays(user, 30)).thenReturn(20L);
 		when(webApplication.manyOpinionMadeByUserBeforeAnyDays(user, 30)).thenReturn(5L);
@@ -157,7 +153,7 @@ public class UserTest {
 	}
 	
 	@Test
-	void testUserExpertDowngradeToBasicBecauseHeDoesntHaveManySamples() throws Exception {
+	void testUserExpertDowngradeToBasicBecauseHeDoesntHaveManySamples() throws UserValidationException {
 		user.setKnowledge(new KnowledgeExpert());
 		when(webApplication.manySamplesSendByUserBeforeAnyDays(user, 30)).thenReturn(5L);
 		when(webApplication.manyOpinionMadeByUserBeforeAnyDays(user, 30)).thenReturn(25L);
@@ -166,7 +162,7 @@ public class UserTest {
 	}
 	
 	@Test
-	void testUserExpertDowngradeToBasicBecauseHeDoesntHaveManySamplesAndOpinions() throws Exception {
+	void testUserExpertDowngradeToBasicBecauseHeDoesntHaveManySamplesAndOpinions() throws UserValidationException {
 		user.setKnowledge(new KnowledgeExpert());
 		when(webApplication.manySamplesSendByUserBeforeAnyDays(user, 30)).thenReturn(5L);
 		when(webApplication.manyOpinionMadeByUserBeforeAnyDays(user, 30)).thenReturn(5L);
@@ -175,7 +171,7 @@ public class UserTest {
 	}
 	
 	@Test
-	void testUserExpertStillExpert() throws Exception {
+	void testUserExpertStillExpert() throws UserValidationException {
 		user.setKnowledge(new KnowledgeExpert());
 		when(webApplication.manySamplesSendByUserBeforeAnyDays(user, 30)).thenReturn(25L);
 		when(webApplication.manyOpinionMadeByUserBeforeAnyDays(user, 30)).thenReturn(25L);
