@@ -121,19 +121,20 @@ public class SamplesTest {
 		//when(opinion.getUser()).thenReturn(user);
 		//when(opinion.getOpinionType()).thenReturn("Vinchuca Guasayana");
 		//when(user.getName()).thenReturn("Tomas");
-		sample = new Sample(location, photo, new Opinion(OpinionType.VINCHUCA_GUASAYANA, new User("Tomas", new KnowledgeBasic(), WebApplication.createApp())));
+		WebApplication webApp = new WebApplication();
+		sample = new Sample(location, photo, new Opinion(OpinionType.VINCHUCA_GUASAYANA, new User("Tomas", new KnowledgeBasic(), webApp)));
 		
-		Opinion opinion2 = new Opinion(OpinionType.IMAGE_UNCLEAR, new User("Diego", new KnowledgeBasic(), WebApplication.createApp()));
+		Opinion opinion2 = new Opinion(OpinionType.IMAGE_UNCLEAR, new User("Diego", new KnowledgeBasic(), webApp));
 		//when(opinion.getDateOfIssue()).thenReturn(LocalDate.of(2020, 10, 5));
 		//when(opinion.getUser()).thenReturn(user);
 		//when(user.getName()).thenReturn("Diego");
 		//when(opinion.getOpinionType()).thenReturn("Image Unclear");
 		sample.addOpinion(opinion2);
 		
-		Opinion opinion3 = new Opinion(OpinionType.VINCHUCA_GUASAYANA, new User("Julio", new KnowledgeBasic(), WebApplication.createApp()));
-		Opinion opinion4 = new Opinion(OpinionType.IMAGE_UNCLEAR, new User("Julio", new KnowledgeBasic(), WebApplication.createApp()));
+		Opinion opinion3 = new Opinion(OpinionType.VINCHUCA_GUASAYANA, new User("Julio", new KnowledgeBasic(), webApp));
+		Opinion opinion4 = new Opinion(OpinionType.IMAGE_UNCLEAR, new User("Julio", new KnowledgeBasic(), webApp));
 		
-		Opinion opinion5 = new Opinion(OpinionType.NOTHING, new User("Julio", new KnowledgeBasic(), WebApplication.createApp()));
+		Opinion opinion5 = new Opinion(OpinionType.NOTHING, new User("Julio", new KnowledgeBasic(), webApp));
 		sample.addOpinion(opinion3);
 		sample.addOpinion(opinion4);
 		sample.addOpinion(opinion5);
@@ -143,26 +144,29 @@ public class SamplesTest {
 	
 	@Test
 	void testActualResultIsChincheFolidaWhenIsVerified() throws Exception {
-		sample = new Sample(location, photo, new Opinion(OpinionType.CHINCHE_FOLIADA, new User("Tomas", new KnowledgeSpecialist(), WebApplication.createApp())));
+		WebApplication webApp = new WebApplication();
+		sample = new Sample(location, photo, new Opinion(OpinionType.CHINCHE_FOLIADA, new User("Tomas", new KnowledgeSpecialist(), webApp)));
 		
-		Opinion opinion2 = new Opinion(OpinionType.IMAGE_UNCLEAR, new User("Diego", new KnowledgeSpecialist(), WebApplication.createApp()));
+		Opinion opinion2 = new Opinion(OpinionType.IMAGE_UNCLEAR, new User("Diego", new KnowledgeSpecialist(), webApp));
 		sample.addOpinion(opinion2);		
 		assertEquals(sample.getActualResult(), "Chinche Foliada");
 	}
 	
 	@Test
 	void testActualResultIsChincheFolidaWhenIsVotedByOneExpert() throws Exception {
-		sample = new Sample(location, photo, new Opinion(OpinionType.IMAGE_UNCLEAR, new User("Tomas", new KnowledgeBasic(), WebApplication.createApp())));
+		WebApplication webApp = new WebApplication();
+		sample = new Sample(location, photo, new Opinion(OpinionType.IMAGE_UNCLEAR, new User("Tomas", new KnowledgeBasic(), webApp)));
 		
-		Opinion opinion2 = new Opinion(OpinionType.CHINCHE_FOLIADA, new User("Diego", new KnowledgeSpecialist(), WebApplication.createApp()));
+		Opinion opinion2 = new Opinion(OpinionType.CHINCHE_FOLIADA, new User("Diego", new KnowledgeSpecialist(), webApp));
 		sample.addOpinion(opinion2);		
 		assertEquals(sample.getActualResult(), "Chinche Foliada");
 	}
 	
 	@Test
 	void testActualResultShouldBeChincheFoliada() throws Exception {
-		sample.addOpinion(new Opinion(OpinionType.CHINCHE_FOLIADA, new User("Diego", new KnowledgeBasic(), WebApplication.createApp())));
-		sample.addOpinion(new Opinion(OpinionType.CHINCHE_FOLIADA, new User("Pepe", new KnowledgeBasic(), weApplication.createApp())));
+		WebApplication webApp = new WebApplication();
+		sample.addOpinion(new Opinion(OpinionType.CHINCHE_FOLIADA, new User("Diego", new KnowledgeBasic(), webApp)));
+		sample.addOpinion(new Opinion(OpinionType.CHINCHE_FOLIADA, new User("Pepe", new KnowledgeBasic(), webApp)));
 		assertEquals("Chinche Foliada", sample.getActualResult());;
 	}
 	

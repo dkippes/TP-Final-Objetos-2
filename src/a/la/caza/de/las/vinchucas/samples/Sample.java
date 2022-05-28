@@ -3,18 +3,12 @@ package a.la.caza.de.las.vinchucas.samples;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Optional;
 import java.util.TreeMap;
-import java.util.function.BinaryOperator;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
-import a.la.caza.de.las.vinchucas.exceptions.UserAlreadyVoteException;
+import a.la.caza.de.las.vinchucas.exceptions.UserValidationException;
 import a.la.caza.de.las.vinchucas.opinions.Opinion;
 import a.la.caza.de.las.vinchucas.opinions.OpinionType;
 import a.la.caza.de.las.vinchucas.samples.state.BasicVotedSampleState;
@@ -30,7 +24,7 @@ public class Sample {
 	private LocalDate creationDate;
 	private SampleStateImpl state;
 
-	public Sample(Location location, Photo photo, Opinion opinion) throws Exception {
+	public Sample(Location location, Photo photo, Opinion opinion) throws UserValidationException {
 		this.location = location;
 		this.photo = photo;
 		this.user = opinion.getUser();
@@ -40,7 +34,7 @@ public class Sample {
 		this.addOpinion(opinion);
 	}
 
-	public void addOpinion(Opinion opinion) throws Exception {
+	public void addOpinion(Opinion opinion) throws UserValidationException {
 		this.state.addOpinion(this, opinion);
 	}
 
@@ -77,31 +71,43 @@ public class Sample {
 	}
 
 	public String getActualResult() {
-		if(this.opinionHistory.stream().anyMatch(o -> o.getUser().hasExpertKnowledge())) {
-			return opinionHistory.stream()
-					.filter(o -> o.getUser().hasExpertKnowledge())
-					.findFirst().get().getOpinionType();
+		if(anyExpertUserVote()) {
+			return actualResultIfWasVotedByExpert();
 		}
-		
-		List<String> opinions = opinionHistory.stream().map(o -> o.getOpinionType()).collect(Collectors.toList());
-		Map<String, Integer> mapOpinions = new TreeMap<>();
-		opinions.forEach(o -> mapOpinions.put(o, Collections.frequency(opinions, o)));
+		Map<String, Integer> mapOpinions = mapOpinionsByOpinionType();
+		return getMostVotedOpinionOrUndefinedIfDraw(mapOpinions);
+	}
 
+	private String getMostVotedOpinionOrUndefinedIfDraw(Map<String, Integer> mapOpinions) {
 		Map.Entry<String, Integer> maxEntry = null;
-
 		for (Map.Entry<String, Integer> entry : mapOpinions.entrySet()) {
 			if (maxEntry == null || entry.getValue().compareTo(maxEntry.getValue()) > 0) {
 				maxEntry = entry;
 			}
 		}
-
 		mapOpinions.remove(maxEntry.getKey());
-
-		if (mapOpinions.containsValue(maxEntry.getValue())) {
-			return OpinionType.getUndefinedOpinion();
-		}
-
-		return maxEntry.getKey();
+		return mapOpinions.containsValue(maxEntry.getValue())
+				? OpinionType.getUndefinedOpinion()
+				: maxEntry.getKey();
 	}
 
+	private Map<String, Integer> mapOpinionsByOpinionType() {
+		Map<String, Integer> mapOpinions = new TreeMap<>();
+		getOpinionsAsListOfString().forEach(opinion -> mapOpinions.put(opinion, Collections.frequency(getOpinionsAsListOfString(), opinion)));
+		return mapOpinions;
+	}
+
+	private List<String> getOpinionsAsListOfString() {
+		return opinionHistory.stream().map(opinion -> opinion.getOpinionType()).collect(Collectors.toList());
+	}
+
+	private String actualResultIfWasVotedByExpert() {
+		return opinionHistory.stream()
+				.filter(opinion -> opinion.getUser().hasExpertKnowledge())
+				.findFirst().get().getOpinionType();
+	}
+
+	private boolean anyExpertUserVote() {
+		return this.opinionHistory.stream().anyMatch(opinion -> opinion.getUser().hasExpertKnowledge());
+	}
 }

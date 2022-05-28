@@ -5,6 +5,7 @@ import java.util.List;
 
 import a.la.caza.de.las.vinchucas.WebApplication;
 import a.la.caza.de.las.vinchucas.exceptions.UserAlreadyVoteException;
+import a.la.caza.de.las.vinchucas.exceptions.UserValidationException;
 import a.la.caza.de.las.vinchucas.opinions.Opinion;
 import a.la.caza.de.las.vinchucas.samples.Location;
 import a.la.caza.de.las.vinchucas.samples.Photo;
@@ -44,11 +45,11 @@ public class User implements Cloneable {
 	}
 
 	public void sendSample(Sample sample) {
-		webApplication.registerSample(sample);
+		this.webApplication.registerSample(sample);
 		this.knowledge.checkStatusUser(this);
 	}
 
-	public void opineSample(Sample sample, Opinion opinion) throws Exception {
+	public void opineSample(Sample sample, Opinion opinion) throws UserValidationException {
 		sample.addOpinion(opinion);
 		this.knowledge.checkStatusUser(this);
 	}
@@ -76,6 +77,4 @@ public class User implements Cloneable {
 	public void updateKnowledgeBaseOnCondition() {
 		this.knowledge.checkStatusUser(this);
 	}
-	
-	
 }
