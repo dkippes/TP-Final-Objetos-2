@@ -76,6 +76,4 @@ public class User implements Cloneable {
 	public void updateKnowledgeBaseOnCondition() {
 		this.knowledge.checkStatusUser(this);
 	}
-	
-	
 }

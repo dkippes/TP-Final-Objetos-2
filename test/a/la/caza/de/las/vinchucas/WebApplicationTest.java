@@ -24,12 +24,14 @@ public class WebApplicationTest {
 	WebApplication webApplication;
 	User user;
 	Sample sample;
+	Opinion opinion;
 
 	@BeforeEach
 	void setUp() {
 		webApplication = new WebApplication();
 		user = mock(User.class);
 		sample = mock(Sample.class);
+		opinion = mock(Opinion.class);
 	}
 	
 	@Test 
@@ -46,20 +48,21 @@ public class WebApplicationTest {
 
 	@Test 
 	void testGetUserOpinions() {
-		Opinion opinion = mock(Opinion.class);
+		User user2 = mock(User.class);
+		Opinion opinion2 = mock(Opinion.class);
 		when(user.getId()).thenReturn(1);
+		when(user2.getId()).thenReturn(2);
 		when(opinion.getUser()).thenReturn(user);
-		when(sample.getOpinionHistory()).thenReturn(List.of(opinion));
+		when(opinion2.getUser()).thenReturn(user2);
+		when(sample.getOpinionHistory()).thenReturn(List.of(opinion, opinion2));
 		webApplication.registerSample(sample);
 		webApplication.registerUser(user);
+		webApplication.registerUser(user2);
 		assertEquals(webApplication.getUserOpinions(user).size(), 1);
 	}
 	
 	@Test 
-	void testmanyOpinionMadeByUserBeforeAnyDays() {
-		user = mock(User.class);
-		sample = mock(Sample.class);
-		Opinion opinion = mock(Opinion.class);
+	void testManyOpinionMadeByUserBeforeAnyDays() {
 		when(user.getId()).thenReturn(1);
 		when(opinion.getUser()).thenReturn(user);
 		when(opinion.getDateOfIssue()).thenReturn(LocalDate.now());
@@ -67,5 +70,24 @@ public class WebApplicationTest {
 		webApplication.registerSample(sample);
 		webApplication.registerUser(user);
 		assertEquals(webApplication.manyOpinionMadeByUserBeforeAnyDays(user, 30), 1);
+	}
+	
+	@Test 
+	void testGetUserSamples() {
+		when(user.getId()).thenReturn(1);
+		when(sample.getUser()).thenReturn(user);
+		webApplication.registerSample(sample);
+		webApplication.registerUser(user);
+		assertEquals(webApplication.getUserSamples(user).size(), 1);
+	}
+	
+	@Test 
+	void testManySamplesSendByUserBeforeAnyDays() {
+		when(user.getId()).thenReturn(1);
+		when(sample.getUser()).thenReturn(user);
+		when(sample.getCreationDate()).thenReturn(LocalDate.now());
+		webApplication.registerSample(sample);
+		webApplication.registerUser(user);
+		assertEquals(webApplication.manySamplesSendByUserBeforeAnyDays(user, 30), 1);
 	}
 }
