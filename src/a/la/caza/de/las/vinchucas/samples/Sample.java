@@ -110,4 +110,12 @@ public class Sample {
 	private boolean anyExpertUserVote() {
 		return this.opinionHistory.stream().anyMatch(opinion -> opinion.getUser().hasExpertKnowledge());
 	}
+
+	public Location getLocation() {
+		return location;
+	}
+
+	public Photo getPhoto() {
+		return photo;
+	}	
 }

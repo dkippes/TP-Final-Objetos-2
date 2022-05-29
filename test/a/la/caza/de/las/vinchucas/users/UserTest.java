@@ -34,21 +34,17 @@ import java.util.List;
 
 public class UserTest {
 	
-	WebApplication webApplication;
-	User user;
-	Location location;
-	Photo photo;
-	Sample sample;
-	Opinion opinion;
-	Knowledge knowledge;
+	private WebApplication webApplication;
+	private User user;
+	private Sample sample;
+	private Opinion opinion;
+	private Knowledge knowledge;
 	
 	@BeforeEach
 	void setUp() {
 		knowledge = mock(Knowledge.class);
 		webApplication = mock(WebApplication.class);
 		user = new User("Diego", knowledge, webApplication);
-		location = mock(Location.class);
-		photo = mock(Photo.class);
 		sample = mock(Sample.class);
 		opinion = mock(Opinion.class);
 	}

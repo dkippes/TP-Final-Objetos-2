@@ -8,20 +8,15 @@ import a.la.caza.de.las.vinchucas.samples.Sample;
 import a.la.caza.de.las.vinchucas.samples.verification.level.Vote;
 
 public class FilterVerificationLevel implements IFilter {
-	
 	private Vote verLevelSearched;
 	
 	public FilterVerificationLevel(Vote verLevel) {
-		
 		this.verLevelSearched = verLevel;
 	}
 
 	public List<Sample> searchSamples(List<Sample> samples) {
-		// TODO Auto-generated method stub
-		Stream<Sample> samplesFound = samples.stream().filter(s -> s.getLevelVerification().equals(verLevelSearched)) ;
-		
-		return samplesFound.collect(Collectors.toList()) ;
+		return samples.stream()
+				.filter(sample -> sample.getLevelVerification().equals(verLevelSearched))
+				.collect(Collectors.toList());
 	}
-	
-
 }

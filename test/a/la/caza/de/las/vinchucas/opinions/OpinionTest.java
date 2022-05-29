@@ -16,18 +16,14 @@ import a.la.caza.de.las.vinchucas.users.knowledge.KnowledgeBasic;
 
 public class OpinionTest {
 
-	Opinion nothing, imageUnclear, vinchucaInfestans, vinchucaSordida, vinchucaGuasayana, chinchePhtia, chincheFoliada;
-	User user;
-	WebApplication webApplication;
+	private Opinion nothing, imageUnclear, vinchucaInfestans, vinchucaSordida, vinchucaGuasayana, chinchePhtia, chincheFoliada;
+	private User user;
+	private WebApplication webApplication;
 
 	@BeforeEach
 	void setUp() {
 		webApplication = mock(WebApplication.class);
 		user = new User("Diego", new KnowledgeBasic(), webApplication);
-	}
-
-	@Test
-	void testCreationOpinion() {
 		nothing = new Opinion(OpinionType.NOTHING, user);
 		imageUnclear = new Opinion(OpinionType.IMAGE_UNCLEAR, user);
 		vinchucaInfestans = new Opinion(OpinionType.VINCHUCA_INFESTANS, user);
@@ -35,6 +31,10 @@ public class OpinionTest {
 		vinchucaGuasayana = new Opinion(OpinionType.VINCHUCA_GUASAYANA, user);
 		chinchePhtia = new Opinion(OpinionType.CHINCHE_PHTIA, user);
 		chincheFoliada = new Opinion(OpinionType.CHINCHE_FOLIADA, user);
+	}
+
+	@Test
+	void testCreationOpinion() {
 		assertAll(() -> assertEquals(nothing.getUser().getId(), user.getId()),
 				() -> assertEquals(nothing.getUser().getName(), user.getName()),
 				() -> assertEquals(nothing.getDateOfIssue(), LocalDate.now()),

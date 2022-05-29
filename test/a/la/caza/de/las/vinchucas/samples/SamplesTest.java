@@ -1,12 +1,16 @@
 package a.la.caza.de.las.vinchucas.samples;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Map;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -17,6 +21,7 @@ import a.la.caza.de.las.vinchucas.WebApplication;
 import a.la.caza.de.las.vinchucas.exceptions.UserAlreadyVoteException;
 import a.la.caza.de.las.vinchucas.opinions.Opinion;
 import a.la.caza.de.las.vinchucas.opinions.OpinionType;
+import a.la.caza.de.las.vinchucas.samples.state.BasicVotedSampleState;
 import a.la.caza.de.las.vinchucas.samples.verification.level.Vote;
 import a.la.caza.de.las.vinchucas.users.User;
 import a.la.caza.de.las.vinchucas.users.knowledge.Knowledge;
@@ -26,12 +31,12 @@ import a.la.caza.de.las.vinchucas.users.knowledge.KnowledgeSpecialist;
 
 public class SamplesTest {
 
-	Sample sample;
-	Location location;
-	Photo photo;
-	Opinion opinion;
-	User user;
-	WebApplication weApplication;
+	private Sample sample;
+	private Location location;
+	private Photo photo;
+	private Opinion opinion;
+	private User user;
+	private WebApplication weApplication;
 
 	@BeforeEach
 	void setUp() throws Exception {
@@ -46,13 +51,66 @@ public class SamplesTest {
 		when(user.getName()).thenReturn("Tomas");
 		sample = new Sample(location, photo, opinion);
 	}
+	
+	@Test
+	void testCreateANewSample() throws Exception {
+		when(opinion.getUser()).thenReturn(user);
+		assertEquals(location, sample.getLocation());
+		assertEquals(photo, sample.getPhoto());
+		assertEquals(sample.getCreationDate(), LocalDate.now());
+		assertTrue(sample.getOpinionHistory().size() > 0);
+		assertEquals(sample.getUser(), user);
+	}
 
 	@Test
-	void testSampleIsVotedWhenIsCreated() throws Exception {
+	void testWhenSampleIsCreatedHasBeenVotedByTheUserWhoSendIt() throws Exception {
 		assertEquals(sample.getLevelVerification(), Vote.VOTED);
 		assertEquals(sample.getUser().getName(), "Tomas");
-		assertEquals(sample.getCreationDate(), LocalDate.now());
+		
+	}
+	
+	@Test
+	void testSampleCanGetHisOpinionHistoryAndLastVotation() throws Exception {
 		assertEquals(sample.getLastVotation(), LocalDate.now());
+		assertTrue(sample.getOpinionHistory().size() > 0);
+	}
+	
+	@Test
+	void testSampleKnowsHisLevelVerification() throws Exception {
+		BasicVotedSampleState basicState = mock(BasicVotedSampleState.class);
+		sample.setState(basicState);
+		sample.getLevelVerification();
+		verify(basicState, times(1)).getLevelVerification(sample);
+	}
+	
+	@Test
+	void testUserDidntVoteBefore() throws Exception {
+		User newUser = mock(User.class);
+		when(newUser.getId()).thenReturn(1);
+		when(user.getId()).thenReturn(2);
+		when(opinion.getUser()).thenReturn(newUser);		
+		assertFalse(sample.userAlreadyVote(List.of(opinion), user));
+	}
+	
+	@Test
+	void testUserAlreadyVote() throws Exception {
+		when(user.getId()).thenReturn(1);
+		when(opinion.getUser()).thenReturn(user);		
+		assertTrue(sample.userAlreadyVote(List.of(opinion), user));
+	}
+	
+	@Test
+	void testAddUserOpinion() throws Exception {
+		sample.addUserOpinion(opinion);
+		assertTrue(sample.getOpinionHistory().size() > 0);
+	}
+	
+	@Test
+	void testAddOpinionWithState() throws Exception {
+		BasicVotedSampleState basicState = mock(BasicVotedSampleState.class);
+		sample.setState(basicState);
+		sample.addOpinion(opinion);
+		verify(basicState, times(1)).addOpinion(sample, opinion);
 	}
 
 	@Test
@@ -70,7 +128,7 @@ public class SamplesTest {
 		assertEquals(sample.getOpinionHistory().get(1).getUser().getName(), "Roberto");
 		assertEquals(sample.getLastVotation(), LocalDate.of(2020, 10, 5));
 	}
-
+	
 	@Test
 	void testAddOpinionWhenTheUserHasExpertKnowledge() throws Exception {
 		addOpinionDiego(opinion, sample);
@@ -114,6 +172,10 @@ public class SamplesTest {
 		assertEquals(sample.getOpinionHistory().get(2).getUser().getName(), "Juanito");
 		assertEquals(sample.getLastVotation(), LocalDate.of(2019, 7, 15));
 	}
+	
+	
+	
+	
 	
 	@Test
 	void testActualResultWhenSampleIsCreatedIsUndefined() throws Exception {

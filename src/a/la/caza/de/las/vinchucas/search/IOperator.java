@@ -5,11 +5,7 @@ import java.util.List;
 
 import a.la.caza.de.las.vinchucas.samples.Sample;
 
-
 public interface IOperator {
-	
-	public boolean comparar(LocalDate fecha1, LocalDate fecha2); 
-	//public List<Sample> searchSamples(List<Sample> samples, LocalDate date);
-
+	public boolean comparar(LocalDate date1, LocalDate date2); 
 }
 
