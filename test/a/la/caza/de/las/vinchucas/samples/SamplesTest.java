@@ -20,6 +20,7 @@ import org.junit.jupiter.api.Test;
 import a.la.caza.de.las.vinchucas.WebApplication;
 import a.la.caza.de.las.vinchucas.exceptions.UserAlreadyVoteException;
 import a.la.caza.de.las.vinchucas.exceptions.UserValidationException;
+import a.la.caza.de.las.vinchucas.location.Location;
 import a.la.caza.de.las.vinchucas.opinions.Opinion;
 import a.la.caza.de.las.vinchucas.opinions.OpinionType;
 import a.la.caza.de.las.vinchucas.samples.state.BasicVotedSampleState;

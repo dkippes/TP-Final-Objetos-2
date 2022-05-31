@@ -18,7 +18,6 @@ import a.la.caza.de.las.vinchucas.exceptions.UserAlreadyVoteException;
 import a.la.caza.de.las.vinchucas.exceptions.UserValidationException;
 import a.la.caza.de.las.vinchucas.opinions.Opinion;
 import a.la.caza.de.las.vinchucas.opinions.OpinionType;
-import a.la.caza.de.las.vinchucas.samples.Location;
 import a.la.caza.de.las.vinchucas.samples.Photo;
 import a.la.caza.de.las.vinchucas.samples.Sample;
 import a.la.caza.de.las.vinchucas.users.knowledge.Knowledge;

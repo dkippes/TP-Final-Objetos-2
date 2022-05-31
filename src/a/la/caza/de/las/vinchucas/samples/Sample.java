@@ -9,12 +9,14 @@ import java.util.TreeMap;
 import java.util.stream.Collectors;
 
 import a.la.caza.de.las.vinchucas.exceptions.UserValidationException;
+import a.la.caza.de.las.vinchucas.location.Location;
 import a.la.caza.de.las.vinchucas.opinions.Opinion;
 import a.la.caza.de.las.vinchucas.opinions.OpinionType;
 import a.la.caza.de.las.vinchucas.samples.state.BasicVotedSampleState;
 import a.la.caza.de.las.vinchucas.samples.state.SampleStateImpl;
 import a.la.caza.de.las.vinchucas.samples.verification.level.Vote;
 import a.la.caza.de.las.vinchucas.users.User;
+
 
 public class Sample {
 	private User user;
