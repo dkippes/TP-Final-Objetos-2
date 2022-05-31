@@ -7,7 +7,5 @@ public class KnowledgeSpecialist extends KnowledgeExpert {
 	
 	@Override
 	public void checkStatusUser(User user) {
-		
 	}
-	
 }

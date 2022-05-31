@@ -19,6 +19,7 @@ import org.junit.jupiter.api.Test;
 
 import a.la.caza.de.las.vinchucas.WebApplication;
 import a.la.caza.de.las.vinchucas.exceptions.UserAlreadyVoteException;
+import a.la.caza.de.las.vinchucas.exceptions.UserValidationException;
 import a.la.caza.de.las.vinchucas.opinions.Opinion;
 import a.la.caza.de.las.vinchucas.opinions.OpinionType;
 import a.la.caza.de.las.vinchucas.samples.state.BasicVotedSampleState;
@@ -202,6 +203,18 @@ public class SamplesTest {
 	void testActualResultWhenSampleIsCreatedIsImageUnclear() throws Exception {
 		Sample sampleTest = new Sample(location, photo, getOpinionBasic(2, OpinionType.IMAGE_UNCLEAR));
 		assertEquals("Image Unclear", sampleTest.getActualResult());;
+	}
+	
+	@Test
+	void testUserAlreadyVoteException() throws Exception {
+		Sample sample = new Sample(location, photo, getOpinionBasic(1, OpinionType.IMAGE_UNCLEAR));	
+		assertThrows(UserValidationException.class, () -> sample.addOpinion(getOpinionBasic(1, OpinionType.IMAGE_UNCLEAR)));
+	}
+	
+	@Test
+	void testUserIsNotExpertException() throws Exception {
+		Sample sample = new Sample(location, photo, getOpinionSpecialist(1, OpinionType.IMAGE_UNCLEAR));	
+		assertThrows(UserValidationException.class, () -> sample.addOpinion(getOpinionBasic(2, OpinionType.IMAGE_UNCLEAR)));
 	}
 	
 	private Opinion getOpinionBasic(int id, OpinionType opinionType) {
