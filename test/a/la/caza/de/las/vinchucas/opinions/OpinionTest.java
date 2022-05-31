@@ -2,12 +2,14 @@ package a.la.caza.de.las.vinchucas.opinions;
 
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import java.time.LocalDate;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import a.la.caza.de.las.vinchucas.WebApplication;
@@ -36,15 +38,24 @@ public class OpinionTest {
 	@Test
 	void testCreationOpinion() {
 		assertAll(() -> assertEquals(nothing.getUser().getId(), user.getId()),
+				() -> assertEquals(nothing.getOpinionType(), OpinionType.NOTHING),
 				() -> assertEquals(nothing.getUser().getName(), user.getName()),
 				() -> assertEquals(nothing.getDateOfIssue(), LocalDate.now()),
-				() -> assertEquals(nothing.getOpinionType(), "Nothing"),
-				() -> assertEquals(imageUnclear.getOpinionType(), "Image Unclear"),
-				() -> assertEquals(vinchucaInfestans.getOpinionType(), "Vinchuca Infestans"),
-				() -> assertEquals(vinchucaSordida.getOpinionType(), "Vinchuca Sordida"),
-				() -> assertEquals(vinchucaGuasayana.getOpinionType(), "Vinchuca Guasayana"),
-				() -> assertEquals(chinchePhtia.getOpinionType(), "Chinche Phtia"),
-				() -> assertEquals(chincheFoliada.getOpinionType(), "Chinche Foliada"),
+				() -> assertEquals(nothing.getOpinionTypeString(), "Nothing"),
+				() -> assertEquals(imageUnclear.getOpinionTypeString(), "Image Unclear"),
+				() -> assertEquals(vinchucaInfestans.getOpinionTypeString(), "Vinchuca Infestans"),
+				() -> assertEquals(vinchucaSordida.getOpinionTypeString(), "Vinchuca Sordida"),
+				() -> assertEquals(vinchucaGuasayana.getOpinionTypeString(), "Vinchuca Guasayana"),
+				() -> assertEquals(chinchePhtia.getOpinionTypeString(), "Chinche Phtia"),
+				() -> assertEquals(chincheFoliada.getOpinionTypeString(), "Chinche Foliada"),
 				() -> assertEquals(OpinionType.getUndefinedOpinion(), "UNDEFINED"));
+	}
+	
+	@Test
+	@Disabled
+	void testUserCanNotBeClone() throws CloneNotSupportedException {
+		Object stringUser = new Object();
+		//when(user.clone()).thenThrow(CloneNotSupportedException.class);
+		assertThrows(CloneNotSupportedException.class, () -> new Opinion(OpinionType.CHINCHE_FOLIADA, (User) stringUser));
 	}
 }

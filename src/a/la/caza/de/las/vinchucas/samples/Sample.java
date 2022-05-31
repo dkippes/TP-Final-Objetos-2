@@ -67,7 +67,7 @@ public class Sample {
 	}
 
 	public boolean userAlreadyVote(List<Opinion> opinionHistory, User user) {
-		return opinionHistory.stream().anyMatch(u -> u.getUser().getId() == user.getId());
+		return opinionHistory.stream().anyMatch(userOpinion -> userOpinion.getUser().getId() == user.getId());
 	}
 
 	public String getActualResult() {
@@ -98,13 +98,13 @@ public class Sample {
 	}
 
 	private List<String> getOpinionsAsListOfString() {
-		return opinionHistory.stream().map(opinion -> opinion.getOpinionType()).collect(Collectors.toList());
+		return opinionHistory.stream().map(opinion -> opinion.getOpinionTypeString()).collect(Collectors.toList());
 	}
 
 	private String actualResultIfWasVotedByExpert() {
 		return opinionHistory.stream()
 				.filter(opinion -> opinion.getUser().hasExpertKnowledge())
-				.findFirst().get().getOpinionType();
+				.findFirst().get().getOpinionTypeString();
 	}
 
 	private boolean anyExpertUserVote() {

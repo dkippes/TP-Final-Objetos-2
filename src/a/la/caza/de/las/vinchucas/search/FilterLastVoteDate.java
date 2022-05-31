@@ -20,8 +20,7 @@ public class FilterLastVoteDate implements IFilter{
 	}
 
 	public List<Sample> searchSamples(List<Sample> samples) {
-		return samples.
-				stream().
+		return samples.stream().
 				filter(sample -> this.operator.comparar(sample.getLastVotation(), dateSearched)).
 				collect(Collectors.toList());
 	}
