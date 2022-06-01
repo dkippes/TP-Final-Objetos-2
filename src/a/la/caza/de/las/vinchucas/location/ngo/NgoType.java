@@ -1,7 +1,6 @@
 package a.la.caza.de.las.vinchucas.location.ngo;
 
 public enum NgoType {
-
 		HEALTH("Health"),
 		EDUCATION("Education"),
 		CULTURAL("Cultural"),
@@ -16,6 +15,4 @@ public enum NgoType {
 		public String getNgoType(){
 	        return ngoType;
 	    }
-		
-
 }
