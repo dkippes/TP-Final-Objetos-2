@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 
 public class PhotoTest {
 	
-	Photo photoJPG, photoJPEG,photoPNG;
+	private Photo photoJPG, photoJPEG,photoPNG;
 	
 	@BeforeEach 
 	void setUp() {

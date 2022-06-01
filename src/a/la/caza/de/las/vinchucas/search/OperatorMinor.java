@@ -11,8 +11,6 @@ public class OperatorMinor implements IOperator{
 	
 	@Override
 	public boolean comparar(LocalDate fecha1, LocalDate fecha2) {
-		// TODO Auto-generated method stub
 		return fecha1.isBefore(fecha2);
 	}
-
 }

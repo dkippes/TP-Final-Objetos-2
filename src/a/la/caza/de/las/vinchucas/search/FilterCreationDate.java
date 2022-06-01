@@ -12,7 +12,6 @@ public class FilterCreationDate implements IFilter{
 	private IOperator operator;
 	
 	public void setOperator(IOperator operator) {
-		// TODO Auto-generated method stub
 		this.operator = operator;
 	}
 	
@@ -20,13 +19,11 @@ public class FilterCreationDate implements IFilter{
 		this.dateSearched = date; 
 	}
 
-
 	public List<Sample> searchSamples(List<Sample> samples) {
 		return samples.
 				stream().
-				filter(x -> this.operator.comparar(x.getCreationDate(), dateSearched)).
-				collect(Collectors.toList()) 
-		;
+				filter(sample -> this.operator.comparar(sample.getCreationDate(), dateSearched)).
+				collect(Collectors.toList());
 	}
 
 }

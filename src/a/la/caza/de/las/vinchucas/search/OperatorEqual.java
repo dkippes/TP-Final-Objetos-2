@@ -14,7 +14,6 @@ public class OperatorEqual implements IOperator {
 		return fecha1.equals(fecha2);
 	}
 
-	
 	/**public List<Sample> searchSamples(List<Sample> samples, LocalDate date) {
 		
 		

@@ -2,7 +2,6 @@ package a.la.caza.de.las.vinchucas.opinions;
 
 import java.time.LocalDate;
 
-import a.la.caza.de.las.vinchucas.WebApplication;
 import a.la.caza.de.las.vinchucas.users.User;
 
 public class Opinion {
@@ -20,8 +19,12 @@ public class Opinion {
 		return dateOfIssue;
 	}
 
-	public String getOpinionType() {
+	public String getOpinionTypeString() {
 		return opinionType.getOpinionType();
+	}
+	
+	public OpinionType getOpinionType() {
+		return opinionType;
 	}
 
 	public User getUser() {

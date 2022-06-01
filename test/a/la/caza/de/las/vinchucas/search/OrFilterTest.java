@@ -73,7 +73,6 @@ class OrFilterTest {
 		when(sample1.getActualResult()).thenReturn(otherInsect);
 		when(sample2.getActualResult()).thenReturn(insectSearched);
 		
-		
 		orFilter.setFilters(lastVotedateFilter, insectFilter);
 		
 		List<Sample> samplesFound = orFilter.searchSamples(allSamples);

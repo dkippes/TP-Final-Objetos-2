@@ -7,7 +7,7 @@ import a.la.caza.de.las.vinchucas.WebApplication;
 import a.la.caza.de.las.vinchucas.exceptions.UserAlreadyVoteException;
 import a.la.caza.de.las.vinchucas.exceptions.UserValidationException;
 import a.la.caza.de.las.vinchucas.opinions.Opinion;
-import a.la.caza.de.las.vinchucas.samples.Location;
+import a.la.caza.de.las.vinchucas.location.Location;
 import a.la.caza.de.las.vinchucas.samples.Photo;
 import a.la.caza.de.las.vinchucas.samples.Sample;
 import a.la.caza.de.las.vinchucas.users.knowledge.Knowledge;

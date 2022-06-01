@@ -9,12 +9,14 @@ import java.util.TreeMap;
 import java.util.stream.Collectors;
 
 import a.la.caza.de.las.vinchucas.exceptions.UserValidationException;
+import a.la.caza.de.las.vinchucas.location.Location;
 import a.la.caza.de.las.vinchucas.opinions.Opinion;
 import a.la.caza.de.las.vinchucas.opinions.OpinionType;
 import a.la.caza.de.las.vinchucas.samples.state.BasicVotedSampleState;
 import a.la.caza.de.las.vinchucas.samples.state.SampleStateImpl;
 import a.la.caza.de.las.vinchucas.samples.verification.level.Vote;
 import a.la.caza.de.las.vinchucas.users.User;
+
 
 public class Sample {
 	private User user;
@@ -67,7 +69,7 @@ public class Sample {
 	}
 
 	public boolean userAlreadyVote(List<Opinion> opinionHistory, User user) {
-		return opinionHistory.stream().anyMatch(u -> u.getUser().getId() == user.getId());
+		return opinionHistory.stream().anyMatch(userOpinion -> userOpinion.getUser().getId() == user.getId());
 	}
 
 	public String getActualResult() {
@@ -98,16 +100,24 @@ public class Sample {
 	}
 
 	private List<String> getOpinionsAsListOfString() {
-		return opinionHistory.stream().map(opinion -> opinion.getOpinionType()).collect(Collectors.toList());
+		return opinionHistory.stream().map(opinion -> opinion.getOpinionTypeString()).collect(Collectors.toList());
 	}
 
 	private String actualResultIfWasVotedByExpert() {
 		return opinionHistory.stream()
 				.filter(opinion -> opinion.getUser().hasExpertKnowledge())
-				.findFirst().get().getOpinionType();
+				.findFirst().get().getOpinionTypeString();
 	}
 
 	private boolean anyExpertUserVote() {
 		return this.opinionHistory.stream().anyMatch(opinion -> opinion.getUser().hasExpertKnowledge());
 	}
+
+	public Location getLocation() {
+		return location;
+	}
+
+	public Photo getPhoto() {
+		return photo;
+	}	
 }

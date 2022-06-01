@@ -21,10 +21,10 @@ import a.la.caza.de.las.vinchucas.users.knowledge.KnowledgeBasic;
 
 public class WebApplicationTest {
 	
-	WebApplication webApplication;
-	User user;
-	Sample sample;
-	Opinion opinion;
+	private WebApplication webApplication;
+	private User user;
+	private Sample sample;
+	private Opinion opinion;
 
 	@BeforeEach
 	void setUp() {
