@@ -29,7 +29,4 @@ public class FilterCreationDate implements IFilter{
 		;
 	}
 
-
-	
-
 }

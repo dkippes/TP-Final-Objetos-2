@@ -39,6 +39,8 @@ class CombinedFiltersTest {
 	
 	private AndFilter andFilter;
 	private OrFilter orFilter;
+	
+	private OperatorEqual operatorEqual;
 
 
 	@BeforeEach
@@ -67,6 +69,10 @@ class CombinedFiltersTest {
 		
 		orFilter= new OrFilter();
 		andFilter = new AndFilter();
+		
+		operatorEqual = new OperatorEqual();
+		dateFilter.setOperator(operatorEqual);
+		lastVotedateFilter.setOperator(operatorEqual);
 		
 	}
 

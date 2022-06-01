@@ -30,6 +30,7 @@ class OrFilterTest {
 	private FilterInsect insectFilter;
 	
 	private OrFilter orFilter;
+	private OperatorEqual operatorEqual;
 
 	@BeforeEach
 	void setUp() throws Exception {
@@ -51,6 +52,9 @@ class OrFilterTest {
 		insectFilter = new FilterInsect(insectSearched);
 		
 		orFilter= new OrFilter();
+		
+		operatorEqual = new OperatorEqual();
+		lastVotedateFilter.setOperator(operatorEqual);
 
 	}
 
