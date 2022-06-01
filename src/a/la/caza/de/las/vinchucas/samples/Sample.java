@@ -17,7 +17,6 @@ import a.la.caza.de.las.vinchucas.samples.state.SampleStateImpl;
 import a.la.caza.de.las.vinchucas.samples.verification.level.Vote;
 import a.la.caza.de.las.vinchucas.users.User;
 
-
 public class Sample {
 	private User user;
 	private Photo photo;
@@ -73,7 +72,7 @@ public class Sample {
 	}
 
 	public String getActualResult() {
-		if(anyExpertUserVote()) {
+		if (anyExpertUserVote()) {
 			return actualResultIfWasVotedByExpert();
 		}
 		Map<String, Integer> mapOpinions = mapOpinionsByOpinionType();
@@ -88,14 +87,13 @@ public class Sample {
 			}
 		}
 		mapOpinions.remove(maxEntry.getKey());
-		return mapOpinions.containsValue(maxEntry.getValue())
-				? OpinionType.getUndefinedOpinion()
-				: maxEntry.getKey();
+		return mapOpinions.containsValue(maxEntry.getValue()) ? OpinionType.getUndefinedOpinion() : maxEntry.getKey();
 	}
 
 	private Map<String, Integer> mapOpinionsByOpinionType() {
 		Map<String, Integer> mapOpinions = new TreeMap<>();
-		getOpinionsAsListOfString().forEach(opinion -> mapOpinions.put(opinion, Collections.frequency(getOpinionsAsListOfString(), opinion)));
+		getOpinionsAsListOfString().forEach(
+				opinion -> mapOpinions.put(opinion, Collections.frequency(getOpinionsAsListOfString(), opinion)));
 		return mapOpinions;
 	}
 
@@ -104,9 +102,8 @@ public class Sample {
 	}
 
 	private String actualResultIfWasVotedByExpert() {
-		return opinionHistory.stream()
-				.filter(opinion -> opinion.getUser().hasExpertKnowledge())
-				.findFirst().get().getOpinionTypeString();
+		return opinionHistory.stream().filter(opinion -> opinion.getUser().hasExpertKnowledge()).findFirst().get()
+				.getOpinionTypeString();
 	}
 
 	private boolean anyExpertUserVote() {
@@ -119,5 +116,5 @@ public class Sample {
 
 	public Photo getPhoto() {
 		return photo;
-	}	
+	}
 }

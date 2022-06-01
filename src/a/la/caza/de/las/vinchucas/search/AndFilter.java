@@ -12,7 +12,7 @@ public class AndFilter implements IFilter {
 		this.filter1 = filter1;
 		this.filter2 = filter2;
 	}
-	
+
 	public List<Sample> searchSamples(List<Sample> allSamples) {
 		List<Sample> filtredSamples = filter1.searchSamples(allSamples);
 		return filter2.searchSamples(filtredSamples);

@@ -2,7 +2,6 @@ package a.la.caza.de.las.vinchucas.search;
 
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import a.la.caza.de.las.vinchucas.samples.Sample;
 

@@ -22,7 +22,7 @@ public class Opinion {
 	public String getOpinionTypeString() {
 		return opinionType.getOpinionType();
 	}
-	
+
 	public OpinionType getOpinionType() {
 		return opinionType;
 	}
@@ -30,7 +30,7 @@ public class Opinion {
 	public User getUser() {
 		return user;
 	}
-	
+
 	private void cloneUser(User user) {
 		try {
 			this.user = user.clone();

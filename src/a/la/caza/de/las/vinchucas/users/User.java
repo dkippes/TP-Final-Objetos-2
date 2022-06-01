@@ -1,17 +1,10 @@
 package a.la.caza.de.las.vinchucas.users;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import a.la.caza.de.las.vinchucas.WebApplication;
-import a.la.caza.de.las.vinchucas.exceptions.UserAlreadyVoteException;
 import a.la.caza.de.las.vinchucas.exceptions.UserValidationException;
 import a.la.caza.de.las.vinchucas.opinions.Opinion;
-import a.la.caza.de.las.vinchucas.location.Location;
-import a.la.caza.de.las.vinchucas.samples.Photo;
 import a.la.caza.de.las.vinchucas.samples.Sample;
 import a.la.caza.de.las.vinchucas.users.knowledge.Knowledge;
-import a.la.caza.de.las.vinchucas.users.knowledge.KnowledgeBasic;
 
 public class User implements Cloneable {
 	private int id;
@@ -73,7 +66,7 @@ public class User implements Cloneable {
 	public Knowledge getKnowledge() {
 		return this.knowledge;
 	}
-	
+
 	public void updateKnowledgeBaseOnCondition() {
 		this.knowledge.checkStatusUser(this);
 	}

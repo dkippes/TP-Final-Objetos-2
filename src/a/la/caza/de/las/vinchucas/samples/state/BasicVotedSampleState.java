@@ -16,7 +16,7 @@ public class BasicVotedSampleState extends SampleStateImpl {
 
 	@Override
 	public void updatedState(Sample sample, Opinion opinion) {
-		if(super.userIsExpert(opinion)) {
+		if (super.userIsExpert(opinion)) {
 			sample.setState(new ExpectVotedSampleState());
 		}
 	}

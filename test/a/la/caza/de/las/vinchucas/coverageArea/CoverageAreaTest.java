@@ -14,44 +14,42 @@ import a.la.caza.de.las.vinchucas.coverage.area.NgoObserver;
 import a.la.caza.de.las.vinchucas.location.Location;
 import a.la.caza.de.las.vinchucas.samples.Sample;
 
-
 public class CoverageAreaTest {
-
 	private CoverageArea coverageArea;
 	private Location epicenter;
-	private NgoObserver ngoObserver;   
+	private NgoObserver ngoObserver;
 	private Sample sample;
-	
+
 	@BeforeEach
 	void setUp() {
-		epicenter= mock(Location.class); 
-		ngoObserver= mock(NgoObserver.class);
-		sample= mock(Sample.class);
+		epicenter = mock(Location.class);
+		ngoObserver = mock(NgoObserver.class);
+		sample = mock(Sample.class);
 		coverageArea = new CoverageArea("Zona1", epicenter, 400);
 	}
-	
+
 	@Test
 	void testCreateCoverageArea() {
 		assertEquals(coverageArea.getName(), "Zona1");
 		assertEquals(coverageArea.getEpicenter(), epicenter);
-	    assertEquals(coverageArea.getRadio(), 400);
-	    assertTrue(coverageArea.getNgoObservers().isEmpty());
-	    assertTrue(coverageArea.getSamples().isEmpty());
+		assertEquals(coverageArea.getRadio(), 400);
+		assertTrue(coverageArea.getNgoObservers().isEmpty());
+		assertTrue(coverageArea.getSamples().isEmpty());
 	}
-	
-	@Test 
+
+	@Test
 	void testAddNgoObserver() {
 		coverageArea.addNgoObserver(ngoObserver);
 		assertFalse(coverageArea.getNgoObservers().isEmpty());
 	}
-	
-	@Test 
+
+	@Test
 	void testDeleteNgoObserver() {
 		coverageArea.addNgoObserver(ngoObserver);
 		coverageArea.removeNgoObserver(ngoObserver);
 		assertTrue(coverageArea.getNgoObservers().isEmpty());
 	}
-	
+
 	@Test
 	void testCantAddNewSampleBecauseTheSampleDoesntBelongsToTheArea() {
 		Location location = mock(Location.class);
@@ -60,7 +58,7 @@ public class CoverageAreaTest {
 		coverageArea.addNewSample(sample);
 		assertTrue(coverageArea.getSamples().isEmpty());
 	}
-	
+
 	@Test
 	void testAddNewSampleWhenCoverageAreaDoesntHaveNgoObsevers() {
 		Location location = mock(Location.class);
@@ -69,7 +67,7 @@ public class CoverageAreaTest {
 		coverageArea.addNewSample(sample);
 		assertFalse(coverageArea.getSamples().isEmpty());
 	}
-	
+
 	@Test
 	void testAddNewSampleWhenCoverageAreaHaveNgoObsevers() {
 		Location location = mock(Location.class);
@@ -80,7 +78,7 @@ public class CoverageAreaTest {
 		assertFalse(coverageArea.getSamples().isEmpty());
 		assertFalse(coverageArea.getNgoObservers().isEmpty());
 	}
-	
+
 	@Test
 	void testNotifyVerifySample() {
 		coverageArea.addNgoObserver(ngoObserver);
@@ -88,4 +86,3 @@ public class CoverageAreaTest {
 		assertFalse(coverageArea.getNgoObservers().isEmpty());
 	}
 }
-	

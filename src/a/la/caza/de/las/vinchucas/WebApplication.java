@@ -42,24 +42,24 @@ public class WebApplication {
 
 	public List<Opinion> getUserOpinions(User user) {
 		return this.getRegisteredSamples().stream()
-				.flatMap(sample -> 
-				sample.getOpinionHistory().stream())
-					.filter(userOpinion -> user.getId() == userOpinion.getUser().getId())
-					.collect(Collectors.toList());
+				.flatMap(sample -> sample.getOpinionHistory().stream())
+				.filter(userOpinion -> user.getId() == userOpinion.getUser().getId())
+				.collect(Collectors.toList());
 	}
 
 	public List<Sample> getUserSamples(User user) {
 		return this.getRegisteredSamples().stream()
-				.filter(sampleByUser -> user.equals(sampleByUser.getUser())).collect(Collectors.toList());
+				.filter(sampleByUser -> user.equals(sampleByUser.getUser()))
+				.collect(Collectors.toList());
 	}
-	
+
 	public long manyOpinionMadeByUserBeforeAnyDays(User user, int daysBefore) {
 		LocalDate dateBefore = LocalDate.now().minusDays(daysBefore);
 		return getUserOpinions(user).stream()
 				.filter(u -> dateBefore.isBefore(u.getDateOfIssue()))
 				.count();
 	}
-	
+
 	public long manySamplesSendByUserBeforeAnyDays(User user, int daysBefore) {
 		LocalDate dateBefore = LocalDate.now().minusDays(daysBefore);
 		return getUserSamples(user).stream()
@@ -70,10 +70,10 @@ public class WebApplication {
 	public Set<CoverageArea> getRegistredCoverageAreas() {
 		return registredCoverageAreas;
 	}
-	
+
 	public WebApplication registerCoverageArea(CoverageArea coverageArea) {
 		registredCoverageAreas.add(coverageArea);
 		return this;
 	}
-	
+
 }

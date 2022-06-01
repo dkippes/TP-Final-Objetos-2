@@ -12,8 +12,7 @@ public class Ngo implements NgoObserver {
 	private int workingPeople;
 	private ExternalFunctionality uploadSampleFunctionality;
 	private ExternalFunctionality validateSampleFunctionality;
-	
-	
+
 	public Ngo(Location location, NgoType ngoType, int workingPeople) {
 		this.location = location;
 		this.ngoType = ngoType;
@@ -35,7 +34,7 @@ public class Ngo implements NgoObserver {
 	public String getNgoTypeString() {
 		return ngoType.getNgoType();
 	}
-	
+
 	public void setUploadSampleFunctionality(ExternalFunctionality uploadSampleFunctionality) {
 		this.uploadSampleFunctionality = uploadSampleFunctionality;
 	}
@@ -43,11 +42,11 @@ public class Ngo implements NgoObserver {
 	public void setValidateSampleFunctionality(ExternalFunctionality validateSampleFunctionality) {
 		this.validateSampleFunctionality = validateSampleFunctionality;
 	}
-	
+
 	public void uploadNewSample(CoverageArea coverageArea, Sample sample) {
 		uploadSampleFunctionality.newEvent(this, coverageArea, sample);
 	}
-	
+
 	public void validateSample(CoverageArea coverageArea, Sample sample) {
 		validateSampleFunctionality.newEvent(this, coverageArea, sample);
 	}

@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 import java.time.LocalDate;
 
@@ -17,8 +16,8 @@ import a.la.caza.de.las.vinchucas.users.User;
 import a.la.caza.de.las.vinchucas.users.knowledge.KnowledgeBasic;
 
 public class OpinionTest {
-
-	private Opinion nothing, imageUnclear, vinchucaInfestans, vinchucaSordida, vinchucaGuasayana, chinchePhtia, chincheFoliada;
+	private Opinion nothing, imageUnclear, vinchucaInfestans, vinchucaSordida, vinchucaGuasayana, chinchePhtia,
+			chincheFoliada;
 	private User user;
 	private WebApplication webApplication;
 
@@ -50,12 +49,13 @@ public class OpinionTest {
 				() -> assertEquals(chincheFoliada.getOpinionTypeString(), "Chinche Foliada"),
 				() -> assertEquals(OpinionType.getUndefinedOpinion(), "UNDEFINED"));
 	}
-	
+
 	@Test
 	@Disabled
 	void testUserCanNotBeClone() throws CloneNotSupportedException {
 		Object stringUser = new Object();
-		//when(user.clone()).thenThrow(CloneNotSupportedException.class);
-		assertThrows(CloneNotSupportedException.class, () -> new Opinion(OpinionType.CHINCHE_FOLIADA, (User) stringUser));
+		// when(user.clone()).thenThrow(CloneNotSupportedException.class);
+		assertThrows(CloneNotSupportedException.class,
+				() -> new Opinion(OpinionType.CHINCHE_FOLIADA, (User) stringUser));
 	}
 }

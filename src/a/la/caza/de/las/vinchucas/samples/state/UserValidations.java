@@ -7,7 +7,10 @@ import a.la.caza.de.las.vinchucas.samples.Sample;
 
 public interface UserValidations {
 	public void checkIfUserAlreadyVote(Sample sample, Opinion opinion) throws UserAlreadyVoteException;
+
 	public void checkIfUserIsExpert(Opinion opinion) throws UserIsNotExpertException;
+
 	public boolean userAlreadyVote(Sample sample, Opinion opinion);
+
 	public boolean userIsExpert(Opinion opinion);
 }

@@ -7,23 +7,21 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class PhotoTest {
-	
-	private Photo photoJPG, photoJPEG,photoPNG;
-	
-	@BeforeEach 
+
+	private Photo photoJPG, photoJPEG, photoPNG;
+
+	@BeforeEach
 	void setUp() {
-		photoJPEG = new Photo("Bla", PhotoType.JPEG); 
-		photoJPG  = new Photo("Bla", PhotoType.JPG);
-		photoPNG  = new Photo("Bla", PhotoType.PNG); 
+		photoJPEG = new Photo("Bla", PhotoType.JPEG);
+		photoJPG = new Photo("Bla", PhotoType.JPG);
+		photoPNG = new Photo("Bla", PhotoType.PNG);
 	}
-	
+
 	@Test
-	void testCreationPhotoJPEG(){
-		assertAll(
-				()-> assertEquals(photoJPEG.getName(), "Bla"),
-				()-> assertEquals(photoJPG.getPhotoType(), "jpg"),
-				()-> assertEquals(photoPNG.getPhotoType(), "png"),
-				()-> assertEquals(photoJPEG.getPhotoType(), "jpeg")
-				);
+	void testCreationPhotoJPEG() {
+		assertAll(() -> assertEquals(photoJPEG.getName(), "Bla"), 
+				() -> assertEquals(photoJPG.getPhotoType(), "jpg"),
+				() -> assertEquals(photoPNG.getPhotoType(), "png"),
+				() -> assertEquals(photoJPEG.getPhotoType(), "jpeg"));
 	}
 }
