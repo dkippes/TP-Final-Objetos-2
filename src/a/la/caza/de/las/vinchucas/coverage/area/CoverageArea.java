@@ -55,7 +55,7 @@ public class CoverageArea {
 		ngoObservers.add(ngoObserver);
 	}
 	
-	public void deleteNgoObserver(NgoObserver ngoObserver) {
+	public void removeNgoObserver(NgoObserver ngoObserver) {
 		ngoObservers.remove(ngoObserver);
 	}
 	
@@ -72,7 +72,6 @@ public class CoverageArea {
 	
 	private void notifyVerifySample(Sample sample) {
 		ngoObservers.forEach(observer ->  observer.validateSample(this, sample));
-		
 	}
 
 	private void notifyNewSampleAdd(Sample sample) {
