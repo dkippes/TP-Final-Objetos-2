@@ -1,5 +1,6 @@
 package a.la.caza.de.las.vinchucas;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
@@ -11,6 +12,7 @@ import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import a.la.caza.de.las.vinchucas.coverage.area.CoverageArea;
 import a.la.caza.de.las.vinchucas.opinions.Opinion;
 import a.la.caza.de.las.vinchucas.samples.Sample;
 import a.la.caza.de.las.vinchucas.users.User;
@@ -84,5 +86,17 @@ public class WebApplicationTest {
 		webApplication.registerSample(sample);
 		webApplication.registerUser(user);
 		assertEquals(webApplication.manySamplesSendByUserBeforeAnyDays(user, 30), 1);
+	}
+	
+	@Test
+	void testGetRegisteredCoverageAreasDoesntHaveCoveragesAreas() {
+		assertTrue(webApplication.getRegistredCoverageAreas().isEmpty());
+	}
+	
+	@Test
+	void testRegisterACoverageArea() {
+		CoverageArea coverageArea = mock(CoverageArea.class);
+		webApplication.registerCoverageArea(coverageArea);
+		assertFalse(webApplication.getRegistredCoverageAreas().isEmpty());
 	}
 }

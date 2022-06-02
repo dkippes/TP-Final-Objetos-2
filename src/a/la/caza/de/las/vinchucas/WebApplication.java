@@ -75,5 +75,4 @@ public class WebApplication {
 		registredCoverageAreas.add(coverageArea);
 		return this;
 	}
-
 }

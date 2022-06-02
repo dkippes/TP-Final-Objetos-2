@@ -85,4 +85,14 @@ public class CoverageAreaTest {
 		coverageArea.addVerifySample(sample);
 		assertFalse(coverageArea.getNgoObservers().isEmpty());
 	}
+	
+	@Test
+	void testOverlappingAreas() {
+		assertEquals(coverageArea.overlappingAreas(), null);
+	}
+	
+	@Test
+	void testSamplesInCoverageArea() {
+		assertEquals(coverageArea.samplesInCoverageArea(), null);
+	}
 }

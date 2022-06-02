@@ -68,7 +68,8 @@ public class Sample {
 	}
 
 	public boolean userAlreadyVote(List<Opinion> opinionHistory, User user) {
-		return opinionHistory.stream().anyMatch(userOpinion -> userOpinion.getUser().getId() == user.getId());
+		return opinionHistory.stream()
+				.anyMatch(userOpinion -> userOpinion.getUser().getId() == user.getId());
 	}
 
 	public String getActualResult() {
@@ -87,7 +88,9 @@ public class Sample {
 			}
 		}
 		mapOpinions.remove(maxEntry.getKey());
-		return mapOpinions.containsValue(maxEntry.getValue()) ? OpinionType.getUndefinedOpinion() : maxEntry.getKey();
+		return mapOpinions.containsValue(maxEntry.getValue()) 
+				? OpinionType.getUndefinedOpinion() 
+				: maxEntry.getKey();
 	}
 
 	private Map<String, Integer> mapOpinionsByOpinionType() {
@@ -98,16 +101,20 @@ public class Sample {
 	}
 
 	private List<String> getOpinionsAsListOfString() {
-		return opinionHistory.stream().map(opinion -> opinion.getOpinionTypeString()).collect(Collectors.toList());
+		return opinionHistory.stream()
+				.map(opinion -> opinion.getOpinionTypeString()).collect(Collectors.toList());
 	}
 
 	private String actualResultIfWasVotedByExpert() {
-		return opinionHistory.stream().filter(opinion -> opinion.getUser().hasExpertKnowledge()).findFirst().get()
+		return opinionHistory.stream()
+				.filter(opinion -> opinion.getUser().hasExpertKnowledge()).findFirst().get()
 				.getOpinionTypeString();
 	}
 
 	private boolean anyExpertUserVote() {
-		return this.opinionHistory.stream().anyMatch(opinion -> opinion.getUser().hasExpertKnowledge());
+		return this.opinionHistory.stream()
+				.anyMatch(opinion -> opinion.getUser()
+				.hasExpertKnowledge());
 	}
 
 	public Location getLocation() {

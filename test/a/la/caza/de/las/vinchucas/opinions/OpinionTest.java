@@ -2,13 +2,11 @@ package a.la.caza.de.las.vinchucas.opinions;
 
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.mock;
 
 import java.time.LocalDate;
 
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import a.la.caza.de.las.vinchucas.WebApplication;
@@ -22,7 +20,7 @@ public class OpinionTest {
 	private WebApplication webApplication;
 
 	@BeforeEach
-	void setUp() {
+	void setUp() throws CloneNotSupportedException {
 		webApplication = mock(WebApplication.class);
 		user = new User("Diego", new KnowledgeBasic(), webApplication);
 		nothing = new Opinion(OpinionType.NOTHING, user);
@@ -48,14 +46,5 @@ public class OpinionTest {
 				() -> assertEquals(chinchePhtia.getOpinionTypeString(), "Chinche Phtia"),
 				() -> assertEquals(chincheFoliada.getOpinionTypeString(), "Chinche Foliada"),
 				() -> assertEquals(OpinionType.getUndefinedOpinion(), "UNDEFINED"));
-	}
-
-	@Test
-	@Disabled
-	void testUserCanNotBeClone() throws CloneNotSupportedException {
-		Object stringUser = new Object();
-		// when(user.clone()).thenThrow(CloneNotSupportedException.class);
-		assertThrows(CloneNotSupportedException.class,
-				() -> new Opinion(OpinionType.CHINCHE_FOLIADA, (User) stringUser));
 	}
 }
