@@ -24,7 +24,8 @@ public abstract class SampleStateImpl implements ISampleState, UserValidations {
 
 	@Override
 	public boolean userAlreadyVote(Sample sample, Opinion opinion) {
-		return sample.userAlreadyVote(sample.getOpinionHistory(), opinion.getUser());
+		// TODO
+		return sample.userAlreadyVote(opinion.getUser());
 	}
 
 	@Override

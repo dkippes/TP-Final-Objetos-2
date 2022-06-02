@@ -67,7 +67,7 @@ public class Sample {
 		return user;
 	}
 
-	public boolean userAlreadyVote(List<Opinion> opinionHistory, User user) {
+	public boolean userAlreadyVote(User user) {
 		return opinionHistory.stream()
 				.anyMatch(userOpinion -> userOpinion.getUser().getId() == user.getId());
 	}

@@ -84,14 +84,14 @@ public class SamplesTest {
 		when(newUser.getId()).thenReturn(1);
 		when(user.getId()).thenReturn(2);
 		when(opinion.getUser()).thenReturn(newUser);
-		assertFalse(sample.userAlreadyVote(List.of(opinion), user));
+		assertFalse(sample.userAlreadyVote(user));
 	}
 
 	@Test
 	void testUserAlreadyVote() throws Exception {
 		when(user.getId()).thenReturn(1);
 		when(opinion.getUser()).thenReturn(user);
-		assertTrue(sample.userAlreadyVote(List.of(opinion), user));
+		assertTrue(sample.userAlreadyVote(user));
 	}
 
 	@Test
