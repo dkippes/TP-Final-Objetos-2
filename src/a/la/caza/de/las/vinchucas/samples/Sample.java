@@ -13,7 +13,7 @@ import a.la.caza.de.las.vinchucas.location.Location;
 import a.la.caza.de.las.vinchucas.opinions.Opinion;
 import a.la.caza.de.las.vinchucas.opinions.OpinionType;
 import a.la.caza.de.las.vinchucas.samples.state.BasicVotedSampleState;
-import a.la.caza.de.las.vinchucas.samples.state.SampleStateImpl;
+import a.la.caza.de.las.vinchucas.samples.state.ISampleState;
 import a.la.caza.de.las.vinchucas.samples.verification.level.Vote;
 import a.la.caza.de.las.vinchucas.users.User;
 
@@ -23,7 +23,7 @@ public class Sample {
 	private Location location;
 	private List<Opinion> opinionHistory;
 	private LocalDate creationDate;
-	private SampleStateImpl state;
+	private ISampleState state;
 
 	public Sample(Location location, Photo photo, Opinion opinion) throws UserValidationException {
 		this.location = location;
@@ -59,7 +59,7 @@ public class Sample {
 		return this.state.getLevelVerification(this);
 	}
 
-	public void setState(SampleStateImpl state) {
+	public void setState(ISampleState state) {
 		this.state = state;
 	}
 

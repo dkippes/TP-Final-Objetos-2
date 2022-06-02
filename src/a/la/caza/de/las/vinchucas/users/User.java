@@ -4,16 +4,16 @@ import a.la.caza.de.las.vinchucas.WebApplication;
 import a.la.caza.de.las.vinchucas.exceptions.UserValidationException;
 import a.la.caza.de.las.vinchucas.opinions.Opinion;
 import a.la.caza.de.las.vinchucas.samples.Sample;
-import a.la.caza.de.las.vinchucas.users.knowledge.Knowledge;
+import a.la.caza.de.las.vinchucas.users.knowledge.IKnowledgeState;
 
 public class User implements Cloneable {
 	private int id;
 	private String name;
-	private Knowledge knowledge;
+	private IKnowledgeState knowledge;
 	private static int counter;
 	private WebApplication webApplication;
 
-	public User(String name, Knowledge knowledge, WebApplication webApplication) {
+	public User(String name, IKnowledgeState knowledge, WebApplication webApplication) {
 		this.id = counter++;
 		this.name = name;
 		this.knowledge = knowledge;
@@ -31,10 +31,6 @@ public class User implements Cloneable {
 
 	public WebApplication getWebApplication() {
 		return webApplication;
-	}
-
-	public void setWebApplication(WebApplication webApplication) {
-		this.webApplication = webApplication;
 	}
 
 	public void sendSample(Sample sample) {
@@ -55,7 +51,7 @@ public class User implements Cloneable {
 		return this.knowledge.isUserExpert();
 	}
 
-	public void setKnowledge(Knowledge knowledge) {
+	public void setKnowledge(IKnowledgeState knowledge) {
 		this.knowledge = knowledge;
 	}
 
@@ -63,7 +59,7 @@ public class User implements Cloneable {
 		return (User) super.clone();
 	}
 
-	public Knowledge getKnowledge() {
+	public IKnowledgeState getKnowledge() {
 		return this.knowledge;
 	}
 

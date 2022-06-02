@@ -114,13 +114,6 @@ public class UserTest {
 	}
 
 	@Test
-	void testUserSetANewWebApplication() throws UserValidationException {
-		WebApplication newWebApp = mock(WebApplication.class);
-		user.setWebApplication(newWebApp);
-		assertEquals(newWebApp, user.getWebApplication());
-	}
-
-	@Test
 	void testUserCanBeCloneSoItDoesntChangeHerKnowledgeInTheOpinion() throws CloneNotSupportedException {
 		User userCloned = user.clone();
 		assertEquals(userCloned.getId(), user.getId());
@@ -129,6 +122,7 @@ public class UserTest {
 	@Test
 	void testUserExpertDowngradeToBasicBecauseHeDoesntHaveManyReviews() throws UserValidationException {
 		user.setKnowledge(new KnowledgeExpert());
+		user = new User("Diego", new KnowledgeExpert(), webApplication);
 		when(webApplication.manySamplesSendByUserBeforeAnyDays(user, 30)).thenReturn(20L);
 		when(webApplication.manyOpinionMadeByUserBeforeAnyDays(user, 30)).thenReturn(5L);
 		user.opineSample(sample, opinion);
