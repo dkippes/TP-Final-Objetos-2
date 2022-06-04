@@ -8,6 +8,11 @@ import a.la.caza.de.las.vinchucas.location.Location;
 import a.la.caza.de.las.vinchucas.samples.Sample;
 
 public class CoverageArea {
+/**
+ * Clase CoverageArea
+ * 
+ * Describe la información de cada area de cobertura.	
+ */
 	private String name;
 	private Location epicenter;
 	private float radio;

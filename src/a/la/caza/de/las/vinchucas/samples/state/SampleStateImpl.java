@@ -5,6 +5,12 @@ import a.la.caza.de.las.vinchucas.exceptions.UserIsNotExpertException;
 import a.la.caza.de.las.vinchucas.opinions.Opinion;
 import a.la.caza.de.las.vinchucas.samples.Sample;
 
+/*
+ * Clase Abstracta SampleStateImpl 
+ * 
+ * Esta clase abstacta describe el estado de cada muestra.
+ */
+
 public abstract class SampleStateImpl implements ISampleState, UserValidations {
 
 	@Override

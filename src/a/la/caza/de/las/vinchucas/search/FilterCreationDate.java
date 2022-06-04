@@ -6,6 +6,13 @@ import java.util.stream.Collectors;
 
 import a.la.caza.de.las.vinchucas.samples.Sample;
 
+/*
+ * Clase FilterCreationDate
+ * 
+ * Esta clase se encarga de filtrar cada muestra por una fecha determinada.
+ * 
+ */
+
 public class FilterCreationDate implements IFilter {
 	private LocalDate dateSearched;
 	private IOperator operator;

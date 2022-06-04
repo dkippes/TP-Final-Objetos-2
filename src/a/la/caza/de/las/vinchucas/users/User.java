@@ -6,7 +6,14 @@ import a.la.caza.de.las.vinchucas.opinions.Opinion;
 import a.la.caza.de.las.vinchucas.samples.Sample;
 import a.la.caza.de.las.vinchucas.users.knowledge.IKnowledgeState;
 
+/**
+ * Clase User
+ * 
+ * Describe la información de cada usuario. 
+ *
+ */
 public class User implements Cloneable {
+	//Atributos
 	private int id;
 	private String name;
 	private IKnowledgeState knowledge;

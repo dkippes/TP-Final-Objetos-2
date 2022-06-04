@@ -7,6 +7,12 @@ import a.la.caza.de.las.vinchucas.location.Location;
 import a.la.caza.de.las.vinchucas.samples.Sample;
 
 public class Organization implements OrganizationObserver {
+/*
+ * Clase Organization.
+ * 
+ * Describe la infromación de cada organización no gubernamental.
+ *
+ */
 	private Location location;
 	private OrganizationType organizationType;
 	private int workingPeople;

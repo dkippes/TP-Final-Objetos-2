@@ -11,6 +11,13 @@ import a.la.caza.de.las.vinchucas.opinions.Opinion;
 import a.la.caza.de.las.vinchucas.samples.Sample;
 import a.la.caza.de.las.vinchucas.users.User;
 
+/**
+ * Clase WebApplication 
+ * 
+ * Esta clase describe la información de cada página web.
+ *
+ */
+
 public class WebApplication {
 	private Set<User> registeredUsers;
 	private Set<Sample> registeredSamples;

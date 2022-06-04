@@ -1,8 +1,14 @@
 package a.la.caza.de.las.vinchucas.search;
 
 import java.util.List;
-
 import a.la.caza.de.las.vinchucas.samples.Sample;
+
+/**
+ * Clase OrFilter
+ * 
+ * Es un filtro de disyunción.
+ */
+
 
 public class OrFilter implements IFilter {
 	private IFilter filter1;

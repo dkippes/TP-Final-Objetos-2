@@ -4,6 +4,11 @@ import java.util.List;
 
 import a.la.caza.de.las.vinchucas.samples.Sample;
 
+/**
+ * Clase AndFilter
+ * 
+ * Es un filtro de conjunción.
+ */
 public class AndFilter implements IFilter {
 	private IFilter filter1;
 	private IFilter filter2;

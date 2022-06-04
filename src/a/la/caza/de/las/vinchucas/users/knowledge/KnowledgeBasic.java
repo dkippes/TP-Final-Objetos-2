@@ -3,6 +3,13 @@ package a.la.caza.de.las.vinchucas.users.knowledge;
 import a.la.caza.de.las.vinchucas.WebApplication;
 import a.la.caza.de.las.vinchucas.users.User;
 
+/**
+ * Clase KnowledgeBasice
+ * 
+ * Esta clase describe el conocimiento básico de cada usuario.
+ *
+ */
+
 public class KnowledgeBasic extends Knowledge {
 
 	@Override

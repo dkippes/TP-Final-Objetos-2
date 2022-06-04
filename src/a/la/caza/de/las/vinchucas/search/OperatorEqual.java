@@ -2,6 +2,13 @@ package a.la.caza.de.las.vinchucas.search;
 
 import java.time.LocalDate;
 
+/**
+ * 
+ * Clase OperatorEqual  
+ *
+ * Esta clase es un operador de igualdad.
+ */
+
 public class OperatorEqual implements IOperator {
 
 	@Override

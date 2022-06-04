@@ -4,6 +4,13 @@ import java.time.LocalDate;
 
 import a.la.caza.de.las.vinchucas.users.User;
 
+/**
+ * Clase Opinion 
+ * 
+ * Describe la información de cada opinión.
+ *
+ */
+
 public class Opinion {
 	private User user;
 	private OpinionType opinionType;

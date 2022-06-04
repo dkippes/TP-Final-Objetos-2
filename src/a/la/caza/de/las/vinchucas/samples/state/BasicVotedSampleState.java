@@ -5,6 +5,13 @@ import a.la.caza.de.las.vinchucas.opinions.Opinion;
 import a.la.caza.de.las.vinchucas.samples.Sample;
 import a.la.caza.de.las.vinchucas.samples.verification.level.Vote;
 
+/*
+ * Clase BasicVotedSampleState 
+ * 
+ * Describe el estado básico de cada muestra.
+ * 
+ */
+
 public class BasicVotedSampleState extends SampleStateImpl {
 
 	@Override
