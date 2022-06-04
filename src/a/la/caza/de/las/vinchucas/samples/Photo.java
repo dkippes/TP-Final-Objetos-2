@@ -13,7 +13,7 @@ public class Photo {
 		return name;
 	}
 
-	public String getPhotoType() {
-		return photoType.getPhotoType();
+	public PhotoType getPhotoType() {
+		return photoType;
 	}
 }

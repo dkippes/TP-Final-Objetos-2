@@ -10,20 +10,20 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import a.la.caza.de.las.vinchucas.coverage.area.CoverageArea;
-import a.la.caza.de.las.vinchucas.coverage.area.NgoObserver;
+import a.la.caza.de.las.vinchucas.coverage.area.OrganizationObserver;
 import a.la.caza.de.las.vinchucas.location.Location;
 import a.la.caza.de.las.vinchucas.samples.Sample;
 
 public class CoverageAreaTest {
 	private CoverageArea coverageArea;
 	private Location epicenter;
-	private NgoObserver ngoObserver;
+	private OrganizationObserver organizationObserver;
 	private Sample sample;
 
 	@BeforeEach
 	void setUp() {
 		epicenter = mock(Location.class);
-		ngoObserver = mock(NgoObserver.class);
+		organizationObserver = mock(OrganizationObserver.class);
 		sample = mock(Sample.class);
 		coverageArea = new CoverageArea("Zona1", epicenter, 400);
 	}
@@ -33,21 +33,21 @@ public class CoverageAreaTest {
 		assertEquals(coverageArea.getName(), "Zona1");
 		assertEquals(coverageArea.getEpicenter(), epicenter);
 		assertEquals(coverageArea.getRadio(), 400);
-		assertTrue(coverageArea.getNgoObservers().isEmpty());
+		assertTrue(coverageArea.getOrganizationObservers().isEmpty());
 		assertTrue(coverageArea.getSamples().isEmpty());
 	}
 
 	@Test
-	void testAddNgoObserver() {
-		coverageArea.addNgoObserver(ngoObserver);
-		assertFalse(coverageArea.getNgoObservers().isEmpty());
+	void testAddOrganizationObserver() {
+		coverageArea.addOrganizationObserver(organizationObserver);
+		assertFalse(coverageArea.getOrganizationObservers().isEmpty());
 	}
 
 	@Test
-	void testDeleteNgoObserver() {
-		coverageArea.addNgoObserver(ngoObserver);
-		coverageArea.removeNgoObserver(ngoObserver);
-		assertTrue(coverageArea.getNgoObservers().isEmpty());
+	void testDeleteOrganizationObserver() {
+		coverageArea.addOrganizationObserver(organizationObserver);
+		coverageArea.removeOrganizationObserver(organizationObserver);
+		assertTrue(coverageArea.getOrganizationObservers().isEmpty());
 	}
 
 	@Test
@@ -60,7 +60,7 @@ public class CoverageAreaTest {
 	}
 
 	@Test
-	void testAddNewSampleWhenCoverageAreaDoesntHaveNgoObsevers() {
+	void testAddNewSampleWhenCoverageAreaDoesntHaveOrganizationObsevers() {
 		Location location = mock(Location.class);
 		when(sample.getLocation()).thenReturn(location);
 		when(epicenter.distanceBetweenTwoLocations(sample.getLocation())).thenReturn(300d);
@@ -69,21 +69,21 @@ public class CoverageAreaTest {
 	}
 
 	@Test
-	void testAddNewSampleWhenCoverageAreaHaveNgoObsevers() {
+	void testAddNewSampleWhenCoverageAreaHaveOrganizationObsevers() {
 		Location location = mock(Location.class);
 		when(sample.getLocation()).thenReturn(location);
 		when(epicenter.distanceBetweenTwoLocations(sample.getLocation())).thenReturn(300d);
-		coverageArea.addNgoObserver(ngoObserver);
+		coverageArea.addOrganizationObserver(organizationObserver);
 		coverageArea.addNewSample(sample);
 		assertFalse(coverageArea.getSamples().isEmpty());
-		assertFalse(coverageArea.getNgoObservers().isEmpty());
+		assertFalse(coverageArea.getOrganizationObservers().isEmpty());
 	}
 
 	@Test
 	void testNotifyVerifySample() {
-		coverageArea.addNgoObserver(ngoObserver);
+		coverageArea.addOrganizationObserver(organizationObserver);
 		coverageArea.addVerifySample(sample);
-		assertFalse(coverageArea.getNgoObservers().isEmpty());
+		assertFalse(coverageArea.getOrganizationObservers().isEmpty());
 	}
 	
 	@Test

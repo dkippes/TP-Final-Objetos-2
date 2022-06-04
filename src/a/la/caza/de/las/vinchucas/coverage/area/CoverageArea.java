@@ -11,14 +11,14 @@ public class CoverageArea {
 	private String name;
 	private Location epicenter;
 	private float radio;
-	private Set<NgoObserver> ngoObservers;
+	private Set<OrganizationObserver> organizationObservers;
 	private Set<Sample> samples;
 
 	public CoverageArea(String name, Location epicenter, float radio) {
 		this.name = name;
 		this.epicenter = epicenter;
 		this.radio = radio;
-		this.ngoObservers = new HashSet<>();
+		this.organizationObservers = new HashSet<>();
 		this.samples = new HashSet<>();
 	}
 
@@ -26,8 +26,8 @@ public class CoverageArea {
 		return name;
 	}
 
-	public Set<NgoObserver> getNgoObservers() {
-		return ngoObservers;
+	public Set<OrganizationObserver> getOrganizationObservers() {
+		return organizationObservers;
 	}
 
 	public Set<Sample> getSamples() {
@@ -50,12 +50,12 @@ public class CoverageArea {
 		return null;
 	}
 
-	public void addNgoObserver(NgoObserver ngoObserver) {
-		ngoObservers.add(ngoObserver);
+	public void addOrganizationObserver(OrganizationObserver organizationObserver) {
+		organizationObservers.add(organizationObserver);
 	}
 
-	public void removeNgoObserver(NgoObserver ngoObserver) {
-		ngoObservers.remove(ngoObserver);
+	public void removeOrganizationObserver(OrganizationObserver organizationObserver) {
+		organizationObservers.remove(organizationObserver);
 	}
 
 	public void addNewSample(Sample sample) {
@@ -70,11 +70,11 @@ public class CoverageArea {
 	}
 
 	private void notifyVerifySample(Sample sample) {
-		ngoObservers.forEach(observer -> observer.validateSample(this, sample));
+		organizationObservers.forEach(observer -> observer.validateSample(this, sample));
 	}
 
 	private void notifyNewSampleAdd(Sample sample) {
-		ngoObservers.forEach(observer -> observer.uploadNewSample(this, sample));
+		organizationObservers.forEach(observer -> observer.uploadNewSample(this, sample));
 	}
 
 	private boolean belongsToCoverageArea(Sample sample) {

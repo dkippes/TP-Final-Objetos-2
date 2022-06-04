@@ -1,21 +1,21 @@
-package a.la.caza.de.las.vinchucas.location.ngo;
+package a.la.caza.de.las.vinchucas.location.organization;
 
 import a.la.caza.de.las.vinchucas.coverage.area.CoverageArea;
-import a.la.caza.de.las.vinchucas.coverage.area.NgoObserver;
+import a.la.caza.de.las.vinchucas.coverage.area.OrganizationObserver;
 import a.la.caza.de.las.vinchucas.coverage.area.functionality.ExternalFunctionality;
 import a.la.caza.de.las.vinchucas.location.Location;
 import a.la.caza.de.las.vinchucas.samples.Sample;
 
-public class Ngo implements NgoObserver {
+public class Organization implements OrganizationObserver {
 	private Location location;
-	private NgoType ngoType;
+	private OrganizationType organizationType;
 	private int workingPeople;
 	private ExternalFunctionality uploadSampleFunctionality;
 	private ExternalFunctionality validateSampleFunctionality;
 
-	public Ngo(Location location, NgoType ngoType, int workingPeople) {
+	public Organization(Location location, OrganizationType organizationType, int workingPeople) {
 		this.location = location;
-		this.ngoType = ngoType;
+		this.organizationType = organizationType;
 		this.workingPeople = workingPeople;
 	}
 
@@ -23,16 +23,12 @@ public class Ngo implements NgoObserver {
 		return location;
 	}
 
-	public NgoType getNgoType() {
-		return ngoType;
+	public OrganizationType getOrganizationType() {
+		return organizationType;
 	}
 
 	public int getWorkingPeople() {
 		return workingPeople;
-	}
-
-	public String getNgoTypeString() {
-		return ngoType.getNgoType();
 	}
 
 	public void setUploadSampleFunctionality(ExternalFunctionality uploadSampleFunctionality) {

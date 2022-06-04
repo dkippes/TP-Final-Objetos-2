@@ -20,8 +20,8 @@ public class PhotoTest {
 	@Test
 	void testCreationPhotoJPEG() {
 		assertAll(() -> assertEquals(photoJPEG.getName(), "Bla"), 
-				() -> assertEquals(photoJPG.getPhotoType(), "jpg"),
-				() -> assertEquals(photoPNG.getPhotoType(), "png"),
-				() -> assertEquals(photoJPEG.getPhotoType(), "jpeg"));
+				() -> assertEquals(photoJPG.getPhotoType(), PhotoType.JPG),
+				() -> assertEquals(photoPNG.getPhotoType(), PhotoType.PNG),
+				() -> assertEquals(photoJPEG.getPhotoType(), PhotoType.JPEG));
 	}
 }
