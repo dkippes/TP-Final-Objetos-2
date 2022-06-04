@@ -59,7 +59,7 @@ public class Sample {
 	}
 
 	public Vote getLevelVerification() {
-		return this.state.getLevelVerification(this);
+		return this.state.getLevelVerification();
 	}
 
 	public void setState(ISampleState state) {

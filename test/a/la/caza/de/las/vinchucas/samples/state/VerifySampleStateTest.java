@@ -18,6 +18,6 @@ public class VerifySampleStateTest {
 	@Test
 	void testCreateALocation() {
 		verifySampleState.updatedState(null, null);
-		assertEquals(Vote.VERIFIED, verifySampleState.getLevelVerification(null));
+		assertEquals(Vote.VERIFIED, verifySampleState.getLevelVerification());
 	}
 }

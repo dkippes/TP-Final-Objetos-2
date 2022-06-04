@@ -75,7 +75,7 @@ public class SamplesTest {
 		BasicVotedSampleState basicState = mock(BasicVotedSampleState.class);
 		sample.setState(basicState);
 		sample.getLevelVerification();
-		verify(basicState, times(1)).getLevelVerification(sample);
+		verify(basicState, times(1)).getLevelVerification();
 	}
 
 	@Test

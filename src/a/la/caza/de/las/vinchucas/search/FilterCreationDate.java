@@ -9,13 +9,13 @@ import a.la.caza.de.las.vinchucas.samples.Sample;
 public class FilterCreationDate implements IFilter {
 	private LocalDate dateSearched;
 	private IOperator operator;
+	
+	public FilterCreationDate(LocalDate date) {
+		this.dateSearched = date;
+	}
 
 	public void setOperator(IOperator operator) {
 		this.operator = operator;
-	}
-
-	public FilterCreationDate(LocalDate date) {
-		this.dateSearched = date;
 	}
 
 	public List<Sample> searchSamples(List<Sample> samples) {

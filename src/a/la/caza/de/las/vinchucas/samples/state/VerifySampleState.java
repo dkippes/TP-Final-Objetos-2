@@ -15,7 +15,7 @@ public class VerifySampleState extends SampleStateImpl {
 	}
 
 	@Override
-	public Vote getLevelVerification(Sample sample) {
+	public Vote getLevelVerification() {
 		return Vote.VERIFIED;
 	}
 }

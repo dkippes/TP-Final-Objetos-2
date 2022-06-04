@@ -10,5 +10,5 @@ public interface ISampleState {
 
 	public void updatedState(Sample sample, Opinion opinion);
 
-	public Vote getLevelVerification(Sample sample);
+	public Vote getLevelVerification();
 }

@@ -21,7 +21,7 @@ public class ExpectVotedSampleState extends SampleStateImpl {
 	}
 
 	@Override
-	public Vote getLevelVerification(Sample sample) {
+	public Vote getLevelVerification() {
 		return Vote.VOTED;
 	}
 }
