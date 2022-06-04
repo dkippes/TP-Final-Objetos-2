@@ -18,6 +18,7 @@ public class OpinionTest {
 			chincheFoliada;
 	private User user;
 	private WebApplication webApplication;
+	GenericOpinionType undefined;
 
 	@BeforeEach
 	void setUp() throws CloneNotSupportedException {
@@ -30,6 +31,7 @@ public class OpinionTest {
 		vinchucaGuasayana = new Opinion(OpinionType.VINCHUCA_GUASAYANA, user);
 		chinchePhtia = new Opinion(OpinionType.CHINCHE_PHTIA, user);
 		chincheFoliada = new Opinion(OpinionType.CHINCHE_FOLIADA, user);
+		undefined = UndefinedOpinion.UNDEFINED;
 	}
 
 	@Test
@@ -38,13 +40,14 @@ public class OpinionTest {
 				() -> assertEquals(nothing.getOpinionType(), OpinionType.NOTHING),
 				() -> assertEquals(nothing.getUser().getName(), user.getName()),
 				() -> assertEquals(nothing.getDateOfIssue(), LocalDate.now()),
-				() -> assertEquals(nothing.getOpinionTypeString(), "Nothing"),
-				() -> assertEquals(imageUnclear.getOpinionTypeString(), "Image Unclear"),
-				() -> assertEquals(vinchucaInfestans.getOpinionTypeString(), "Vinchuca Infestans"),
-				() -> assertEquals(vinchucaSordida.getOpinionTypeString(), "Vinchuca Sordida"),
-				() -> assertEquals(vinchucaGuasayana.getOpinionTypeString(), "Vinchuca Guasayana"),
-				() -> assertEquals(chinchePhtia.getOpinionTypeString(), "Chinche Phtia"),
-				() -> assertEquals(chincheFoliada.getOpinionTypeString(), "Chinche Foliada"),
-				() -> assertEquals(OpinionType.getUndefinedOpinion(), "UNDEFINED"));
+				() -> assertEquals(nothing.getOpinionType(), OpinionType.NOTHING),
+				() -> assertEquals(imageUnclear.getOpinionType(), OpinionType.IMAGE_UNCLEAR),
+				() -> assertEquals(vinchucaInfestans.getOpinionType(), OpinionType.VINCHUCA_INFESTANS),
+				() -> assertEquals(vinchucaSordida.getOpinionType(), OpinionType.VINCHUCA_SORDIDA),
+				() -> assertEquals(vinchucaGuasayana.getOpinionType(), OpinionType.VINCHUCA_GUASAYANA),
+				() -> assertEquals(chinchePhtia.getOpinionType(), OpinionType.CHINCHE_PHTIA),
+				() -> assertEquals(chincheFoliada.getOpinionType(), OpinionType.CHINCHE_FOLIADA),
+				() -> assertEquals(undefined, UndefinedOpinion.UNDEFINED)
+				);
 	}
 }

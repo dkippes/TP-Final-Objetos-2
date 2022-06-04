@@ -11,6 +11,7 @@ import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import a.la.caza.de.las.vinchucas.opinions.GenericOpinionType;
 import a.la.caza.de.las.vinchucas.opinions.OpinionType;
 import a.la.caza.de.las.vinchucas.samples.Sample;
 import a.la.caza.de.las.vinchucas.samples.verification.level.Vote;
@@ -26,8 +27,8 @@ class CombinedFiltersTest {
 	private Vote otherVerLevel;
 	private LocalDate lastVotedateSearched;
 	private LocalDate otherLastVoteDate;
-	private String insectSearched;
-	private String otherInsect;
+	private GenericOpinionType insectSearched;
+	private GenericOpinionType otherInsect;
 
 	private FilterCreationDate dateFilter;
 	private FilterVerificationLevel verLevelFilter;
@@ -50,8 +51,8 @@ class CombinedFiltersTest {
 		allSamples.add(sample2);
 
 		creationDateSearched = LocalDate.now();
-		insectSearched = OpinionType.VINCHUCA_GUASAYANA.getOpinionType();
-		otherInsect = OpinionType.CHINCHE_FOLIADA.getOpinionType();
+		insectSearched = OpinionType.VINCHUCA_GUASAYANA;
+		otherInsect = OpinionType.CHINCHE_FOLIADA;
 		lastVotedateSearched = LocalDate.now();
 		otherLastVoteDate = LocalDate.now().plusDays(10);
 		verLevelSearched = Vote.VOTED;

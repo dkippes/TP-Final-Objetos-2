@@ -3,12 +3,13 @@ package a.la.caza.de.las.vinchucas.search;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import a.la.caza.de.las.vinchucas.opinions.GenericOpinionType;
 import a.la.caza.de.las.vinchucas.samples.Sample;
 
 public class FilterInsect implements IFilter{
-	private String insectSearched;
+	private GenericOpinionType insectSearched;
 	
-	public FilterInsect(String insect){
+	public FilterInsect(GenericOpinionType insect){
 		this.insectSearched = insect;
 	}
 	

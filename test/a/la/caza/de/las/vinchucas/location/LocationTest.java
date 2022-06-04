@@ -9,6 +9,7 @@ import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import a.la.caza.de.las.vinchucas.opinions.OpinionType;
 import a.la.caza.de.las.vinchucas.samples.Sample;
 
 public class LocationTest {
@@ -47,13 +48,13 @@ public class LocationTest {
 		Sample sample3 = mock(Sample.class);
 		Sample sample4 = mock(Sample.class);
 		when(sample1.getLocation()).thenReturn(location);
-		when(sample1.getActualResult()).thenReturn("Vinchuca");
+		when(sample1.getActualResult()).thenReturn(OpinionType.VINCHUCA_GUASAYANA);
 		when(sample2.getLocation()).thenReturn(location2);
-		when(sample2.getActualResult()).thenReturn("Vinchuca");
+		when(sample2.getActualResult()).thenReturn(OpinionType.VINCHUCA_GUASAYANA);
 		when(sample3.getLocation()).thenReturn(location3);
-		when(sample3.getActualResult()).thenReturn("Vinchuca");
+		when(sample3.getActualResult()).thenReturn(OpinionType.VINCHUCA_GUASAYANA);
 		when(sample4.getLocation()).thenReturn(location2);
-		when(sample4.getActualResult()).thenReturn("Chinche");
+		when(sample4.getActualResult()).thenReturn(OpinionType.CHINCHE_FOLIADA);
 		List<Sample> samples = List.of(sample2, sample3);
 		assertEquals(location.getNearSamplesInDistance(sample1, samples, 500), List.of(sample2));
 	}

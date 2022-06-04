@@ -5,13 +5,16 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.TreeMap;
 import java.util.stream.Collectors;
 
 import a.la.caza.de.las.vinchucas.exceptions.UserValidationException;
 import a.la.caza.de.las.vinchucas.location.Location;
+import a.la.caza.de.las.vinchucas.opinions.GenericOpinionType;
 import a.la.caza.de.las.vinchucas.opinions.Opinion;
 import a.la.caza.de.las.vinchucas.opinions.OpinionType;
+import a.la.caza.de.las.vinchucas.opinions.UndefinedOpinion;
 import a.la.caza.de.las.vinchucas.samples.state.BasicVotedSampleState;
 import a.la.caza.de.las.vinchucas.samples.state.ISampleState;
 import a.la.caza.de.las.vinchucas.samples.verification.level.Vote;
@@ -72,43 +75,43 @@ public class Sample {
 				.anyMatch(userOpinion -> userOpinion.getUser().getId() == user.getId());
 	}
 
-	public String getActualResult() {
+	public GenericOpinionType getActualResult() {
 		if (anyExpertUserVote()) {
 			return actualResultIfWasVotedByExpert();
 		}
-		Map<String, Integer> mapOpinions = mapOpinionsByOpinionType();
+		Map<OpinionType, Integer> mapOpinions = mapOpinionsByOpinionType();
 		return getMostVotedOpinionOrUndefinedIfDraw(mapOpinions);
 	}
 
-	private String getMostVotedOpinionOrUndefinedIfDraw(Map<String, Integer> mapOpinions) {
-		Map.Entry<String, Integer> maxEntry = null;
-		for (Map.Entry<String, Integer> entry : mapOpinions.entrySet()) {
+	private GenericOpinionType getMostVotedOpinionOrUndefinedIfDraw(Map<OpinionType, Integer> mapOpinions) {
+		Entry<OpinionType, Integer> maxEntry = null;
+		for (Entry<OpinionType, Integer> entry : mapOpinions.entrySet()) {
 			if (maxEntry == null || entry.getValue().compareTo(maxEntry.getValue()) > 0) {
 				maxEntry = entry;
 			}
 		}
 		mapOpinions.remove(maxEntry.getKey());
 		return mapOpinions.containsValue(maxEntry.getValue()) 
-				? OpinionType.getUndefinedOpinion() 
+				? UndefinedOpinion.UNDEFINED
 				: maxEntry.getKey();
 	}
 
-	private Map<String, Integer> mapOpinionsByOpinionType() {
-		Map<String, Integer> mapOpinions = new TreeMap<>();
-		getOpinionsAsListOfString().forEach(
-				opinion -> mapOpinions.put(opinion, Collections.frequency(getOpinionsAsListOfString(), opinion)));
+	private Map<OpinionType, Integer> mapOpinionsByOpinionType() {
+		Map<OpinionType, Integer> mapOpinions = new TreeMap<>();
+		getOpinionsAsList().forEach(
+				opinion -> mapOpinions.put(opinion, Collections.frequency(getOpinionsAsList(), opinion)));
 		return mapOpinions;
 	}
 
-	private List<String> getOpinionsAsListOfString() {
+	private List<OpinionType> getOpinionsAsList() {
 		return opinionHistory.stream()
-				.map(opinion -> opinion.getOpinionTypeString()).collect(Collectors.toList());
+				.map(opinion -> opinion.getOpinionType()).collect(Collectors.toList());
 	}
 
-	private String actualResultIfWasVotedByExpert() {
+	private OpinionType actualResultIfWasVotedByExpert() {
 		return opinionHistory.stream()
 				.filter(opinion -> opinion.getUser().hasExpertKnowledge()).findFirst().get()
-				.getOpinionTypeString();
+				.getOpinionType();
 	}
 
 	private boolean anyExpertUserVote() {

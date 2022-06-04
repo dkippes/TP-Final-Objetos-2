@@ -11,6 +11,7 @@ import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import a.la.caza.de.las.vinchucas.opinions.GenericOpinionType;
 import a.la.caza.de.las.vinchucas.opinions.OpinionType;
 import a.la.caza.de.las.vinchucas.samples.Sample;
 
@@ -22,8 +23,8 @@ class OrFilterTest {
 
 	private LocalDate dateSearched;
 	private LocalDate otherDate;
-	private String insectSearched;
-	private String otherInsect;
+	private GenericOpinionType insectSearched;
+	private GenericOpinionType otherInsect;
 
 	private FilterLastVoteDate lastVotedateFilter;
 	private FilterInsect insectFilter;
@@ -44,8 +45,8 @@ class OrFilterTest {
 
 		dateSearched = LocalDate.now();
 		otherDate = LocalDate.now().plusDays(10);
-		insectSearched = OpinionType.VINCHUCA_GUASAYANA.getOpinionType();
-		otherInsect = OpinionType.CHINCHE_FOLIADA.getOpinionType();
+		insectSearched = OpinionType.VINCHUCA_GUASAYANA;
+		otherInsect = OpinionType.CHINCHE_FOLIADA;
 
 		lastVotedateFilter = new FilterLastVoteDate(dateSearched);
 		insectFilter = new FilterInsect(insectSearched);

@@ -19,10 +19,6 @@ public class Opinion {
 		return dateOfIssue;
 	}
 
-	public String getOpinionTypeString() {
-		return opinionType.getOpinionType();
-	}
-
 	public OpinionType getOpinionType() {
 		return opinionType;
 	}

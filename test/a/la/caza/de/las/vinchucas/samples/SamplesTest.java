@@ -19,6 +19,7 @@ import a.la.caza.de.las.vinchucas.exceptions.UserValidationException;
 import a.la.caza.de.las.vinchucas.location.Location;
 import a.la.caza.de.las.vinchucas.opinions.Opinion;
 import a.la.caza.de.las.vinchucas.opinions.OpinionType;
+import a.la.caza.de.las.vinchucas.opinions.UndefinedOpinion;
 import a.la.caza.de.las.vinchucas.samples.state.BasicVotedSampleState;
 import a.la.caza.de.las.vinchucas.samples.verification.level.Vote;
 import a.la.caza.de.las.vinchucas.users.User;
@@ -41,7 +42,7 @@ public class SamplesTest {
 		webApplication = mock(WebApplication.class);
 		when(opinion.getDateOfIssue()).thenReturn(LocalDate.now());
 		when(opinion.getUser()).thenReturn(user);
-		when(opinion.getOpinionTypeString()).thenReturn("Vinchuca Guasayana");
+		when(opinion.getOpinionType()).thenReturn(OpinionType.VINCHUCA_GUASAYANA);
 		when(user.getName()).thenReturn("Tomas");
 		sample = new Sample(location, photo, opinion);
 	}
@@ -168,36 +169,35 @@ public class SamplesTest {
 		sample.addOpinion(getOpinionBasic(3, OpinionType.IMAGE_UNCLEAR));
 		sample.addOpinion(getOpinionBasic(4, OpinionType.VINCHUCA_GUASAYANA));
 		sample.addOpinion(getOpinionBasic(5, OpinionType.NOTHING));
-		assertEquals(sample.getActualResult(), "UNDEFINED");
+		assertEquals(sample.getActualResult(), UndefinedOpinion.UNDEFINED);
 	}
 
 	@Test
 	void testActualResultIsChincheFolidaWhenIsVerified() throws Exception {
 		sample = new Sample(location, photo, getOpinionSpecialist(1, OpinionType.CHINCHE_FOLIADA));
 		sample.addOpinion(getOpinionSpecialist(2, OpinionType.CHINCHE_FOLIADA));
-		assertEquals(sample.getActualResult(), "Chinche Foliada");
+		assertEquals(sample.getActualResult(), OpinionType.CHINCHE_FOLIADA);
 	}
 
 	@Test
 	void testActualResultIsChincheFolidaWhenIsVotedByOneExpert() throws Exception {
 		sample = new Sample(location, photo, getOpinionBasic(1, OpinionType.IMAGE_UNCLEAR));
 		sample.addOpinion(getOpinionSpecialist(2, OpinionType.CHINCHE_FOLIADA));
-		assertEquals(sample.getActualResult(), "Chinche Foliada");
+		assertEquals(sample.getActualResult(), OpinionType.CHINCHE_FOLIADA);
 	}
 
 	@Test
 	void testActualResultShouldBeChincheFoliada() throws Exception {
 		sample.addOpinion(getOpinionBasic(1, OpinionType.CHINCHE_FOLIADA));
 		sample.addOpinion(getOpinionBasic(2, OpinionType.CHINCHE_FOLIADA));
-		assertEquals("Chinche Foliada", sample.getActualResult());
+		assertEquals(OpinionType.CHINCHE_FOLIADA, sample.getActualResult());
 		;
 	}
 
 	@Test
 	void testActualResultWhenSampleIsCreatedIsImageUnclear() throws Exception {
 		Sample sampleTest = new Sample(location, photo, getOpinionBasic(2, OpinionType.IMAGE_UNCLEAR));
-		assertEquals("Image Unclear", sampleTest.getActualResult());
-		;
+		assertEquals(OpinionType.IMAGE_UNCLEAR, sampleTest.getActualResult());
 	}
 
 	@Test
@@ -224,7 +224,7 @@ public class SamplesTest {
 		when(opinion.getUser()).thenReturn(user);
 		when(opinion.getOpinionType()).thenReturn(opinionType);
 		when(opinion.getDateOfIssue()).thenReturn(LocalDate.of(2019, 7, 15));
-		when(opinion.getOpinionTypeString()).thenReturn(opinionType.getOpinionType());
+		when(opinion.getOpinionType()).thenReturn(opinionType);
 		return opinion;
 	}
 
@@ -238,7 +238,7 @@ public class SamplesTest {
 		when(opinion.getUser()).thenReturn(user);
 		when(opinion.getOpinionType()).thenReturn(opinionType);
 		when(opinion.getDateOfIssue()).thenReturn(LocalDate.of(2019, 7, 15));
-		when(opinion.getOpinionTypeString()).thenReturn(opinionType.getOpinionType());
+		when(opinion.getOpinionType()).thenReturn(opinionType);
 		return opinion;
 	}
 }

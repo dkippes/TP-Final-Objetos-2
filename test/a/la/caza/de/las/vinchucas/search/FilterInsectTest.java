@@ -10,6 +10,7 @@ import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import a.la.caza.de.las.vinchucas.opinions.GenericOpinionType;
 import a.la.caza.de.las.vinchucas.opinions.OpinionType;
 import a.la.caza.de.las.vinchucas.samples.Sample;
 
@@ -19,8 +20,8 @@ class FilterInsectTest {
 	private Sample sample2;
 	private List<Sample> allSamples;
 
-	private String insectSearched;
-	private String otherInsect;
+	private GenericOpinionType insectSearched;
+	private GenericOpinionType otherInsect;
 
 	private FilterInsect insectSearcher;
 
@@ -35,8 +36,8 @@ class FilterInsectTest {
 		allSamples.add(sample1);
 		allSamples.add(sample2);
 
-		insectSearched = OpinionType.VINCHUCA_GUASAYANA.getOpinionType();
-		otherInsect = OpinionType.CHINCHE_FOLIADA.getOpinionType();
+		insectSearched = OpinionType.VINCHUCA_GUASAYANA;
+		otherInsect = OpinionType.CHINCHE_FOLIADA;
 
 		insectSearcher = new FilterInsect(insectSearched);
 	}
