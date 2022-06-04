@@ -4,6 +4,12 @@ import a.la.caza.de.las.vinchucas.opinions.Opinion;
 import a.la.caza.de.las.vinchucas.samples.Sample;
 import a.la.caza.de.las.vinchucas.samples.verification.level.Vote;
 
+/**
+ * Clase VerifySampleState
+ * 
+ * Esta clase describe el estado de verificación de cada muestra.
+ */
+
 public class VerifySampleState extends SampleStateImpl {
 
 	@Override

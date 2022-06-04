@@ -5,6 +5,14 @@ import a.la.caza.de.las.vinchucas.exceptions.UserIsNotExpertException;
 import a.la.caza.de.las.vinchucas.opinions.Opinion;
 import a.la.caza.de.las.vinchucas.samples.Sample;
 
+
+/**
+ * Interfaz UserValidations 
+ * 
+ * Esta Interfaz se encarga de chequear las validaciones de cada usuario.
+ *
+ */
+
 public interface UserValidations {
 	public void checkIfUserAlreadyVote(Sample sample, Opinion opinion) throws UserAlreadyVoteException;
 

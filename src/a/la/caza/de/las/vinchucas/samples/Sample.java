@@ -20,6 +20,13 @@ import a.la.caza.de.las.vinchucas.samples.state.ISampleState;
 import a.la.caza.de.las.vinchucas.samples.verification.level.Vote;
 import a.la.caza.de.las.vinchucas.users.User;
 
+/**
+ * Clase Sample
+ * 
+ * Esta clase describe la información de cada muestra.
+ *
+ */
+
 public class Sample {
 	private User user;
 	private Photo photo;

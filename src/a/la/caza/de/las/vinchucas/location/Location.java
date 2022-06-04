@@ -6,6 +6,11 @@ import java.util.stream.Collectors;
 import a.la.caza.de.las.vinchucas.samples.Sample;
 
 public class Location {
+/**
+ *  Clase Location.
+ * 
+ *  Describe la información de cada ubicación.
+ */
 	private double latitude;
 	private double lenght;
 

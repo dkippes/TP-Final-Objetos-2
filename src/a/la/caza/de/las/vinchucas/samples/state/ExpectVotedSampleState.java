@@ -5,6 +5,13 @@ import a.la.caza.de.las.vinchucas.opinions.Opinion;
 import a.la.caza.de.las.vinchucas.samples.Sample;
 import a.la.caza.de.las.vinchucas.samples.verification.level.Vote;
 
+/**
+ * Clase ExpectVotedSampleState
+ *  
+ * Describe el estado del voto esperado de cada muestra. 
+ *
+ */
+
 public class ExpectVotedSampleState extends SampleStateImpl {
 
 	@Override
