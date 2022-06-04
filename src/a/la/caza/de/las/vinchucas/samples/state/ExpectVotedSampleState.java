@@ -6,14 +6,17 @@ import a.la.caza.de.las.vinchucas.samples.Sample;
 import a.la.caza.de.las.vinchucas.samples.verification.level.Vote;
 
 /**
- * Clase ExpectVotedSampleState
- *  
- * Describe el estado del voto esperado de cada muestra. 
- *
+ * Describe el estado de la muestra como votada por un experto
  */
-
 public class ExpectVotedSampleState extends SampleStateImpl {
 
+	/**
+	 * Agrega una opinion en la muestra si el usuario no voto, y es experto
+	 * Una vez agregada la opinion actualiza su estado si es posible
+	 * @param Sample, Opinion
+	 * @throws UserValidationException
+	 * @exception UserValidationException
+	 */
 	@Override
 	public void addOpinion(Sample sample, Opinion opinion) throws UserValidationException {
 		checkIfUserAlreadyVote(sample, opinion);

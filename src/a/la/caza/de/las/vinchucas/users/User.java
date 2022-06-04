@@ -7,10 +7,7 @@ import a.la.caza.de.las.vinchucas.samples.Sample;
 import a.la.caza.de.las.vinchucas.users.knowledge.IKnowledgeState;
 
 /**
- * Clase User
- * 
- * Describe la información de cada usuario. 
- *
+ * Describe un usuario
  */
 public class User implements Cloneable {
 	//Atributos

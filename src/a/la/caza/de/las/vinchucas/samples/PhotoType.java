@@ -1,12 +1,8 @@
 package a.la.caza.de.las.vinchucas.samples;
 
 /**
- * Enum PhotoType
- * 
- * Este Enum describe el tipo de foto para cada foto. 
- * 
+ * Describe el tipo de foto de extension
  */
-
 public enum PhotoType {
 	JPG, 
 	PNG, 

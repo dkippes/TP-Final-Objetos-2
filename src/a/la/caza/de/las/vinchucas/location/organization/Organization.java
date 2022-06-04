@@ -6,13 +6,11 @@ import a.la.caza.de.las.vinchucas.coverage.area.functionality.ExternalFunctional
 import a.la.caza.de.las.vinchucas.location.Location;
 import a.la.caza.de.las.vinchucas.samples.Sample;
 
-public class Organization implements OrganizationObserver {
-/*
- * Clase Organization.
- * 
- * Describe la infromación de cada organización no gubernamental.
- *
+/**
+ * Describe la informacion de cada organizacion no gubernamental.
+ * Implementa el patron observer para poder suscribirse a las zonas de cobertura
  */
+public class Organization implements OrganizationObserver {
 	private Location location;
 	private OrganizationType organizationType;
 	private int workingPeople;
@@ -45,10 +43,18 @@ public class Organization implements OrganizationObserver {
 		this.validateSampleFunctionality = validateSampleFunctionality;
 	}
 
+	/**
+	 * Evento para actualizar una muestra
+	 * @param CoverageArea, Sample
+	 */
 	public void uploadNewSample(CoverageArea coverageArea, Sample sample) {
 		uploadSampleFunctionality.newEvent(this, coverageArea, sample);
 	}
 
+	/**
+	 * Evento para validar una muestra
+	 * @param CoverageArea, Sample
+	 */
 	public void validateSample(CoverageArea coverageArea, Sample sample) {
 		validateSampleFunctionality.newEvent(this, coverageArea, sample);
 	}

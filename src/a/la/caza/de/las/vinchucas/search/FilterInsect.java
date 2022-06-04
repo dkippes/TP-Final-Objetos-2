@@ -7,10 +7,7 @@ import a.la.caza.de.las.vinchucas.opinions.GenericOpinionType;
 import a.la.caza.de.las.vinchucas.samples.Sample;
 
 /**
- * Clase FilterInsect 
- * 
  * Esta clase se encarga de filtrar un insecto de cada muestra.
- *
  */
 
 public class FilterInsect implements IFilter{

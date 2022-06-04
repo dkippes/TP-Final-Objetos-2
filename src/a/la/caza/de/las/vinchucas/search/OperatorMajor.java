@@ -3,12 +3,8 @@ package a.la.caza.de.las.vinchucas.search;
 import java.time.LocalDate;
 
 /**
- * 
- * Clase OperatorMajor  
- *
  * Esta clase es un operador de mayor.
  */
-
 public class OperatorMajor implements IOperator {
 
 	@Override

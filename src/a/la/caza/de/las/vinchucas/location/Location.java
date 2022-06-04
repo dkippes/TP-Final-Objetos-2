@@ -5,12 +5,10 @@ import java.util.stream.Collectors;
 
 import a.la.caza.de.las.vinchucas.samples.Sample;
 
-public class Location {
 /**
- *  Clase Location.
- * 
- *  Describe la información de cada ubicación.
+ *  Describe la informacion de una ubicacion medida en kilometros
  */
+public class Location {
 	private double latitude;
 	private double lenght;
 
@@ -27,8 +25,13 @@ public class Location {
 		return lenght;
 	}
 
+	/**
+	 * Calcula la distancia entre 2 ubicaciones
+	 * @param Location
+	 * @return double
+	 */
 	public double distanceBetweenTwoLocations(Location location2) {
-		double radioTierra = 6371;
+		double earthRadius = 6371;
 
 		double dLat = Math.toRadians(location2.getLatitude() - this.getLatitude());
 		double dLng = Math.toRadians(location2.getLenght() - this.getLatitude());
@@ -37,17 +40,28 @@ public class Location {
 		double va1 = Math.pow(sindLat, 2) + Math.pow(sindLng, 2) * Math.cos(Math.toRadians(this.getLatitude()))
 				* Math.cos(Math.toRadians(location2.getLatitude()));
 		double va2 = 2 * Math.atan2(Math.sqrt(va1), Math.sqrt(1 - va1));
-		double distancia = Math.abs(radioTierra * va2);
+		double distance = Math.abs(earthRadius * va2);
 
-		return Math.round(distancia * 100d) / 100d;
-
+		return Math.round(distance * 100d) / 100d;
 	}
 
+	/**
+	 * Segun una lista de ubicaciones y una distancia obtiene las ubicaciones mas cercanas
+	 * @param List<Location>, double
+	 * @return List<Location>
+	 */
 	public List<Location> getNearLocationsInDistance(List<Location> locations, double kilometers) {
 		return locations.stream().filter(location -> this.distanceBetweenTwoLocations(location) <= kilometers)
 				.collect(Collectors.toList());
 	}
 
+	/**
+	 * Segun una lista de muestras, una muestra y una distancia obtiene 
+	 * las muestras con el mismo resultado actual de la muestra pasada y que esta igual o mas
+	 * cerca de la distancia pasado por parametro
+	 * @param Sample, List<Sample>, double
+	 * @return List<Sample>
+	 */
 	public List<Sample> getNearSamplesInDistance(Sample sample, List<Sample> samples, double kilometers) {
 		return samples.stream().filter(sampleType -> sample.getActualResult().equals(sampleType.getActualResult()))
 				.filter(sampleLocation -> sample.getLocation()

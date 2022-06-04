@@ -8,13 +8,8 @@ import a.la.caza.de.las.vinchucas.samples.Sample;
 
 
 /**
- * Clase FilterLastVoteDate
- * 
- * 
  * Esta clase se encarga de filtrar la última fecha de votación de cada muestra.
- *
  */
-
 public class FilterLastVoteDate implements IFilter {
 	private IOperator operator;
 	private LocalDate dateSearched;

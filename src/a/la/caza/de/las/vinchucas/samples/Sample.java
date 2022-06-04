@@ -21,12 +21,8 @@ import a.la.caza.de.las.vinchucas.samples.verification.level.Vote;
 import a.la.caza.de.las.vinchucas.users.User;
 
 /**
- * Clase Sample
- * 
- * Esta clase describe la información de cada muestra.
- *
+ * Describe la informacion de una muestra con su estado inicial
  */
-
 public class Sample {
 	private User user;
 	private Photo photo;
@@ -45,10 +41,22 @@ public class Sample {
 		this.addOpinion(opinion);
 	}
 
+	/**
+	 * Anade la opion de un usuario segun el estado de la muestra
+	 * @exception UserValidationException
+	 * @throws UserValidationException
+	 * @param Opinion
+	 */
 	public void addOpinion(Opinion opinion) throws UserValidationException {
 		this.state.addOpinion(this, opinion);
 	}
 
+	/**
+	 * Anade la opion de un usuario al historial directamente, se debe usar addOpion
+	 * si se quiere agregar segun el estado de la muestra
+	 * @param Opinion
+	 * @return LocalDate
+	 */
 	public void addUserOpinion(Opinion opinion) {
 		this.opinionHistory.add(opinion);
 	}
@@ -57,6 +65,10 @@ public class Sample {
 		return opinionHistory;
 	}
 
+	/**
+	 * Obtiene la ultima votacion
+	 * @return LocalDate
+	 */
 	public LocalDate getLastVotation() {
 		return opinionHistory.get(opinionHistory.size() - 1).getDateOfIssue();
 	}
@@ -76,12 +88,30 @@ public class Sample {
 	public User getUser() {
 		return user;
 	}
+	
+	public Location getLocation() {
+		return location;
+	}
 
+	public Photo getPhoto() {
+		return photo;
+	}
+
+	/**
+	 * Indica si el usuario paso por parametro ya voto previamente
+	 * @param User
+	 * @return boolean
+	 */
 	public boolean userAlreadyVote(User user) {
 		return opinionHistory.stream()
 				.anyMatch(userOpinion -> userOpinion.getUser().getId() == user.getId());
 	}
 
+	/**
+	 * Obtiene el resultado de una muestra, esta puede la opinion mas vota
+	 * o en su defecto si hay empate devuelve indefinida
+	 * @return GenericOpinionType
+	 */
 	public GenericOpinionType getActualResult() {
 		if (anyExpertUserVote()) {
 			return actualResultIfWasVotedByExpert();
@@ -90,6 +120,11 @@ public class Sample {
 		return getMostVotedOpinionOrUndefinedIfDraw(mapOpinions);
 	}
 
+	/**
+	 * Devuelve la opinion mas votada o si es empate indefinida
+	 * @param Map<OpinionType, Integer>
+	 * @return GenericOpinionType
+	 */
 	private GenericOpinionType getMostVotedOpinionOrUndefinedIfDraw(Map<OpinionType, Integer> mapOpinions) {
 		Entry<OpinionType, Integer> maxEntry = null;
 		for (Entry<OpinionType, Integer> entry : mapOpinions.entrySet()) {
@@ -103,6 +138,10 @@ public class Sample {
 				: maxEntry.getKey();
 	}
 
+	/**
+	 * Mapea todas las opiniones por el tipo y su cantidad de repeticiones en el historial
+	 * @return Map<OpinionType, Integer>
+	 */
 	private Map<OpinionType, Integer> mapOpinionsByOpinionType() {
 		Map<OpinionType, Integer> mapOpinions = new TreeMap<>();
 		getOpinionsAsList().forEach(
@@ -110,28 +149,32 @@ public class Sample {
 		return mapOpinions;
 	}
 
+	/**
+	 * Obtiene todas las opiniones del historial
+	 * @return List<OpinionType>
+	 */
 	private List<OpinionType> getOpinionsAsList() {
 		return opinionHistory.stream()
 				.map(opinion -> opinion.getOpinionType()).collect(Collectors.toList());
 	}
 
+	/**
+	 * Obtiene la opinion mas votada por expertos
+	 * @return OpinionType
+	 */
 	private OpinionType actualResultIfWasVotedByExpert() {
 		return opinionHistory.stream()
 				.filter(opinion -> opinion.getUser().hasExpertKnowledge()).findFirst().get()
 				.getOpinionType();
 	}
 
+	/**
+	 * Indica si algun usuario que haya votado es experto
+	 * @return boolean
+	 */
 	private boolean anyExpertUserVote() {
 		return this.opinionHistory.stream()
 				.anyMatch(opinion -> opinion.getUser()
 				.hasExpertKnowledge());
-	}
-
-	public Location getLocation() {
-		return location;
-	}
-
-	public Photo getPhoto() {
-		return photo;
 	}
 }

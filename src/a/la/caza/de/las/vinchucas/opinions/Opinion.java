@@ -5,12 +5,8 @@ import java.time.LocalDate;
 import a.la.caza.de.las.vinchucas.users.User;
 
 /**
- * Clase Opinion 
- * 
- * Describe la información de cada opinión.
- *
+ * Describe la informacion de cada opinion.
  */
-
 public class Opinion {
 	private User user;
 	private OpinionType opinionType;
@@ -34,6 +30,11 @@ public class Opinion {
 		return user;
 	}
 
+	/**
+	 * Clona el usuario ya que queremos hacer un snapshot con la informacion del momento
+	 * del usuario. Ya que si cambia a futuro cambiaria en la opinion
+	 * @param User
+	 */
 	private void cloneUser(User user) throws CloneNotSupportedException {
 		this.user = user.clone();
 	}

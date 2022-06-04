@@ -6,13 +6,16 @@ import a.la.caza.de.las.vinchucas.opinions.Opinion;
 import a.la.caza.de.las.vinchucas.samples.Sample;
 
 /*
- * Clase Abstracta SampleStateImpl 
- * 
  * Esta clase abstacta describe el estado de cada muestra.
  */
-
 public abstract class SampleStateImpl implements ISampleState, UserValidations {
 
+	/**
+	 * Lanza una excepcion si un usuario ya voto en la muestra anteriormente
+	 * @throws UserAlreadyVoteException
+	 * @exception UserAlreadyVoteException
+	 * @param Sample, Opinion
+	 */
 	@Override
 	public void checkIfUserAlreadyVote(Sample sample, Opinion opinion) throws UserAlreadyVoteException {
 		if (userAlreadyVote(sample, opinion)) {
@@ -20,6 +23,12 @@ public abstract class SampleStateImpl implements ISampleState, UserValidations {
 		}
 	}
 
+	/**
+	 * Lanza una excepcion si el usuario no es experto
+	 * @throws UserIsNotExpertException
+	 * @exception UserIsNotExpertException
+	 * @param Opinion
+	 */
 	@Override
 	public void checkIfUserIsExpert(Opinion opinion) throws UserIsNotExpertException {
 		if (!userIsExpert(opinion)) {
@@ -28,11 +37,19 @@ public abstract class SampleStateImpl implements ISampleState, UserValidations {
 		}
 	}
 
+	/**
+	 * Indica si un usuario ya voto en la muestra anteriormente
+	 * @param Sample, Opinion
+	 */
 	@Override
 	public boolean userAlreadyVote(Sample sample, Opinion opinion) {
 		return sample.userAlreadyVote(opinion.getUser());
 	}
 
+	/**
+	 * Indica si un usuario es experto
+	 * @param Opinion
+	 */
 	@Override
 	public boolean userIsExpert(Opinion opinion) {
 		return opinion.getUser().hasExpertKnowledge();

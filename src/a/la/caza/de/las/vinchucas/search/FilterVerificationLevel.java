@@ -8,13 +8,8 @@ import a.la.caza.de.las.vinchucas.samples.verification.level.Vote;
 
 
 /**
- * Clase FilterVerificationLevel 
- * 
- * 
  * Esta clase se encarga de filtrar el nivel de las verificaciones de cada muestra.
- *
  */
-
 public class FilterVerificationLevel implements IFilter {
 	private Vote verLevelSearched;
 	

@@ -1,11 +1,8 @@
 package a.la.caza.de.las.vinchucas.location.organization;
 
 /**
- *  Enum OrganizationType
- * 
- *  Este Enum describe los tipos de organizaciones no gubernamentales para cada organización.
+ *  Describe los tipos de organizaciones
  */
-
 public enum OrganizationType {
 	HEALTH, 
 	EDUCATION, 

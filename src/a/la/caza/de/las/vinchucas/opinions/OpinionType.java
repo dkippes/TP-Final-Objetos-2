@@ -1,12 +1,8 @@
 package a.la.caza.de.las.vinchucas.opinions;
 
 /**
- * Enum OpinionType
- * 
- * Este Enum describe los tipo de opiniones para cada opinión.
- *
+ * Describe los tipo de opiniones
  */
-
 public enum OpinionType implements GenericOpinionType {
 	NOTHING, 
 	IMAGE_UNCLEAR, 

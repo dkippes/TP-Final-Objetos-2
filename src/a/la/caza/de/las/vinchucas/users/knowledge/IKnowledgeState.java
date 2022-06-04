@@ -3,12 +3,8 @@ package a.la.caza.de.las.vinchucas.users.knowledge;
 import a.la.caza.de.las.vinchucas.users.User;
 
 /**
- * Interfaz IKnowledgeState
- * 
- * Esta Interfaz describe estado de conocimiento de cada usuario.
+ * Protocolo de estado de conocimiento usuario.
  */
-
-
 public interface IKnowledgeState {
 	public boolean isUserBasic();
 

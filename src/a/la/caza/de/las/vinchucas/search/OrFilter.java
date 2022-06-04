@@ -4,12 +4,8 @@ import java.util.List;
 import a.la.caza.de.las.vinchucas.samples.Sample;
 
 /**
- * Clase OrFilter
- * 
- * Es un filtro de disyunción.
+ * Es un filtro de diyuncion
  */
-
-
 public class OrFilter implements IFilter {
 	private IFilter filter1;
 	private IFilter filter2;

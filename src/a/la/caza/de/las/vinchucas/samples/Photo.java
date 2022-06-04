@@ -1,12 +1,9 @@
 package a.la.caza.de.las.vinchucas.samples;
 
-public class Photo {
 /**
- * Clase Photo
- * 
- * Describe la información de cada foto.
+ * Describe una foto con su nombre y extension
  */
-	
+public class Photo {
 	private String name;
 	private PhotoType photoType;
 
