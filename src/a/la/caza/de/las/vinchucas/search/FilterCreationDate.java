@@ -27,3 +27,4 @@ public class FilterCreationDate implements IFilter {
 				.collect(Collectors.toList());
 	}
 }
+

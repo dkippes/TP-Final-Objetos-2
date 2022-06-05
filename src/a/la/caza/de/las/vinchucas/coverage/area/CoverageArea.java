@@ -3,6 +3,7 @@ package a.la.caza.de.las.vinchucas.coverage.area;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.function.BooleanSupplier;
 
 import a.la.caza.de.las.vinchucas.location.Location;
 import a.la.caza.de.las.vinchucas.samples.Sample;
@@ -112,5 +113,12 @@ public class CoverageArea {
 	private boolean belongsToCoverageArea(Sample sample) {
 		return epicenter.distanceBetweenTwoLocations(sample.getLocation()) <= radio;
 	}
+	
+	public boolean coverageAreasAreOverlapped(CoverageArea coverageArea2) {
+		// TODO Auto-generated method stub
+		return epicenter.distanceBetweenTwoLocations(coverageArea2.getEpicenter()) < radio;
+		
+	}
+
 
 }

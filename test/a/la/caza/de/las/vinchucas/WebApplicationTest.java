@@ -88,15 +88,5 @@ public class WebApplicationTest {
 		assertEquals(webApplication.manySamplesSendByUserBeforeAnyDays(user, 30), 1);
 	}
 	
-	@Test
-	void testGetRegisteredCoverageAreasDoesntHaveCoveragesAreas() {
-		assertTrue(webApplication.getRegistredCoverageAreas().isEmpty());
-	}
 	
-	@Test
-	void testRegisterACoverageArea() {
-		CoverageArea coverageArea = mock(CoverageArea.class);
-		webApplication.registerCoverageArea(coverageArea);
-		assertFalse(webApplication.getRegistredCoverageAreas().isEmpty());
-	}
 }

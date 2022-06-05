@@ -7,6 +7,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import a.la.caza.de.las.vinchucas.coverage.area.CoverageArea;
+import a.la.caza.de.las.vinchucas.coverage.area.CoverageAreaSystem;
 import a.la.caza.de.las.vinchucas.opinions.Opinion;
 import a.la.caza.de.las.vinchucas.samples.Sample;
 import a.la.caza.de.las.vinchucas.users.User;
@@ -17,12 +18,13 @@ import a.la.caza.de.las.vinchucas.users.User;
 public class WebApplication {
 	private Set<User> registeredUsers;
 	private Set<Sample> registeredSamples;
-	private Set<CoverageArea> registredCoverageAreas;
+	private CoverageAreaSystem coverageAreaSystem;
+	
 
 	public WebApplication() {
 		registeredUsers = new HashSet<>();
 		registeredSamples = new HashSet<>();
-		registredCoverageAreas = new HashSet<>();
+		coverageAreaSystem = new CoverageAreaSystem();		
 	}
 
 	public WebApplication registerSample(Sample sample) {
@@ -82,12 +84,5 @@ public class WebApplication {
 				.count();
 	}
 
-	public Set<CoverageArea> getRegistredCoverageAreas() {
-		return registredCoverageAreas;
-	}
-
-	public WebApplication registerCoverageArea(CoverageArea coverageArea) {
-		registredCoverageAreas.add(coverageArea);
-		return this;
-	}
+	
 }

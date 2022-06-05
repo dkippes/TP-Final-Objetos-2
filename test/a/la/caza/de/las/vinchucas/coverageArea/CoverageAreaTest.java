@@ -87,12 +87,15 @@ public class CoverageAreaTest {
 	}
 	
 	@Test
-	void testOverlappingAreas() {
-		assertEquals(coverageArea.overlappingAreas(), null);
+	void testAreaAndArea2AreOverlappingAreas() {
+		CoverageArea coverageArea2 = mock(CoverageArea.class);
+		Location location2 = mock(Location.class);
+		
+		when(coverageArea2.getEpicenter()).thenReturn(location2);
+		
+		when(epicenter.distanceBetweenTwoLocations(location2)).thenReturn((double) 300);
+		
+		assertTrue (coverageArea.coverageAreasAreOverlapped(coverageArea2));
 	}
 	
-	@Test
-	void testSamplesInCoverageArea() {
-		assertEquals(coverageArea.samplesInCoverageArea(), null);
-	}
 }
