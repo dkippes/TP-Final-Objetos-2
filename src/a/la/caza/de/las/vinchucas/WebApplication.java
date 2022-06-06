@@ -26,12 +26,20 @@ public class WebApplication {
 		registeredSamples = new HashSet<>();
 		coverageAreaSystem = new CoverageAreaSystem();		
 	}
+	
+	/**
+	 * Registra una muestra en la aplicacion web y en el sistema de areas de cobertura.
+	 */
 
 	public WebApplication registerSample(Sample sample) {
 		registeredSamples.add(sample);
 		coverageAreaSystem.registerSampleInCoverageArea(sample);
 		return this;
 	}
+	
+	/**
+	 * Registra un usuario en la aplicacion web
+	 */
 
 	public WebApplication registerUser(User user) {
 		registeredUsers.add(user);
@@ -45,6 +53,12 @@ public class WebApplication {
 	public Set<Sample> getRegisteredSamples() {
 		return this.registeredSamples;
 	}
+	
+	/**
+	 * Dado un usuario, retorna las opiniones emitidas por el mismo
+	 * @param User
+	 * @return List<Opinion>
+	 */
 
 	public List<Opinion> getUserOpinions(User user) {
 		return this.getRegisteredSamples().stream()
@@ -52,6 +66,12 @@ public class WebApplication {
 				.filter(userOpinion -> user.getId() == userOpinion.getUser().getId())
 				.collect(Collectors.toList());
 	}
+	
+	/**
+	 * Dado un usuario, retorna las muestras subidas por el mismo al sistema
+	 * @param User
+	 * @return List<Sample>
+	 */
 
 	public List<Sample> getUserSamples(User user) {
 		return this.getRegisteredSamples().stream()

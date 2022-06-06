@@ -3,7 +3,6 @@ package a.la.caza.de.las.vinchucas.coverage.area;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.function.BooleanSupplier;
 import java.util.stream.Collectors;
 
 import a.la.caza.de.las.vinchucas.location.Location;
@@ -46,7 +45,13 @@ public class CoverageArea {
 	public float getRadio() {
 		return radio;
 	}
-
+	
+	
+	/**
+	 * Dada una lista de muestras, retorna las que pertenecen al area de cobertura.
+	 * @param List<Sample>
+	 * @return List<Sample>
+	 */
 
 	public List<Sample> samplesInCoverageArea(List<Sample> samples) {
 		return samples.stream()
@@ -107,7 +112,7 @@ public class CoverageArea {
 	}
 
 	/**
-	 * Indica si la muestra pertence al area de covertura
+	 * Indica si la muestra pertence al area de cobertura
 	 * @param Sample
 	 */
 	public boolean belongsToCoverageArea(Sample sample) {
@@ -115,7 +120,7 @@ public class CoverageArea {
 	}
 	
 	/**
-	 * Indica si el area de covertura se solapa
+	 * Indica si el area de cobertura se solapa
 	 * @param CoverageArea
 	 */
 	public boolean coverageAreasAreOverlapped(CoverageArea coverageArea2) {
