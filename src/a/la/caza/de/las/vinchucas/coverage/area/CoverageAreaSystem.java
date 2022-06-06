@@ -7,6 +7,7 @@ import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import a.la.caza.de.las.vinchucas.WebApplication;
+import a.la.caza.de.las.vinchucas.samples.Sample;
 
 public class CoverageAreaSystem {
 	private Set<CoverageArea> registredCoverageAreas;
@@ -35,5 +36,15 @@ public class CoverageAreaSystem {
 		return areas;
 		
 	}
+
+	public void registerSampleInCoverageArea(Sample sample) {
+		// TODO Auto-generated method stub
+		registredCoverageAreas.stream()
+		.filter(c -> c.belongsToCoverageArea(sample))
+		.forEach(c -> c.addNewSample(sample));
+	}
+	
+	
+
 
 }

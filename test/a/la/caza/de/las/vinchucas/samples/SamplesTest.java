@@ -228,6 +228,7 @@ public class SamplesTest {
 		return opinion;
 	}
 
+	
 	private Opinion getOpinionSpecialist(int id, OpinionType opinionType) {
 		Opinion opinion = mock(Opinion.class);
 		User user = mock(User.class);

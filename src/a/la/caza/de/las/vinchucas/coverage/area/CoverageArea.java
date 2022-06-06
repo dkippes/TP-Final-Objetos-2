@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.function.BooleanSupplier;
+import java.util.stream.Collectors;
 
 import a.la.caza.de.las.vinchucas.location.Location;
 import a.la.caza.de.las.vinchucas.samples.Sample;
@@ -46,12 +47,11 @@ public class CoverageArea {
 		return radio;
 	}
 
-	public List<CoverageArea> overlappingAreas() {
-		return null;
-	}
 
-	public List<Sample> samplesInCoverageArea() {
-		return null;
+	public List<Sample> samplesInCoverageArea(List<Sample> samples) {
+		return samples.stream()
+				.filter(c -> this.samples.contains(c))
+				.collect(Collectors.toList());
 	}
 
 	/**
@@ -110,10 +110,14 @@ public class CoverageArea {
 	 * Indica si la muestra pertence al area de covertura
 	 * @param Sample
 	 */
-	private boolean belongsToCoverageArea(Sample sample) {
+	public boolean belongsToCoverageArea(Sample sample) {
 		return epicenter.distanceBetweenTwoLocations(sample.getLocation()) <= radio;
 	}
 	
+	/**
+	 * Indica si el area de covertura se solapa
+	 * @param CoverageArea
+	 */
 	public boolean coverageAreasAreOverlapped(CoverageArea coverageArea2) {
 		// TODO Auto-generated method stub
 		return epicenter.distanceBetweenTwoLocations(coverageArea2.getEpicenter()) < radio;

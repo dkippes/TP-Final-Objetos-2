@@ -6,6 +6,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -88,14 +93,46 @@ public class CoverageAreaTest {
 	
 	@Test
 	void testAreaAndArea2AreOverlappingAreas() {
-		CoverageArea coverageArea2 = mock(CoverageArea.class);
 		Location location2 = mock(Location.class);
-		
-		when(coverageArea2.getEpicenter()).thenReturn(location2);
+		CoverageArea coverageArea2 = new CoverageArea("Zona2", location2, 200);
 		
 		when(epicenter.distanceBetweenTwoLocations(location2)).thenReturn((double) 300);
 		
 		assertTrue (coverageArea.coverageAreasAreOverlapped(coverageArea2));
 	}
+	
+	@Test
+	void testAreaAndArea2AreNotOverlappingAreas() {
+		Location location2 = mock(Location.class);
+		CoverageArea coverageArea2 = new CoverageArea("Zona2", location2, 50);
+		
+		when(epicenter.distanceBetweenTwoLocations(location2)).thenReturn((double) 800);
+		
+		assertFalse (coverageArea.coverageAreasAreOverlapped(coverageArea2));
+	}
+	
+	@Test
+	void testSamplesInCoverageArea() {
+		
+		Sample sample2 = mock(Sample.class);
+		Sample sample3 = mock(Sample.class);
+		
+		List<Sample> samples = new ArrayList<Sample>();
+		
+		samples.add(sample);
+		samples.add(sample2);
+		samples.add(sample3);
+		
+		coverageArea.addNewSample(sample);
+		coverageArea.addNewSample(sample2);
+		
+		List<Sample> expectedSamples = new ArrayList<Sample>();
+		
+		expectedSamples.add(sample);
+		expectedSamples.add(sample2);
+		
+		assertEquals(coverageArea.samplesInCoverageArea(samples), expectedSamples);
+	}
+
 	
 }

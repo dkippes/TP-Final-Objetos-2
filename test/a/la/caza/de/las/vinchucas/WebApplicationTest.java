@@ -13,6 +13,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import a.la.caza.de.las.vinchucas.coverage.area.CoverageArea;
+import a.la.caza.de.las.vinchucas.location.Location;
 import a.la.caza.de.las.vinchucas.opinions.Opinion;
 import a.la.caza.de.las.vinchucas.samples.Sample;
 import a.la.caza.de.las.vinchucas.users.User;
@@ -87,6 +88,7 @@ public class WebApplicationTest {
 		webApplication.registerUser(user);
 		assertEquals(webApplication.manySamplesSendByUserBeforeAnyDays(user, 30), 1);
 	}
+	
 	
 	
 }

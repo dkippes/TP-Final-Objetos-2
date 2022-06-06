@@ -29,6 +29,7 @@ public class WebApplication {
 
 	public WebApplication registerSample(Sample sample) {
 		registeredSamples.add(sample);
+		coverageAreaSystem.registerSampleInCoverageArea(sample);
 		return this;
 	}
 
