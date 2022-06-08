@@ -2,17 +2,12 @@ package a.la.caza.de.las.vinchucas.coverageArea;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.CALLS_REAL_METHODS;
-import static org.mockito.Mockito.atLeast;
-import static org.mockito.Mockito.atLeastOnce;
-import static org.mockito.Mockito.calls;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import java.awt.Shape;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -21,7 +16,6 @@ import org.junit.jupiter.api.Test;
 
 import a.la.caza.de.las.vinchucas.coverage.area.CoverageArea;
 import a.la.caza.de.las.vinchucas.coverage.area.CoverageAreaSystem;
-import a.la.caza.de.las.vinchucas.location.Location;
 import a.la.caza.de.las.vinchucas.samples.Sample;
 
 class CoverageAreaSystemTest {

@@ -11,11 +11,4 @@ public class OperatorEqual implements IOperator {
 	public boolean compareDate(LocalDate fecha1, LocalDate fecha2) {
 		return fecha1.equals(fecha2);
 	}
-
-	/**public List<Sample> searchSamples(List<Sample> samples, LocalDate date) {
-		
-		
-		Stream<Sample> samplesFound = samples.stream().filter(s -> s.getCreationDate().isEqual(date)) ;
-		return samplesFound.collect(Collectors.toList()) ;
-	}*/
 }

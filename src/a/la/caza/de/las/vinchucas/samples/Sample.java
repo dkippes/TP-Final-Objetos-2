@@ -126,9 +126,9 @@ public class Sample {
 	 * @return GenericOpinionType
 	 */
 	private GenericOpinionType getMostVotedOpinionOrUndefinedIfDraw(Map<OpinionType, Integer> mapOpinions) {
-		Entry<OpinionType, Integer> maxEntry = null;
+		Entry<OpinionType, Integer> maxEntry = mapOpinions.entrySet().iterator().next();
 		for (Entry<OpinionType, Integer> entry : mapOpinions.entrySet()) {
-			if (maxEntry == null || entry.getValue().compareTo(maxEntry.getValue()) > 0) {
+			if (entry.getValue().compareTo(maxEntry.getValue()) > 0) {
 				maxEntry = entry;
 			}
 		}

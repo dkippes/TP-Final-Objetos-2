@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import a.la.caza.de.las.vinchucas.coverage.area.CoverageArea;
 import a.la.caza.de.las.vinchucas.coverage.area.CoverageAreaSystem;
 import a.la.caza.de.las.vinchucas.opinions.Opinion;
 import a.la.caza.de.las.vinchucas.samples.Sample;
@@ -20,7 +19,6 @@ public class WebApplication {
 	private Set<Sample> registeredSamples;
 	private CoverageAreaSystem coverageAreaSystem;
 	
-
 	public WebApplication() {
 		registeredUsers = new HashSet<>();
 		registeredSamples = new HashSet<>();
