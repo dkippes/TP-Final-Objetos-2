@@ -9,9 +9,7 @@ import a.la.caza.de.las.vinchucas.samples.Sample;
 /**
  * Describe la informacion del sistema de areas de covertura
  */
-
 public class CoverageAreaSystem {
-
 	private Set<CoverageArea> registredCoverageAreas;
 
 	public CoverageAreaSystem() {
@@ -37,13 +35,11 @@ public class CoverageAreaSystem {
 	 * @param CoverageArea
 	 * @return Set<CoverageArea>
 	 */
-
 	public Set<CoverageArea> getOverlappingAreas(CoverageArea coverageArea) {
 		Set<CoverageArea> areas = registredCoverageAreas.stream()
 				.filter(c -> c.coverageAreasAreOverlapped(coverageArea)).collect(Collectors.toSet());
 		areas.remove(coverageArea);
 		return areas;
-
 	}
 
 	/**
@@ -51,10 +47,8 @@ public class CoverageAreaSystem {
 	 * 
 	 * @param Sample
 	 */
-
 	public void registerSampleInCoverageArea(Sample sample) {
 		registredCoverageAreas.stream().filter(c -> c.belongsToCoverageArea(sample))
 				.forEach(c -> c.addNewSample(sample));
 	}
-
 }

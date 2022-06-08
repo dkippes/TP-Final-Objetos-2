@@ -10,7 +10,6 @@ import a.la.caza.de.las.vinchucas.users.knowledge.IKnowledgeState;
  * Describe un usuario
  */
 public class User implements Cloneable {
-	//Atributos
 	private int id;
 	private String name;
 	private IKnowledgeState knowledge;
