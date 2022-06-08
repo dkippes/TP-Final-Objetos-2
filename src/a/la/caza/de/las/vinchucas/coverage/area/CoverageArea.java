@@ -124,10 +124,7 @@ public class CoverageArea {
 	 * @param CoverageArea
 	 */
 	public boolean coverageAreasAreOverlapped(CoverageArea coverageArea2) {
-
 		return epicenter.distanceBetweenTwoLocations(coverageArea2.getEpicenter()) < radio;
 		
 	}
-
-
 }
