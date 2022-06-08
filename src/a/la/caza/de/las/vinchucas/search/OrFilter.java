@@ -6,7 +6,7 @@ import a.la.caza.de.las.vinchucas.samples.Sample;
 /**
  * Es un filtro de diyuncion
  */
-public class OrFilter implements IFilter {
+public class OrFilter implements BinaryFilter {
 	private IFilter filter1;
 	private IFilter filter2;
 
