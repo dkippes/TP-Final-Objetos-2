@@ -7,7 +7,7 @@ import a.la.caza.de.las.vinchucas.samples.Sample;
 /**
  * Es un filtro de conjuncion.
  */
-public class AndFilter implements BinaryFilter {
+public class AndFilter extends BinaryFilter {
 	private IFilter filter1;
 	private IFilter filter2;
 
