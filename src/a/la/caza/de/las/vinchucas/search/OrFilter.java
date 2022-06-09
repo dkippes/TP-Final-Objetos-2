@@ -7,8 +7,7 @@ import a.la.caza.de.las.vinchucas.samples.Sample;
  * Es un filtro de diyuncion
  */
 public class OrFilter extends BinaryFilter {
-	private IFilter filter1;
-	private IFilter filter2;
+
 
 	public void setFilters(IFilter filter1, IFilter filter2) {
 		this.filter1 = filter1;
