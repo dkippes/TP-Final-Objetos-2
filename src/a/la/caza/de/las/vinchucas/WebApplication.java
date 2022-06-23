@@ -61,7 +61,7 @@ public class WebApplication {
 	public List<Opinion> getUserOpinions(User user) {
 		return this.getRegisteredSamples().stream()
 				.flatMap(sample -> sample.getOpinionHistory().stream())
-				.filter(userOpinion -> user.getId() == userOpinion.getUser().getId())
+				.filter(userOpinion -> user.equals(userOpinion.getUser()))
 				.collect(Collectors.toList());
 	}
 	

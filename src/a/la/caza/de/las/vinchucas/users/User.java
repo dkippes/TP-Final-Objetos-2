@@ -1,5 +1,7 @@
 package a.la.caza.de.las.vinchucas.users;
 
+import java.util.Objects;
+
 import a.la.caza.de.las.vinchucas.WebApplication;
 import a.la.caza.de.las.vinchucas.exceptions.UserValidationException;
 import a.la.caza.de.las.vinchucas.opinions.Opinion;
@@ -10,14 +12,11 @@ import a.la.caza.de.las.vinchucas.users.knowledge.IKnowledgeState;
  * Describe un usuario
  */
 public class User implements Cloneable {
-	private int id;
 	private String name;
 	private IKnowledgeState knowledge;
-	private static int counter;
 	private WebApplication webApplication;
 
 	public User(String name, IKnowledgeState knowledge, WebApplication webApplication) {
-		this.id = counter++;
 		this.name = name;
 		this.knowledge = knowledge;
 		this.webApplication = webApplication;
@@ -26,10 +25,6 @@ public class User implements Cloneable {
 
 	public String getName() {
 		return this.name;
-	}
-
-	public int getId() {
-		return id;
 	}
 
 	public WebApplication getWebApplication() {
@@ -62,11 +57,20 @@ public class User implements Cloneable {
 		return (User) super.clone();
 	}
 
-	public IKnowledgeState getKnowledge() {
-		return this.knowledge;
+	public void getKnowledge() {
+		this.knowledge.checkStatusUser(this);
 	}
 
-	public void updateKnowledgeBaseOnCondition() {
-		this.knowledge.checkStatusUser(this);
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		User other = (User) obj;
+		return Objects.equals(knowledge, other.knowledge) && Objects.equals(name, other.name)
+				&& Objects.equals(webApplication, other.webApplication);
 	}
 }

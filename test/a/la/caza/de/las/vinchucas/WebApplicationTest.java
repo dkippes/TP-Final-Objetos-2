@@ -32,21 +32,19 @@ public class WebApplicationTest {
 	@Test
 	void testAddUser() {
 		webApplication.registerUser(user);
-		assertTrue(webApplication.getRegisteredUsers().size() > 0);
+		assertTrue(webApplication.getRegisteredUsers().contains(user));
 	}
 
 	@Test
 	void testAddSample() {
 		webApplication.registerSample(sample);
-		assertTrue(webApplication.getRegisteredSamples().size() > 0);
+		assertTrue(webApplication.getRegisteredSamples().contains(sample));
 	}
 
 	@Test
 	void testGetUserOpinions() {
 		User user2 = mock(User.class);
 		Opinion opinion2 = mock(Opinion.class);
-		when(user.getId()).thenReturn(1);
-		when(user2.getId()).thenReturn(2);
 		when(opinion.getUser()).thenReturn(user);
 		when(opinion2.getUser()).thenReturn(user2);
 		when(sample.getOpinionHistory()).thenReturn(List.of(opinion, opinion2));
@@ -58,7 +56,6 @@ public class WebApplicationTest {
 
 	@Test
 	void testManyOpinionMadeByUserBeforeAnyDays() {
-		when(user.getId()).thenReturn(1);
 		when(opinion.getUser()).thenReturn(user);
 		when(opinion.getDateOfIssue()).thenReturn(LocalDate.now());
 		when(sample.getOpinionHistory()).thenReturn(List.of(opinion));
@@ -69,7 +66,6 @@ public class WebApplicationTest {
 
 	@Test
 	void testGetUserSamples() {
-		when(user.getId()).thenReturn(1);
 		when(sample.getUser()).thenReturn(user);
 		webApplication.registerSample(sample);
 		webApplication.registerUser(user);
@@ -78,7 +74,6 @@ public class WebApplicationTest {
 
 	@Test
 	void testManySamplesSendByUserBeforeAnyDays() {
-		when(user.getId()).thenReturn(1);
 		when(sample.getUser()).thenReturn(user);
 		when(sample.getCreationDate()).thenReturn(LocalDate.now());
 		webApplication.registerSample(sample);

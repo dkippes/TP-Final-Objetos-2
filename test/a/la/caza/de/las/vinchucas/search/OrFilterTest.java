@@ -51,7 +51,7 @@ class OrFilterTest {
 		lastVotedateFilter = new FilterLastVoteDate(dateSearched);
 		insectFilter = new FilterInsect(insectSearched);
 
-		orFilter = new OrFilter();
+		orFilter = new OrFilter(lastVotedateFilter, insectFilter);
 
 		operatorEqual = new OperatorEqual();
 		lastVotedateFilter.setOperator(operatorEqual);
@@ -72,8 +72,6 @@ class OrFilterTest {
 		when(sample.getActualResult()).thenReturn(insectSearched);
 		when(sample1.getActualResult()).thenReturn(otherInsect);
 		when(sample2.getActualResult()).thenReturn(insectSearched);
-
-		orFilter.setFilters(lastVotedateFilter, insectFilter);
 
 		List<Sample> samplesFound = orFilter.searchSamples(allSamples);
 

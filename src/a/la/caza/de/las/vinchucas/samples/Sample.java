@@ -42,7 +42,7 @@ public class Sample {
 	}
 
 	/**
-	 * Anade la opion de un usuario segun el estado de la muestra
+	 * Anade la opinion de un usuario segun el estado de la muestra
 	 * @exception UserValidationException
 	 * @throws UserValidationException
 	 * @param Opinion
@@ -104,7 +104,7 @@ public class Sample {
 	 */
 	public boolean userAlreadyVote(User user) {
 		return opinionHistory.stream()
-				.anyMatch(userOpinion -> userOpinion.getUser().getId() == user.getId());
+				.anyMatch(userOpinion -> userOpinion.getUser().equals(user));
 	}
 
 	/**

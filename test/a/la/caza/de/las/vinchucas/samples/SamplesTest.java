@@ -23,7 +23,6 @@ import a.la.caza.de.las.vinchucas.opinions.UndefinedOpinion;
 import a.la.caza.de.las.vinchucas.samples.state.BasicVotedSampleState;
 import a.la.caza.de.las.vinchucas.samples.verification.level.Vote;
 import a.la.caza.de.las.vinchucas.users.User;
-import a.la.caza.de.las.vinchucas.users.knowledge.KnowledgeBasic;
 
 public class SamplesTest {
 	private Sample sample;
@@ -31,6 +30,8 @@ public class SamplesTest {
 	private Photo photo;
 	private Opinion opinion;
 	private User user;
+	private User user1;
+	private User user2;
 	private WebApplication webApplication;
 
 	@BeforeEach
@@ -39,6 +40,8 @@ public class SamplesTest {
 		opinion = mock(Opinion.class);
 		photo = mock(Photo.class);
 		user = mock(User.class);
+		user1 = mock(User.class);
+		user2 = mock(User.class);
 		webApplication = mock(WebApplication.class);
 		when(opinion.getDateOfIssue()).thenReturn(LocalDate.now());
 		when(opinion.getUser()).thenReturn(user);
@@ -81,15 +84,12 @@ public class SamplesTest {
 	@Test
 	void testUserDidntVoteBefore() throws Exception {
 		User newUser = mock(User.class);
-		when(newUser.getId()).thenReturn(1);
-		when(user.getId()).thenReturn(2);
 		when(opinion.getUser()).thenReturn(newUser);
 		assertFalse(sample.userAlreadyVote(user));
 	}
 
 	@Test
 	void testUserAlreadyVote() throws Exception {
-		when(user.getId()).thenReturn(1);
 		when(opinion.getUser()).thenReturn(user);
 		assertTrue(sample.userAlreadyVote(user));
 	}
@@ -110,7 +110,7 @@ public class SamplesTest {
 
 	@Test
 	void testAddOpinionWhenTheUserHasBasicKnowledge() throws Exception {
-		sample.addOpinion(getOpinionBasic(1, OpinionType.CHINCHE_PHTIA));
+		sample.addOpinion(getOpinionBasic(user1, OpinionType.CHINCHE_PHTIA));
 
 		assertEquals(sample.getLevelVerification(), Vote.VOTED);
 		assertTrue(sample.getOpinionHistory().size() == 2);
@@ -120,7 +120,7 @@ public class SamplesTest {
 
 	@Test
 	void testAddOpinionWhenTheUserHasExpertKnowledge() throws Exception {
-		sample.addOpinion(getOpinionSpecialist(1, OpinionType.VINCHUCA_GUASAYANA));
+		sample.addOpinion(getOpinionSpecialist(user1, OpinionType.VINCHUCA_GUASAYANA));
 
 		assertEquals(sample.getLevelVerification(), Vote.VOTED);
 		assertTrue(sample.getOpinionHistory().size() == 2);
@@ -130,8 +130,8 @@ public class SamplesTest {
 
 	@Test
 	void testSampleIsVerifyWhen2ExpertVoted() throws Exception {
-		sample.addOpinion(getOpinionSpecialist(1, OpinionType.VINCHUCA_GUASAYANA));
-		sample.addOpinion(getOpinionSpecialist(2, OpinionType.VINCHUCA_GUASAYANA));
+		sample.addOpinion(getOpinionSpecialist(user1, OpinionType.VINCHUCA_GUASAYANA));
+		sample.addOpinion(getOpinionSpecialist(user2, OpinionType.VINCHUCA_GUASAYANA));
 
 		assertEquals(sample.getLevelVerification(), Vote.VERIFIED);
 		assertTrue(sample.getOpinionHistory().size() == 3);
@@ -141,8 +141,8 @@ public class SamplesTest {
 
 	@Test
 	void testIsVerifyTheUserWhoSendTheSampleAndOtherExpertVoted() throws Exception {
-		sample.addOpinion(getOpinionSpecialist(1, OpinionType.VINCHUCA_GUASAYANA));
-		sample.addOpinion(getOpinionSpecialist(2, OpinionType.VINCHUCA_GUASAYANA));
+		sample.addOpinion(getOpinionSpecialist(user1, OpinionType.VINCHUCA_GUASAYANA));
+		sample.addOpinion(getOpinionSpecialist(user2, OpinionType.VINCHUCA_GUASAYANA));
 
 		assertEquals(sample.getLevelVerification(), Vote.VERIFIED);
 		assertTrue(sample.getOpinionHistory().size() == 3);
@@ -152,9 +152,9 @@ public class SamplesTest {
 
 	@Test
 	void testIsVerifyAlthoughtAnotherUserVoted() throws Exception {
-		sample.addOpinion(getOpinionSpecialist(1, OpinionType.VINCHUCA_GUASAYANA));
-		sample.addOpinion(getOpinionSpecialist(2, OpinionType.VINCHUCA_GUASAYANA));
-		sample.addOpinion(getOpinionSpecialist(3, OpinionType.VINCHUCA_GUASAYANA));
+		sample.addOpinion(getOpinionSpecialist(user1, OpinionType.VINCHUCA_GUASAYANA));
+		sample.addOpinion(getOpinionSpecialist(user2, OpinionType.VINCHUCA_GUASAYANA));
+		sample.addOpinion(getOpinionSpecialist(user1, OpinionType.VINCHUCA_GUASAYANA));
 
 		assertEquals(sample.getLevelVerification(), Vote.VERIFIED);
 		assertTrue(sample.getOpinionHistory().size() == 3);
@@ -164,63 +164,64 @@ public class SamplesTest {
 
 	@Test
 	void testActualResultWhenSampleIsCreatedIsUndefined() throws Exception {
-		sample = new Sample(location, photo, getOpinionBasic(1, OpinionType.VINCHUCA_GUASAYANA));
-		sample.addOpinion(getOpinionBasic(2, OpinionType.IMAGE_UNCLEAR));
-		sample.addOpinion(getOpinionBasic(3, OpinionType.IMAGE_UNCLEAR));
-		sample.addOpinion(getOpinionBasic(4, OpinionType.VINCHUCA_GUASAYANA));
-		sample.addOpinion(getOpinionBasic(5, OpinionType.NOTHING));
+		User user3 = mock(User.class);
+		User user4 = mock(User.class);
+		User user5 = mock(User.class);
+		sample = new Sample(location, photo, getOpinionBasic(user1, OpinionType.VINCHUCA_GUASAYANA));
+		sample.addOpinion(getOpinionBasic(user2, OpinionType.IMAGE_UNCLEAR));
+		sample.addOpinion(getOpinionBasic(user3, OpinionType.IMAGE_UNCLEAR));
+		sample.addOpinion(getOpinionBasic(user4, OpinionType.VINCHUCA_GUASAYANA));
+		sample.addOpinion(getOpinionBasic(user5, OpinionType.NOTHING));
 		assertEquals(sample.getActualResult(), UndefinedOpinion.UNDEFINED);
 	}
 
 	@Test
 	void testActualResultIsChincheFolidaWhenIsVerified() throws Exception {
-		sample = new Sample(location, photo, getOpinionSpecialist(1, OpinionType.CHINCHE_FOLIADA));
-		sample.addOpinion(getOpinionSpecialist(2, OpinionType.CHINCHE_FOLIADA));
+		sample = new Sample(location, photo, getOpinionSpecialist(user1, OpinionType.CHINCHE_FOLIADA));
+		sample.addOpinion(getOpinionSpecialist(user2, OpinionType.CHINCHE_FOLIADA));
 		assertEquals(sample.getActualResult(), OpinionType.CHINCHE_FOLIADA);
 	}
 
 	@Test
 	void testActualResultIsChincheFolidaWhenIsVotedByOneExpert() throws Exception {
-		sample = new Sample(location, photo, getOpinionBasic(1, OpinionType.IMAGE_UNCLEAR));
-		sample.addOpinion(getOpinionSpecialist(2, OpinionType.CHINCHE_FOLIADA));
+		sample = new Sample(location, photo, getOpinionBasic(user1, OpinionType.IMAGE_UNCLEAR));
+		sample.addOpinion(getOpinionSpecialist(user2, OpinionType.CHINCHE_FOLIADA));
 		assertEquals(sample.getActualResult(), OpinionType.CHINCHE_FOLIADA);
 	}
 
 	@Test
 	void testActualResultShouldBeChincheFoliada() throws Exception {
-		sample.addOpinion(getOpinionBasic(1, OpinionType.CHINCHE_FOLIADA));
-		sample.addOpinion(getOpinionBasic(2, OpinionType.CHINCHE_FOLIADA));
+		sample.addOpinion(getOpinionBasic(user1, OpinionType.CHINCHE_FOLIADA));
+		sample.addOpinion(getOpinionBasic(user2, OpinionType.CHINCHE_FOLIADA));
 		assertEquals(OpinionType.CHINCHE_FOLIADA, sample.getActualResult());
 		;
 	}
 
 	@Test
 	void testActualResultWhenSampleIsCreatedIsImageUnclear() throws Exception {
-		Sample sampleTest = new Sample(location, photo, getOpinionBasic(2, OpinionType.IMAGE_UNCLEAR));
+		Sample sampleTest = new Sample(location, photo, getOpinionBasic(user, OpinionType.IMAGE_UNCLEAR));
 		assertEquals(OpinionType.IMAGE_UNCLEAR, sampleTest.getActualResult());
 	}
 
 	@Test
 	void testUserAlreadyVoteException() throws Exception {
-		Sample sample = new Sample(location, photo, getOpinionBasic(1, OpinionType.IMAGE_UNCLEAR));
+		Sample sample = new Sample(location, photo, getOpinionBasic(user, OpinionType.IMAGE_UNCLEAR));
 		assertThrows(UserValidationException.class,
-				() -> sample.addOpinion(getOpinionBasic(1, OpinionType.IMAGE_UNCLEAR)));
+				() -> sample.addOpinion(getOpinionBasic(user, OpinionType.IMAGE_UNCLEAR)));
 	}
 
 	@Test
 	void testUserIsNotExpertException() throws Exception {
-		Sample sample = new Sample(location, photo, getOpinionSpecialist(1, OpinionType.IMAGE_UNCLEAR));
+		User userBasic = mock(User.class);
+		Sample sample = new Sample(location, photo, getOpinionSpecialist(user, OpinionType.IMAGE_UNCLEAR));
 		assertThrows(UserValidationException.class,
-				() -> sample.addOpinion(getOpinionBasic(2, OpinionType.IMAGE_UNCLEAR)));
+				() -> sample.addOpinion(getOpinionBasic(userBasic, OpinionType.IMAGE_UNCLEAR)));
 	}
 
-	private Opinion getOpinionBasic(int id, OpinionType opinionType) {
+	private Opinion getOpinionBasic(User user, OpinionType opinionType) {
 		Opinion opinion = mock(Opinion.class);
-		User user = mock(User.class);
-		when(user.getId()).thenReturn(id);
 		when(user.getName()).thenReturn("Dada Basic");
 		when(user.getWebApplication()).thenReturn(webApplication);
-		when(user.getKnowledge()).thenReturn(new KnowledgeBasic());
 		when(opinion.getUser()).thenReturn(user);
 		when(opinion.getOpinionType()).thenReturn(opinionType);
 		when(opinion.getDateOfIssue()).thenReturn(LocalDate.of(2019, 7, 15));
@@ -229,10 +230,8 @@ public class SamplesTest {
 	}
 
 	
-	private Opinion getOpinionSpecialist(int id, OpinionType opinionType) {
+	private Opinion getOpinionSpecialist(User user, OpinionType opinionType) {
 		Opinion opinion = mock(Opinion.class);
-		User user = mock(User.class);
-		when(user.getId()).thenReturn(id);
 		when(user.getName()).thenReturn("Dada Specialist");
 		when(user.getWebApplication()).thenReturn(webApplication);
 		when(user.hasExpertKnowledge()).thenReturn(true);

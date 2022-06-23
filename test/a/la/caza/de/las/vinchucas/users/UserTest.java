@@ -3,6 +3,7 @@ package a.la.caza.de.las.vinchucas.users;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -39,8 +40,14 @@ public class UserTest {
 	@Test
 	void testCreateAnUser() {
 		assertEquals("Diego", user.getName());
-		assertTrue(user.getId() > 0);
-		assertEquals(user.getKnowledge(), knowledge);
+		assertEquals(user.getWebApplication(), webApplication);
+	}
+	
+	@Test
+	void testIsNotTheSameUser() {
+		assertEquals(user, user);
+		assertNotEquals(user, null);
+		assertNotEquals(user, knowledge);
 		assertEquals(user.getWebApplication(), webApplication);
 	}
 
@@ -49,7 +56,6 @@ public class UserTest {
 		user = new User("Diego", new KnowledgeBasic(), webApplication);
 		assertTrue(user.hasBasicKnowledge());
 		assertFalse(user.hasExpertKnowledge());
-		assertEquals(user.getKnowledge().getClass(), new KnowledgeBasic().getClass());
 	}
 
 	@Test
@@ -71,7 +77,7 @@ public class UserTest {
 		user = new User("Diego", new KnowledgeBasic(), webApplication);
 		when(webApplication.manyOpinionMadeByUserBeforeAnyDays(user, 30)).thenReturn(30L);
 		when(webApplication.manySamplesSendByUserBeforeAnyDays(user, 30)).thenReturn(30L);
-		user.updateKnowledgeBaseOnCondition();
+		user.getKnowledge();
 		assertFalse(user.hasBasicKnowledge());
 		assertTrue(user.hasExpertKnowledge());
 	}
@@ -91,7 +97,7 @@ public class UserTest {
 		user = new User("Diego", new KnowledgeBasic(), webApplication);
 		when(webApplication.manyOpinionMadeByUserBeforeAnyDays(user, 30)).thenReturn(10L);
 		when(webApplication.manySamplesSendByUserBeforeAnyDays(user, 30)).thenReturn(10L);
-		user.updateKnowledgeBaseOnCondition();
+		user.getKnowledge();
 		assertTrue(user.hasBasicKnowledge());
 		assertFalse(user.hasExpertKnowledge());
 	}
@@ -101,7 +107,7 @@ public class UserTest {
 		user = new User("Diego", new KnowledgeSpecialist(), webApplication);
 		when(webApplication.manyOpinionMadeByUserBeforeAnyDays(user, 30)).thenReturn(10L);
 		when(webApplication.manySamplesSendByUserBeforeAnyDays(user, 30)).thenReturn(10L);
-		user.updateKnowledgeBaseOnCondition();
+		user.getKnowledge();
 		assertFalse(user.hasBasicKnowledge());
 		assertTrue(user.hasExpertKnowledge());
 	}
@@ -116,7 +122,7 @@ public class UserTest {
 	@Test
 	void testUserCanBeCloneSoItDoesntChangeHerKnowledgeInTheOpinion() throws CloneNotSupportedException {
 		User userCloned = user.clone();
-		assertEquals(userCloned.getId(), user.getId());
+		assertEquals(userCloned, user);
 	}
 
 	@Test

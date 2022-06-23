@@ -51,7 +51,7 @@ class AndFilterTest {
 		dateFilter = new FilterCreationDate(dateSearched);
 		verLevelFilter = new FilterVerificationLevel(verLevelSearched);
 
-		andFilter = new AndFilter();
+		andFilter = new AndFilter(dateFilter, verLevelFilter);
 
 		operatorEqual = new OperatorEqual();
 
@@ -70,8 +70,6 @@ class AndFilterTest {
 
 		when(sample.getLevelVerification()).thenReturn(verLevelSearched);
 		when(sample1.getLevelVerification()).thenReturn(otherVerLevel);
-
-		andFilter.setFilters(dateFilter, verLevelFilter);
 
 		List<Sample> samplesFound = andFilter.searchSamples(allSamples);
 

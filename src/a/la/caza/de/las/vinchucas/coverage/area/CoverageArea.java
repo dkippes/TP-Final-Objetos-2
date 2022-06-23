@@ -92,14 +92,6 @@ public class CoverageArea {
 	 * @param Sample
 	 */
 	public void addVerifySample(Sample sample) {
-		notifyVerifySample(sample);
-	}
-
-	/**
-	 * Notifica a todas las ong que se verifico una muestra
-	 * @param Sample
-	 */
-	private void notifyVerifySample(Sample sample) {
 		organizationObservers.forEach(observer -> observer.validateSample(this, sample));
 	}
 

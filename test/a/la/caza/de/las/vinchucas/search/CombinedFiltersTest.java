@@ -63,8 +63,8 @@ class CombinedFiltersTest {
 		dateFilter = new FilterCreationDate(lastVotedateSearched);
 		verLevelFilter = new FilterVerificationLevel(verLevelSearched);
 
-		orFilter = new OrFilter();
-		andFilter = new AndFilter();
+		orFilter = new OrFilter(lastVotedateFilter, insectFilter);
+		andFilter = new AndFilter(verLevelFilter, orFilter);
 
 		operatorEqual = new OperatorEqual();
 		dateFilter.setOperator(operatorEqual);
@@ -88,9 +88,6 @@ class CombinedFiltersTest {
 		when(sample.getLevelVerification()).thenReturn(verLevelSearched);
 		when(sample1.getLevelVerification()).thenReturn(otherVerLevel);
 		when(sample2.getLevelVerification()).thenReturn(otherVerLevel);
-
-		orFilter.setFilters(lastVotedateFilter, insectFilter);
-		andFilter.setFilters(verLevelFilter, orFilter);
 
 		List<Sample> samplesFound = andFilter.searchSamples(allSamples);
 
