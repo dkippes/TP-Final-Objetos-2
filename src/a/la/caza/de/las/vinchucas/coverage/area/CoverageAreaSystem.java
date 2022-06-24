@@ -48,7 +48,6 @@ public class CoverageAreaSystem {
 	 * @param Sample
 	 */
 	public void registerSampleInCoverageArea(Sample sample) {
-		registredCoverageAreas.stream().filter(c -> c.belongsToCoverageArea(sample))
-				.forEach(c -> c.addNewSample(sample));
+		registredCoverageAreas.stream().forEach(c -> c.addNewSample(sample));
 	}
 }

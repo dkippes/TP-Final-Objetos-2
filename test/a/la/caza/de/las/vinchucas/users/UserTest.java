@@ -118,13 +118,7 @@ public class UserTest {
 		verify(sample, times(1)).addOpinion(opinion);
 		verify(knowledge, times(2)).checkStatusUser(user);
 	}
-
-	@Test
-	void testUserCanBeCloneSoItDoesntChangeHerKnowledgeInTheOpinion() throws CloneNotSupportedException {
-		User userCloned = user.clone();
-		assertEquals(userCloned, user);
-	}
-
+	
 	@Test
 	void testUserExpertDowngradeToBasicBecauseHeDoesntHaveManyReviews() throws UserValidationException {
 		user.setKnowledge(new KnowledgeExpert());

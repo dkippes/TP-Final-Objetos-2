@@ -57,20 +57,8 @@ public class User implements Cloneable {
 		return (User) super.clone();
 	}
 
-	public void getKnowledge() {
+	public IKnowledgeState getKnowledge() {
 		this.knowledge.checkStatusUser(this);
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		User other = (User) obj;
-		return Objects.equals(knowledge, other.knowledge) && Objects.equals(name, other.name)
-				&& Objects.equals(webApplication, other.webApplication);
+		return knowledge;
 	}
 }

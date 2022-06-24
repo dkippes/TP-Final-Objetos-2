@@ -1,7 +1,13 @@
 package a.la.caza.de.las.vinchucas.samples.state;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import a.la.caza.de.las.vinchucas.exceptions.UserValidationException;
+import a.la.caza.de.las.vinchucas.opinions.GenericOpinionType;
 import a.la.caza.de.las.vinchucas.opinions.Opinion;
+import a.la.caza.de.las.vinchucas.opinions.OpinionType;
+import a.la.caza.de.las.vinchucas.opinions.UndefinedOpinion;
 import a.la.caza.de.las.vinchucas.samples.Sample;
 import a.la.caza.de.las.vinchucas.samples.verification.level.Vote;
 
@@ -33,5 +39,18 @@ public class ExpectVotedSampleState extends SampleStateImpl {
 	@Override
 	public Vote getLevelVerification() {
 		return Vote.VOTED;
+	}
+	
+	@Override
+	public GenericOpinionType getResult(Sample sample) {
+		List<OpinionType> opinionsByExperts = sample.getOpinionHistory().stream()
+				.filter(o -> o.getUser().hasExpertKnowledge())
+				.map(o -> o.getOpinionType())
+				.collect(Collectors.toList());
+				
+		if(opinionsByExperts.size() > 2) {
+			return UndefinedOpinion.UNDEFINED;
+		}
+		return opinionsByExperts.get(0);
 	}
 }

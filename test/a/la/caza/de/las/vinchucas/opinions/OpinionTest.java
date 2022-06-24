@@ -36,7 +36,7 @@ public class OpinionTest {
 
 	@Test
 	void testCreationOpinion() {
-		assertAll(() -> assertEquals(nothing.getUser(), user),
+		assertAll(
 				() -> assertEquals(nothing.getOpinionType(), OpinionType.NOTHING),
 				() -> assertEquals(nothing.getUser().getName(), user.getName()),
 				() -> assertEquals(nothing.getDateOfIssue(), LocalDate.now()),

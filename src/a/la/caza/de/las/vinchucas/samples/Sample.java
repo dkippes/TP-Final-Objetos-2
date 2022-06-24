@@ -43,6 +43,7 @@ public class Sample {
 
 	/**
 	 * Anade la opinion de un usuario segun el estado de la muestra
+	 * 
 	 * @exception UserValidationException
 	 * @throws UserValidationException
 	 * @param Opinion
@@ -54,6 +55,7 @@ public class Sample {
 	/**
 	 * Anade la opion de un usuario al historial directamente, se debe usar addOpion
 	 * si se quiere agregar segun el estado de la muestra
+	 * 
 	 * @param Opinion
 	 * @return LocalDate
 	 */
@@ -67,6 +69,7 @@ public class Sample {
 
 	/**
 	 * Obtiene la ultima votacion
+	 * 
 	 * @return LocalDate
 	 */
 	public LocalDate getLastVotation() {
@@ -88,7 +91,7 @@ public class Sample {
 	public User getUser() {
 		return user;
 	}
-	
+
 	public Location getLocation() {
 		return location;
 	}
@@ -99,82 +102,21 @@ public class Sample {
 
 	/**
 	 * Indica si el usuario paso por parametro ya voto previamente
+	 * 
 	 * @param User
 	 * @return boolean
 	 */
 	public boolean userAlreadyVote(User user) {
-		return opinionHistory.stream()
-				.anyMatch(userOpinion -> userOpinion.getUser().equals(user));
+		return opinionHistory.stream().anyMatch(userOpinion -> userOpinion.getUser().equals(user));
 	}
 
 	/**
-	 * Obtiene el resultado de una muestra, esta puede la opinion mas vota
-	 * o en su defecto si hay empate devuelve indefinida
+	 * Obtiene el resultado de una muestra, esta puede la opinion mas vota o en su
+	 * defecto si hay empate devuelve indefinida
+	 * 
 	 * @return GenericOpinionType
 	 */
 	public GenericOpinionType getActualResult() {
-		if (anyExpertUserVote()) {
-			return actualResultIfWasVotedByExpert();
-		}
-		Map<OpinionType, Integer> mapOpinions = mapOpinionsByOpinionType();
-		return getMostVotedOpinionOrUndefinedIfDraw(mapOpinions);
-	}
-
-	/**
-	 * Devuelve la opinion mas votada o si es empate indefinida
-	 * @param Map<OpinionType, Integer>
-	 * @return GenericOpinionType
-	 */
-	private GenericOpinionType getMostVotedOpinionOrUndefinedIfDraw(Map<OpinionType, Integer> mapOpinions) {
-		Entry<OpinionType, Integer> maxEntry = mapOpinions.entrySet().iterator().next();
-		for (Entry<OpinionType, Integer> entry : mapOpinions.entrySet()) {
-			if (entry.getValue().compareTo(maxEntry.getValue()) > 0) {
-				maxEntry = entry;
-			}
-		}
-		mapOpinions.remove(maxEntry.getKey());
-		return mapOpinions.containsValue(maxEntry.getValue()) 
-				? UndefinedOpinion.UNDEFINED
-				: maxEntry.getKey();
-	}
-
-	/**
-	 * Mapea todas las opiniones por el tipo y su cantidad de repeticiones en el historial
-	 * @return Map<OpinionType, Integer>
-	 */
-	private Map<OpinionType, Integer> mapOpinionsByOpinionType() {
-		Map<OpinionType, Integer> mapOpinions = new TreeMap<>();
-		getOpinionsAsList().forEach(
-				opinion -> mapOpinions.put(opinion, Collections.frequency(getOpinionsAsList(), opinion)));
-		return mapOpinions;
-	}
-
-	/**
-	 * Obtiene todas las opiniones del historial
-	 * @return List<OpinionType>
-	 */
-	private List<OpinionType> getOpinionsAsList() {
-		return opinionHistory.stream()
-				.map(opinion -> opinion.getOpinionType()).collect(Collectors.toList());
-	}
-
-	/**
-	 * Obtiene la opinion mas votada por expertos
-	 * @return OpinionType
-	 */
-	private OpinionType actualResultIfWasVotedByExpert() {
-		return opinionHistory.stream()
-				.filter(opinion -> opinion.getUser().hasExpertKnowledge()).findFirst().get()
-				.getOpinionType();
-	}
-
-	/**
-	 * Indica si algun usuario que haya votado es experto
-	 * @return boolean
-	 */
-	private boolean anyExpertUserVote() {
-		return this.opinionHistory.stream()
-				.anyMatch(opinion -> opinion.getUser()
-				.hasExpertKnowledge());
+		return this.state.getResult(this);
 	}
 }
