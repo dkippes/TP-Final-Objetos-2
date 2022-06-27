@@ -3,19 +3,19 @@ Trabajo final de objetos 2 de la Universidad Nacional de Quilmes
 
 ## Refactor
 ### UML:
-- [x] Relación entreFilterVerificationModeyEnumde Voteesta duplicada (Consultar???)
+- [x] Relación entre FilterVerificationMode y Enum de Voteesta duplicada (Consultar???)
 - [x] IFlterInsectyGenericOpinioTypepasa algo similar.
 - [x] KnowledgeStatusUpdate, ningún objeto conoce esa interface.¿Tiene sentido que el objetoKnowledgela implemente? Una muestra es que en el documento donde explican los roles de las interfaces y clases, esa interfaz queda sin rol. Revisar este modelado.
 
 ### Implementacion:
 - [x] Filtrar las opiniones de los usuario, no debería de hacerse a través de un Id, sino comparar la instancia del objeto. Esto constituye un error en relación al concepto de Identidad en POO. Los objetos no necesitan un “id” para ser identificados. Reemplazar las búsquedas por Id por comparación por identidad.
-  - [ ] Corregir tests
 - [x] addVerifySampleno tiene sentido, porque lo únicoque hace es llamar a notifyVerifySample
-  - [ ] Corregir tests
-- [ ] **Location**: Último mensaje definido en la clase no es necesario.
+- [x] **Location**: Último mensaje definido en la clase no es necesario.
   - Esto se pide en el TP en la parte de ubicaciones
-- [ ] Dentro de la implementación del patrón State se repite código en getLevelVeificationpara algunas de las subclases.
-- [ ] No delegan del todo bien en el estado de la muestra la forma de obtener la opinión.
+- [?] Dentro de la implementación del patrón State se repite código en getLevelVeificationpara algunas de las subclases.
+- [x] No delegan del todo bien en el estado de la muestra la forma de obtener la opinión.
+  - [x] Agregar tests faltantes
+  - [ ] Mejorar algoritmo de busqueda de resultado 
 - [x] **BinaryFilter**: Error en la construcción del objeto. El objeto está recreado de manera incompleta después de instanciarlo, los valores de los filtros podrían ser nulos.
 - [x] El nivel de conocimiento tiene que ser recalculado en el getKnowdgele
 
