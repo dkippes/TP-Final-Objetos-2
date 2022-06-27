@@ -24,9 +24,11 @@ class CoverageAreaSystemTest {
 	private CoverageArea coverageArea2;
 	private CoverageArea coverageArea3;
 	private Set<CoverageArea> registredCoverageAreas;
+	private Sample sample;
 
 	@BeforeEach
 	void setUp() throws Exception {
+		sample = mock(Sample.class);
 		registredCoverageAreas = spy(new HashSet<>());
 		system = new CoverageAreaSystem(registredCoverageAreas);
 		coverageArea1 = mock(CoverageArea.class);
@@ -37,13 +39,15 @@ class CoverageAreaSystemTest {
 	@Test
 	void testGetRegisteredCoverageAreasDoesntHaveCoveragesAreas() {
 		assertTrue(system.getRegistredCoverageAreas().isEmpty());
+		verify(registredCoverageAreas, times(0)).add(coverageArea1);
 	}
 
 	@Test
 	void testRegisterACoverageArea() {
-		
 		system.registerCoverageArea(coverageArea1);
 		assertFalse(system.getRegistredCoverageAreas().isEmpty());
+		assertTrue(system.getRegistredCoverageAreas().contains(coverageArea1));
+		verify(registredCoverageAreas).add(coverageArea1);
 	}
 	
 	@Test
@@ -55,26 +59,33 @@ class CoverageAreaSystemTest {
 		when(coverageArea2.coverageAreasAreOverlapped(coverageArea1)).thenReturn(true);
 		when(coverageArea3.coverageAreasAreOverlapped(coverageArea1)).thenReturn(true);
 		
-		Set<CoverageArea> ca = new HashSet<>();
-		ca.add(coverageArea2);
-		ca.add(coverageArea3);
+		Set<CoverageArea> coverageArea = new HashSet<>();
+		coverageArea.add(coverageArea2);
+		coverageArea.add(coverageArea3);
 		
-		assertEquals(ca,system.getOverlappingAreas(coverageArea1));
+		assertEquals(coverageArea,system.getOverlappingAreas(coverageArea1));
+		assertTrue(system.getRegistredCoverageAreas().contains(coverageArea1));
+		assertTrue(system.getRegistredCoverageAreas().contains(coverageArea2));
+		assertTrue(system.getRegistredCoverageAreas().contains(coverageArea3));
+		verify(registredCoverageAreas).add(coverageArea1);
+		verify(registredCoverageAreas).add(coverageArea2);
+		verify(registredCoverageAreas).add(coverageArea3);
 	}
 	
 	@Test
 	void testAddedSampleBelongsToMoreThanOneCoverageArea() {
-		
 		system.registerCoverageArea(coverageArea1);
 		system.registerCoverageArea(coverageArea2);
-		
-		Sample sample = mock(Sample.class);
 		
 		when(coverageArea1.belongsToCoverageArea(sample)).thenReturn(true);
 		when(coverageArea2.belongsToCoverageArea(sample)).thenReturn(true);
 		
 		system.registerSampleInCoverageArea(sample);
 		
+		assertTrue(system.getRegistredCoverageAreas().contains(coverageArea1));
+		assertTrue(system.getRegistredCoverageAreas().contains(coverageArea2));
+		verify(registredCoverageAreas).add(coverageArea1);
+		verify(registredCoverageAreas).add(coverageArea2);
 		verify(coverageArea1, times(1)).addNewSample(sample);
 		verify(coverageArea2, times(1)).addNewSample(sample);
 	}

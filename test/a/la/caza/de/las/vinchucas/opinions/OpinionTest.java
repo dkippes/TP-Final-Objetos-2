@@ -35,7 +35,7 @@ public class OpinionTest {
 	}
 
 	@Test
-	void testCreationOpinion() {
+	void testCreationOpinion() throws CloneNotSupportedException {
 		assertAll(
 				() -> assertEquals(nothing.getOpinionType(), OpinionType.NOTHING),
 				() -> assertEquals(nothing.getUser().getName(), user.getName()),

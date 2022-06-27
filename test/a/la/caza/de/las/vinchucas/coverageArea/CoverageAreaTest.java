@@ -22,8 +22,11 @@ import a.la.caza.de.las.vinchucas.samples.Sample;
 public class CoverageAreaTest {
 	private CoverageArea coverageArea;
 	private Location epicenter;
+	private Location location;
 	private OrganizationObserver organizationObserver;
 	private Sample sample;
+	private Sample sample2;
+	private Sample sample3;
 	private Set<OrganizationObserver> organizationObservers;
 	private Set<Sample> samples;
 
@@ -32,8 +35,11 @@ public class CoverageAreaTest {
 		organizationObservers = spy(new HashSet<>());
 		samples = spy(new HashSet<>());
 		epicenter = mock(Location.class);
+		location = mock(Location.class);
 		organizationObserver = mock(OrganizationObserver.class);
 		sample = mock(Sample.class);
+		sample2 = mock(Sample.class);
+		sample3 = mock(Sample.class);
 		coverageArea = new CoverageArea("Zona1", epicenter, 400, samples, organizationObservers);
 	}
 
@@ -65,7 +71,6 @@ public class CoverageAreaTest {
 
 	@Test
 	void testCantAddNewSampleBecauseTheSampleDoesntBelongsToTheArea() {
-		Location location = mock(Location.class);
 		when(sample.getLocation()).thenReturn(location);
 		when(epicenter.distanceBetweenTwoLocations(sample.getLocation())).thenReturn(500d);
 		coverageArea.addNewSample(sample);
@@ -77,7 +82,6 @@ public class CoverageAreaTest {
 
 	@Test
 	void testAddNewSampleWhenCoverageAreaDoesntHaveOrganizationObsevers() {
-		Location location = mock(Location.class);
 		when(sample.getLocation()).thenReturn(location);
 		when(epicenter.distanceBetweenTwoLocations(sample.getLocation())).thenReturn(300d);
 		coverageArea.addNewSample(sample);
@@ -89,7 +93,6 @@ public class CoverageAreaTest {
 
 	@Test
 	void testAddNewSampleWhenCoverageAreaHaveOrganizationObsevers() {
-		Location location = mock(Location.class);
 		when(sample.getLocation()).thenReturn(location);
 		when(epicenter.distanceBetweenTwoLocations(sample.getLocation())).thenReturn(300d);
 		coverageArea.addOrganizationObserver(organizationObserver);
@@ -115,34 +118,27 @@ public class CoverageAreaTest {
 	
 	@Test
 	void testAreaAndArea2AreOverlappingAreas() {
-		Location location2 = mock(Location.class);
-		CoverageArea coverageArea2 = new CoverageArea("Zona2", location2, 200, samples, organizationObservers);
+		CoverageArea coverageArea2 = new CoverageArea("Zona2", location, 200, samples, organizationObservers);
 		
-		when(epicenter.distanceBetweenTwoLocations(location2)).thenReturn((double) 300);
+		when(epicenter.distanceBetweenTwoLocations(location)).thenReturn((double) 300);
 		
 		assertTrue(coverageArea.coverageAreasAreOverlapped(coverageArea2));
-		verify(epicenter, times(1)).distanceBetweenTwoLocations(location2);
+		verify(epicenter, times(1)).distanceBetweenTwoLocations(location);
 	}
 	
 	@Test
 	void testAreaAndArea2AreNotOverlappingAreas() {
-		Location location2 = mock(Location.class);
-		CoverageArea coverageArea2 = new CoverageArea("Zona2", location2, 50, samples, organizationObservers);
+		CoverageArea coverageArea2 = new CoverageArea("Zona2", location, 50, samples, organizationObservers);
 		
-		when(epicenter.distanceBetweenTwoLocations(location2)).thenReturn((double) 800);
+		when(epicenter.distanceBetweenTwoLocations(location)).thenReturn((double) 800);
 		
 		assertFalse(coverageArea.coverageAreasAreOverlapped(coverageArea2));
-		verify(epicenter, times(1)).distanceBetweenTwoLocations(location2);
+		verify(epicenter, times(1)).distanceBetweenTwoLocations(location);
 	}
 	
 	@Test
-	void testSamplesInCoverageArea() {
-		
-		Sample sample2 = mock(Sample.class);
-		Sample sample3 = mock(Sample.class);
-		
+	void testSamplesInCoverageArea() {		
 		List<Sample> samples = spy(new ArrayList<>());
-		
 		samples.add(sample);
 		samples.add(sample2);
 		samples.add(sample3);

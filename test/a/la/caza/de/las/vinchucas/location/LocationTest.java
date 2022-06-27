@@ -2,6 +2,8 @@ package a.la.caza.de.las.vinchucas.location;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.List;
@@ -16,12 +18,14 @@ public class LocationTest {
 	private Location location;
 	private Location location2;
 	private Location location3;
+	private Location location4;
 
 	@BeforeEach
 	void setUp() {
 		location = new Location(1, 2);
 		location2 = new Location(3, 4);
 		location3 = new Location(5, 6);
+		location4 = new Location(0, 0);
 	}
 
 	@Test
@@ -33,6 +37,11 @@ public class LocationTest {
 	@Test
 	void testDistanceBetweenTwoLocations() {
 		assertEquals(400.74, location.distanceBetweenTwoLocations(location2));
+	}
+	
+	@Test
+	void testDistanceBetweenTwoLocationsAndTheFirstOneIs0() {
+		assertEquals(157.25, location.distanceBetweenTwoLocations(location4));
 	}
 
 	@Test
@@ -57,5 +66,9 @@ public class LocationTest {
 		when(sample4.getActualResult()).thenReturn(OpinionType.CHINCHE_FOLIADA);
 		List<Sample> samples = List.of(sample2, sample3);
 		assertEquals(location.getNearSamplesInDistance(sample1, samples, 500), List.of(sample2));
+		verify(sample1, times(2)).getActualResult();
+		verify(sample2, times(1)).getActualResult();
+		verify(sample3, times(1)).getActualResult();
+		verify(sample4, times(0)).getActualResult();
 	}
 }
