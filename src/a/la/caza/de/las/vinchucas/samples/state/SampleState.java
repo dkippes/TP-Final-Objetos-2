@@ -8,7 +8,7 @@ import a.la.caza.de.las.vinchucas.samples.Sample;
 /*
  * Esta clase abstacta describe el estado de cada muestra.
  */
-public abstract class SampleStateImpl implements ISampleState {
+public abstract class SampleState implements ISampleState {
 
 	/**
 	 * Lanza una excepcion si un usuario ya voto en la muestra anteriormente

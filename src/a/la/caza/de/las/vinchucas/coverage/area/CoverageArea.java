@@ -1,6 +1,5 @@
 package a.la.caza.de.las.vinchucas.coverage.area;
 
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -18,12 +17,12 @@ public class CoverageArea {
 	private Set<OrganizationObserver> organizationObservers;
 	private Set<Sample> samples;
 
-	public CoverageArea(String name, Location epicenter, float radio) {
+	public CoverageArea(String name, Location epicenter, float radio, Set<Sample> samples, Set<OrganizationObserver> organizationObservers) {
 		this.name = name;
 		this.epicenter = epicenter;
 		this.radio = radio;
-		this.organizationObservers = new HashSet<>();
-		this.samples = new HashSet<>();
+		this.organizationObservers = organizationObservers;
+		this.samples = samples;
 	}
 
 	public String getName() {
@@ -83,7 +82,7 @@ public class CoverageArea {
 	public void addNewSample(Sample sample) {
 		if (belongsToCoverageArea(sample)) {
 			samples.add(sample);
-			notifyNewSampleAdd(sample);
+			notifyNewSample(sample);
 		}
 	}
 
@@ -91,7 +90,7 @@ public class CoverageArea {
 	 * Aniade una muestra verificada y notifica a todas las ong que estan suscriptas
 	 * @param Sample
 	 */
-	public void addVerifySample(Sample sample) {
+	public void notifyVerifySample(Sample sample) {
 		organizationObservers.forEach(observer -> observer.validateSample(this, sample));
 	}
 
@@ -99,7 +98,7 @@ public class CoverageArea {
 	 * Notifica a todas las ong que se agrego una muestra
 	 * @param Sample
 	 */
-	private void notifyNewSampleAdd(Sample sample) {
+	private void notifyNewSample(Sample sample) {
 		organizationObservers.forEach(observer -> observer.uploadNewSample(this, sample));
 	}
 

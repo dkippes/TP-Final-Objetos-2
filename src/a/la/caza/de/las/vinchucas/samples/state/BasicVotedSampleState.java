@@ -20,7 +20,7 @@ import a.la.caza.de.las.vinchucas.samples.verification.level.Vote;
  * Describe el estado basico de una muestra
  * Esta no estaria verificada, es votada por al menos 1 usuario quien fue que la creo
  */
-public class BasicVotedSampleState extends SampleStateImpl {
+public class BasicVotedSampleState extends SampleState {
 
 	/**
 	 * Agrega una opinion en la muestra si el usuario no voto

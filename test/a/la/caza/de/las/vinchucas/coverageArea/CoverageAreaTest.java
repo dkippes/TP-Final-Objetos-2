@@ -3,11 +3,13 @@ package a.la.caza.de.las.vinchucas.coverageArea;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.*;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -22,13 +24,17 @@ public class CoverageAreaTest {
 	private Location epicenter;
 	private OrganizationObserver organizationObserver;
 	private Sample sample;
+	private Set<OrganizationObserver> organizationObservers;
+	private Set<Sample> samples;
 
 	@BeforeEach
 	void setUp() {
+		organizationObservers = spy(new HashSet<>());
+		samples = spy(new HashSet<>());
 		epicenter = mock(Location.class);
 		organizationObserver = mock(OrganizationObserver.class);
 		sample = mock(Sample.class);
-		coverageArea = new CoverageArea("Zona1", epicenter, 400);
+		coverageArea = new CoverageArea("Zona1", epicenter, 400, samples, organizationObservers);
 	}
 
 	@Test
@@ -44,6 +50,8 @@ public class CoverageAreaTest {
 	void testAddOrganizationObserver() {
 		coverageArea.addOrganizationObserver(organizationObserver);
 		assertFalse(coverageArea.getOrganizationObservers().isEmpty());
+		assertTrue(coverageArea.getOrganizationObservers().contains(organizationObserver));
+		verify(organizationObservers).add(organizationObserver);
 	}
 
 	@Test
@@ -51,6 +59,8 @@ public class CoverageAreaTest {
 		coverageArea.addOrganizationObserver(organizationObserver);
 		coverageArea.removeOrganizationObserver(organizationObserver);
 		assertTrue(coverageArea.getOrganizationObservers().isEmpty());
+		assertFalse(coverageArea.getOrganizationObservers().contains(organizationObserver));
+		verify(organizationObservers).remove(organizationObserver);
 	}
 
 	@Test
@@ -60,6 +70,7 @@ public class CoverageAreaTest {
 		when(epicenter.distanceBetweenTwoLocations(sample.getLocation())).thenReturn(500d);
 		coverageArea.addNewSample(sample);
 		assertTrue(coverageArea.getSamples().isEmpty());
+		assertFalse(coverageArea.getSamples().contains(sample));
 	}
 
 	@Test
@@ -69,6 +80,8 @@ public class CoverageAreaTest {
 		when(epicenter.distanceBetweenTwoLocations(sample.getLocation())).thenReturn(300d);
 		coverageArea.addNewSample(sample);
 		assertFalse(coverageArea.getSamples().isEmpty());
+		assertTrue(coverageArea.getSamples().contains(sample));
+		verify(samples).add(sample);
 	}
 
 	@Test
@@ -80,33 +93,39 @@ public class CoverageAreaTest {
 		coverageArea.addNewSample(sample);
 		assertFalse(coverageArea.getSamples().isEmpty());
 		assertFalse(coverageArea.getOrganizationObservers().isEmpty());
+		assertTrue(coverageArea.getSamples().contains(sample));
+		verify(organizationObservers).add(organizationObserver);
+		verify(samples).add(sample);
+		
 	}
 
 	@Test
 	void testNotifyVerifySample() {
 		coverageArea.addOrganizationObserver(organizationObserver);
-		coverageArea.addVerifySample(sample);
+		coverageArea.notifyVerifySample(sample);
 		assertFalse(coverageArea.getOrganizationObservers().isEmpty());
+		assertTrue(coverageArea.getOrganizationObservers().contains(organizationObserver));
+		verify(organizationObservers).add(organizationObserver);
 	}
 	
 	@Test
 	void testAreaAndArea2AreOverlappingAreas() {
 		Location location2 = mock(Location.class);
-		CoverageArea coverageArea2 = new CoverageArea("Zona2", location2, 200);
+		CoverageArea coverageArea2 = new CoverageArea("Zona2", location2, 200, samples, organizationObservers);
 		
 		when(epicenter.distanceBetweenTwoLocations(location2)).thenReturn((double) 300);
 		
-		assertTrue (coverageArea.coverageAreasAreOverlapped(coverageArea2));
+		assertTrue(coverageArea.coverageAreasAreOverlapped(coverageArea2));
 	}
 	
 	@Test
 	void testAreaAndArea2AreNotOverlappingAreas() {
 		Location location2 = mock(Location.class);
-		CoverageArea coverageArea2 = new CoverageArea("Zona2", location2, 50);
+		CoverageArea coverageArea2 = new CoverageArea("Zona2", location2, 50, samples, organizationObservers);
 		
 		when(epicenter.distanceBetweenTwoLocations(location2)).thenReturn((double) 800);
 		
-		assertFalse (coverageArea.coverageAreasAreOverlapped(coverageArea2));
+		assertFalse(coverageArea.coverageAreasAreOverlapped(coverageArea2));
 	}
 	
 	@Test
@@ -131,6 +150,4 @@ public class CoverageAreaTest {
 		
 		assertEquals(coverageArea.samplesInCoverageArea(samples), expectedSamples);
 	}
-
-	
 }

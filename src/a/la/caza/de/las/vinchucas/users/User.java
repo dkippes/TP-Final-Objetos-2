@@ -1,7 +1,5 @@
 package a.la.caza.de.las.vinchucas.users;
 
-import java.util.Objects;
-
 import a.la.caza.de.las.vinchucas.WebApplication;
 import a.la.caza.de.las.vinchucas.exceptions.UserValidationException;
 import a.la.caza.de.las.vinchucas.opinions.Opinion;

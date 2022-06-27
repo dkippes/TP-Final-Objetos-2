@@ -2,11 +2,13 @@ package a.la.caza.de.las.vinchucas;
 
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.*;
 import static org.mockito.Mockito.when;
 
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -18,12 +20,16 @@ import a.la.caza.de.las.vinchucas.users.User;
 public class WebApplicationTest {
 	private WebApplication webApplication;
 	private User user;
+	private Set<User> registedUsers;
+	private Set<Sample> registedSamples;
 	private Sample sample;
 	private Opinion opinion;
 
 	@BeforeEach
 	void setUp() {
-		webApplication = new WebApplication();
+		registedUsers = spy(new HashSet<User>());
+		registedSamples = spy(new HashSet<Sample>());
+		webApplication = new WebApplication(registedUsers, registedSamples);
 		user = mock(User.class);
 		sample = mock(Sample.class);
 		opinion = mock(Opinion.class);
@@ -33,12 +39,14 @@ public class WebApplicationTest {
 	void testAddUser() {
 		webApplication.registerUser(user);
 		assertTrue(webApplication.getRegisteredUsers().contains(user));
+		verify(registedUsers).add(user);
 	}
 
 	@Test
 	void testAddSample() {
 		webApplication.registerSample(sample);
 		assertTrue(webApplication.getRegisteredSamples().contains(sample));
+		verify(registedSamples).add(sample);
 	}
 
 	@Test
@@ -80,7 +88,4 @@ public class WebApplicationTest {
 		webApplication.registerUser(user);
 		assertEquals(webApplication.manySamplesSendByUserBeforeAnyDays(user, 30), 1);
 	}
-	
-	
-	
 }

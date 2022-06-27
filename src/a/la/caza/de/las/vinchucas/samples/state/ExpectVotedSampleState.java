@@ -14,7 +14,7 @@ import a.la.caza.de.las.vinchucas.samples.verification.level.Vote;
 /**
  * Describe el estado de la muestra como votada por un experto
  */
-public class ExpectVotedSampleState extends SampleStateImpl {
+public class ExpectVotedSampleState extends SampleState {
 
 	/**
 	 * Agrega una opinion en la muestra si el usuario no voto, y es experto
@@ -33,7 +33,9 @@ public class ExpectVotedSampleState extends SampleStateImpl {
 
 	@Override
 	public void updatedState(Sample sample, Opinion opinion) {
-		sample.setState(new VerifySampleState());
+		if(sample.expertUserHasTheSameOpinion(opinion)) {
+			sample.setState(new VerifySampleState());	
+		}
 	}
 
 	@Override
@@ -43,14 +45,18 @@ public class ExpectVotedSampleState extends SampleStateImpl {
 	
 	@Override
 	public GenericOpinionType getResult(Sample sample) {
-		List<OpinionType> opinionsByExperts = sample.getOpinionHistory().stream()
-				.filter(o -> o.getUser().hasExpertKnowledge())
-				.map(o -> o.getOpinionType())
-				.collect(Collectors.toList());
-				
-		if(opinionsByExperts.size() > 2) {
+		List<OpinionType> opinionsByExperts = getOpinionsByExperts(sample);
+
+		if(opinionsByExperts.size() >= 2) {
 			return UndefinedOpinion.UNDEFINED;
 		}
 		return opinionsByExperts.get(0);
+	}
+
+	private List<OpinionType> getOpinionsByExperts(Sample sample) {
+		return sample.getOpinionHistory().stream()
+				.filter(o -> o.getUser().hasExpertKnowledge())
+				.map(o -> o.getOpinionType())
+				.collect(Collectors.toList());
 	}
 }

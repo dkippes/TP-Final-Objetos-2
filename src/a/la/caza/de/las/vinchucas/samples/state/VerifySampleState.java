@@ -16,7 +16,7 @@ import a.la.caza.de.las.vinchucas.samples.verification.level.Vote;
 /**
  * Describe el estado de la muestra como verificada
  */
-public class VerifySampleState extends SampleStateImpl {
+public class VerifySampleState extends SampleState {
 
 	/**
 	 * Una muestra verificada no puede agregar opiniones

@@ -19,10 +19,10 @@ public class WebApplication {
 	private Set<Sample> registeredSamples;
 	private CoverageAreaSystem coverageAreaSystem;
 	
-	public WebApplication() {
-		registeredUsers = new HashSet<>();
-		registeredSamples = new HashSet<>();
-		coverageAreaSystem = new CoverageAreaSystem();		
+	public WebApplication(Set<User> users, Set<Sample> samples) {
+		registeredUsers = users;
+		registeredSamples = samples;
+		coverageAreaSystem = new CoverageAreaSystem(new HashSet<>());
 	}
 	
 	/**
@@ -102,6 +102,4 @@ public class WebApplication {
 				.filter(u -> dateBefore.isBefore(u.getCreationDate()))
 				.count();
 	}
-
-	
 }

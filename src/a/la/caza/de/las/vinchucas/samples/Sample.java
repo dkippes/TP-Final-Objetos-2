@@ -1,20 +1,12 @@
 package a.la.caza.de.las.vinchucas.samples;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.TreeMap;
-import java.util.stream.Collectors;
 
 import a.la.caza.de.las.vinchucas.exceptions.UserValidationException;
 import a.la.caza.de.las.vinchucas.location.Location;
 import a.la.caza.de.las.vinchucas.opinions.GenericOpinionType;
 import a.la.caza.de.las.vinchucas.opinions.Opinion;
-import a.la.caza.de.las.vinchucas.opinions.OpinionType;
-import a.la.caza.de.las.vinchucas.opinions.UndefinedOpinion;
 import a.la.caza.de.las.vinchucas.samples.state.BasicVotedSampleState;
 import a.la.caza.de.las.vinchucas.samples.state.ISampleState;
 import a.la.caza.de.las.vinchucas.samples.verification.level.Vote;
@@ -31,12 +23,12 @@ public class Sample {
 	private LocalDate creationDate;
 	private ISampleState state;
 
-	public Sample(Location location, Photo photo, Opinion opinion) throws UserValidationException {
+	public Sample(Location location, Photo photo, Opinion opinion, List<Opinion> opinionHistory) throws UserValidationException {
 		this.location = location;
 		this.photo = photo;
 		this.user = opinion.getUser();
 		this.creationDate = LocalDate.now();
-		this.opinionHistory = new ArrayList<>();
+		this.opinionHistory = opinionHistory;
 		this.state = new BasicVotedSampleState();
 		this.addOpinion(opinion);
 	}
@@ -118,5 +110,11 @@ public class Sample {
 	 */
 	public GenericOpinionType getActualResult() {
 		return this.state.getResult(this);
+	}
+
+	public boolean expertUserHasTheSameOpinion(Opinion opinion) {
+		return opinionHistory.stream()
+				.filter(u -> u.getUser().hasExpertKnowledge())
+				.anyMatch(o -> o.getOpinionType().equals(opinion.getOpinionType()));
 	}
 }

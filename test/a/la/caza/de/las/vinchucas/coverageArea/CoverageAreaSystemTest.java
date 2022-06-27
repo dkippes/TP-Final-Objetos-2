@@ -3,7 +3,7 @@ package a.la.caza.de.las.vinchucas.coverageArea;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.*;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -23,11 +23,13 @@ class CoverageAreaSystemTest {
 	private CoverageArea coverageArea1;
 	private CoverageArea coverageArea2;
 	private CoverageArea coverageArea3;
+	private Set<CoverageArea> registredCoverageAreas;
 	
 
 	@BeforeEach
 	void setUp() throws Exception {
-		system = new CoverageAreaSystem();
+		registredCoverageAreas = spy(new HashSet<>());
+		system = new CoverageAreaSystem(registredCoverageAreas);
 		coverageArea1 = mock(CoverageArea.class);
 		coverageArea2 = mock(CoverageArea.class);
 		coverageArea3 = mock(CoverageArea.class);

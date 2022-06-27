@@ -1,6 +1,5 @@
 package a.la.caza.de.las.vinchucas.coverage.area;
 
-import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -12,8 +11,8 @@ import a.la.caza.de.las.vinchucas.samples.Sample;
 public class CoverageAreaSystem {
 	private Set<CoverageArea> registredCoverageAreas;
 
-	public CoverageAreaSystem() {
-		registredCoverageAreas = new HashSet<>();
+	public CoverageAreaSystem(Set<CoverageArea> registredCoverageAreas) {
+		this.registredCoverageAreas = registredCoverageAreas;
 	}
 
 	public Set<CoverageArea> getRegistredCoverageAreas() {
