@@ -9,7 +9,6 @@ import a.la.caza.de.las.vinchucas.opinions.Opinion;
 import a.la.caza.de.las.vinchucas.opinions.OpinionType;
 import a.la.caza.de.las.vinchucas.opinions.UndefinedOpinion;
 import a.la.caza.de.las.vinchucas.samples.Sample;
-import a.la.caza.de.las.vinchucas.samples.verification.level.Vote;
 
 /**
  * Describe el estado de la muestra como votada por un experto
@@ -36,11 +35,6 @@ public class ExpectVotedSampleState extends SampleState {
 		if(sample.expertUserHasTheSameOpinion(opinion)) {
 			sample.setState(new VerifySampleState());	
 		}
-	}
-
-	@Override
-	public Vote getLevelVerification() {
-		return Vote.VOTED;
 	}
 	
 	@Override

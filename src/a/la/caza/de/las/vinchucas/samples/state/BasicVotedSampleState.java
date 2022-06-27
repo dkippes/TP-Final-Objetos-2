@@ -14,7 +14,6 @@ import a.la.caza.de.las.vinchucas.opinions.Opinion;
 import a.la.caza.de.las.vinchucas.opinions.OpinionType;
 import a.la.caza.de.las.vinchucas.opinions.UndefinedOpinion;
 import a.la.caza.de.las.vinchucas.samples.Sample;
-import a.la.caza.de.las.vinchucas.samples.verification.level.Vote;
 
 /*
  * Describe el estado basico de una muestra
@@ -41,11 +40,6 @@ public class BasicVotedSampleState extends SampleState {
 		if (super.userIsExpert(opinion)) {
 			sample.setState(new ExpectVotedSampleState());
 		}
-	}
-
-	@Override
-	public Vote getLevelVerification() {
-		return Vote.VOTED;
 	}
 	
 	@Override

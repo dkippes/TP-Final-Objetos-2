@@ -71,6 +71,8 @@ public class CoverageAreaTest {
 		coverageArea.addNewSample(sample);
 		assertTrue(coverageArea.getSamples().isEmpty());
 		assertFalse(coverageArea.getSamples().contains(sample));
+		verify(organizationObserver, times(0)).uploadNewSample(coverageArea, sample);
+		verify(samples, times(0)).add(sample);
 	}
 
 	@Test
@@ -81,6 +83,7 @@ public class CoverageAreaTest {
 		coverageArea.addNewSample(sample);
 		assertFalse(coverageArea.getSamples().isEmpty());
 		assertTrue(coverageArea.getSamples().contains(sample));
+		verify(organizationObserver, times(0)).uploadNewSample(coverageArea, sample);
 		verify(samples).add(sample);
 	}
 
@@ -95,8 +98,8 @@ public class CoverageAreaTest {
 		assertFalse(coverageArea.getOrganizationObservers().isEmpty());
 		assertTrue(coverageArea.getSamples().contains(sample));
 		verify(organizationObservers).add(organizationObserver);
+		verify(organizationObserver, times(1)).uploadNewSample(coverageArea, sample);
 		verify(samples).add(sample);
-		
 	}
 
 	@Test
@@ -105,7 +108,9 @@ public class CoverageAreaTest {
 		coverageArea.notifyVerifySample(sample);
 		assertFalse(coverageArea.getOrganizationObservers().isEmpty());
 		assertTrue(coverageArea.getOrganizationObservers().contains(organizationObserver));
+		verify(organizationObserver, times(1)).validateSample(coverageArea, sample);
 		verify(organizationObservers).add(organizationObserver);
+		verify(organizationObserver, times(1)).validateSample(coverageArea, sample);
 	}
 	
 	@Test
@@ -116,6 +121,7 @@ public class CoverageAreaTest {
 		when(epicenter.distanceBetweenTwoLocations(location2)).thenReturn((double) 300);
 		
 		assertTrue(coverageArea.coverageAreasAreOverlapped(coverageArea2));
+		verify(epicenter, times(1)).distanceBetweenTwoLocations(location2);
 	}
 	
 	@Test
@@ -126,6 +132,7 @@ public class CoverageAreaTest {
 		when(epicenter.distanceBetweenTwoLocations(location2)).thenReturn((double) 800);
 		
 		assertFalse(coverageArea.coverageAreasAreOverlapped(coverageArea2));
+		verify(epicenter, times(1)).distanceBetweenTwoLocations(location2);
 	}
 	
 	@Test
@@ -134,7 +141,7 @@ public class CoverageAreaTest {
 		Sample sample2 = mock(Sample.class);
 		Sample sample3 = mock(Sample.class);
 		
-		List<Sample> samples = new ArrayList<Sample>();
+		List<Sample> samples = spy(new ArrayList<>());
 		
 		samples.add(sample);
 		samples.add(sample2);
@@ -149,5 +156,8 @@ public class CoverageAreaTest {
 		expectedSamples.add(sample2);
 		
 		assertEquals(coverageArea.samplesInCoverageArea(samples), expectedSamples);
+		verify(samples).add(sample);
+		verify(samples).add(sample2);
+		verify(samples).add(sample3);
 	}
 }

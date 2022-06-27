@@ -24,7 +24,6 @@ class CoverageAreaSystemTest {
 	private CoverageArea coverageArea2;
 	private CoverageArea coverageArea3;
 	private Set<CoverageArea> registredCoverageAreas;
-	
 
 	@BeforeEach
 	void setUp() throws Exception {
@@ -47,10 +46,8 @@ class CoverageAreaSystemTest {
 		assertFalse(system.getRegistredCoverageAreas().isEmpty());
 	}
 	
-	
 	@Test
 	void testAreasOverlappedWithCoverageArea1() {
-		
 		system.registerCoverageArea(coverageArea1);
 		system.registerCoverageArea(coverageArea2);
 		system.registerCoverageArea(coverageArea3);
@@ -80,9 +77,5 @@ class CoverageAreaSystemTest {
 		
 		verify(coverageArea1, times(1)).addNewSample(sample);
 		verify(coverageArea2, times(1)).addNewSample(sample);
-		
-		
 	}
-	
-
 }

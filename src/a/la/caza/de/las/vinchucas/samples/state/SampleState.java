@@ -4,11 +4,17 @@ import a.la.caza.de.las.vinchucas.exceptions.UserAlreadyVoteException;
 import a.la.caza.de.las.vinchucas.exceptions.UserIsNotExpertException;
 import a.la.caza.de.las.vinchucas.opinions.Opinion;
 import a.la.caza.de.las.vinchucas.samples.Sample;
+import a.la.caza.de.las.vinchucas.samples.verification.level.Vote;
 
 /*
  * Esta clase abstacta describe el estado de cada muestra.
  */
 public abstract class SampleState implements ISampleState {
+	
+	@Override
+	public Vote getLevelVerification() {
+		return Vote.VOTED;
+	}
 
 	/**
 	 * Lanza una excepcion si un usuario ya voto en la muestra anteriormente
