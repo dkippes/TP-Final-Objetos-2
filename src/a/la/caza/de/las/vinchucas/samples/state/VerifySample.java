@@ -1,11 +1,8 @@
 package a.la.caza.de.las.vinchucas.samples.state;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.TreeMap;
-import java.util.stream.Collectors;
 
 import a.la.caza.de.las.vinchucas.opinions.GenericOpinionType;
 import a.la.caza.de.las.vinchucas.opinions.Opinion;
@@ -43,7 +40,8 @@ public class VerifySample extends SampleState {
 
 	@Override
 	public GenericOpinionType getResult(Sample sample) {
-		Map<OpinionType, Integer> mapOpinions = mapOpinionsByOpinionType(sample);
+		List<OpinionType> opinions = sample.getOpinionsByExperts();
+		Map<OpinionType, Integer> mapOpinions = mapOpinionsByOpinionType(sample, opinions);
 		Entry<OpinionType, Integer> maxEntry = mapOpinions.entrySet().iterator().next();
 		for (Entry<OpinionType, Integer> entry : mapOpinions.entrySet()) {
 			if (entry.getValue().compareTo(maxEntry.getValue()) > 0) {
@@ -51,17 +49,5 @@ public class VerifySample extends SampleState {
 			}
 		}
 		return maxEntry.getKey();
-	}
-
-	private List<OpinionType> getOpinionsByExpertsAsList(Sample sample) {
-		return sample.getOpinionHistory().stream().filter(o -> o.getUser().hasExpertKnowledge())
-				.map(opinion -> opinion.getOpinionType()).collect(Collectors.toList());
-	}
-
-	private Map<OpinionType, Integer> mapOpinionsByOpinionType(Sample sample) {
-		Map<OpinionType, Integer> mapOpinions = new TreeMap<>();
-		getOpinionsByExpertsAsList(sample).forEach(opinion -> mapOpinions.put(opinion,
-				Collections.frequency(getOpinionsByExpertsAsList(sample), opinion)));
-		return mapOpinions;
 	}
 }

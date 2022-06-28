@@ -2,11 +2,13 @@ package a.la.caza.de.las.vinchucas.samples;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import a.la.caza.de.las.vinchucas.exceptions.UserValidationException;
 import a.la.caza.de.las.vinchucas.location.Location;
 import a.la.caza.de.las.vinchucas.opinions.GenericOpinionType;
 import a.la.caza.de.las.vinchucas.opinions.Opinion;
+import a.la.caza.de.las.vinchucas.opinions.OpinionType;
 import a.la.caza.de.las.vinchucas.samples.state.BasicVotedSample;
 import a.la.caza.de.las.vinchucas.samples.state.ISampleState;
 import a.la.caza.de.las.vinchucas.samples.verification.level.Vote;
@@ -116,5 +118,15 @@ public class Sample {
 		return opinionHistory.stream()
 				.filter(u -> u.getUser().hasExpertKnowledge())
 				.anyMatch(o -> o.getOpinionType().equals(opinion.getOpinionType()));
+	}
+	
+	public List<OpinionType> getOpinionsByExperts() {
+		return opinionHistory.stream().filter(o -> o.getUser().hasExpertKnowledge())
+				.map(opinion -> opinion.getOpinionType()).collect(Collectors.toList());
+	}
+	
+	public List<OpinionType> getOpinionsAsList() {
+		return opinionHistory.stream()
+				.map(opinion -> opinion.getOpinionType()).collect(Collectors.toList());
 	}
 }
