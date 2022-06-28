@@ -16,6 +16,7 @@ public class FilterLastVoteDate implements IFilter {
 	
 	public FilterLastVoteDate(LocalDate date) {
 		this.dateSearched = date;
+		this.operator = new OperatorEqual();
 	}
 
 	public void setOperator(IOperator operator) {

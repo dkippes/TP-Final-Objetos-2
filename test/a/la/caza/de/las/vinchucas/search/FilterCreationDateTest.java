@@ -2,6 +2,8 @@ package a.la.caza.de.las.vinchucas.search;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.time.LocalDate;
@@ -46,10 +48,28 @@ class FilterCreationDateTest {
 		dateSearcher = new FilterCreationDate(dateSearched);
 
 	}
-
+	
 	@Test
-	void testOneSampleFound() {
+	void testNoneOperatorSet() {
 
+		List<Sample> samples = new ArrayList<Sample>();
+		samples.add(sample);
+
+		when(sample.getCreationDate()).thenReturn(dateSearched);
+		when(sample1.getCreationDate()).thenReturn(otherDate);
+		when(sample2.getCreationDate()).thenReturn(otherDate);
+
+		List<Sample> samplesFound = dateSearcher.searchSamples(allSamples);
+
+		assertEquals(samples, samplesFound);
+		verify(sample, times(1)).getCreationDate();
+		verify(sample1, times(1)).getCreationDate();
+		verify(sample2, times(1)).getCreationDate();
+	}
+	
+	@Test
+	void testOneSampleFoundWithSetOperatorEqual() {
+		
 		dateSearcher.setOperator(operatorEqual);
 
 		List<Sample> samples = new ArrayList<Sample>();
@@ -62,12 +82,31 @@ class FilterCreationDateTest {
 		List<Sample> samplesFound = dateSearcher.searchSamples(allSamples);
 
 		assertEquals(samples, samplesFound);
+		verify(sample, times(1)).getCreationDate();
+		verify(sample1, times(1)).getCreationDate();
+		verify(sample2, times(1)).getCreationDate();
+	}
+
+	@Test
+	void testOneSampleFound() {
+
+		List<Sample> samples = new ArrayList<Sample>();
+		samples.add(sample);
+
+		when(sample.getCreationDate()).thenReturn(dateSearched);
+		when(sample1.getCreationDate()).thenReturn(otherDate);
+		when(sample2.getCreationDate()).thenReturn(otherDate);
+
+		List<Sample> samplesFound = dateSearcher.searchSamples(allSamples);
+
+		assertEquals(samples, samplesFound);
+		verify(sample, times(1)).getCreationDate();
+		verify(sample1, times(1)).getCreationDate();
+		verify(sample2, times(1)).getCreationDate();
 	}
 
 	@Test
 	void testTwoSampleFound() {
-
-		dateSearcher.setOperator(operatorEqual);
 
 		List<Sample> samples = new ArrayList<Sample>();
 		samples.add(sample);
@@ -80,12 +119,13 @@ class FilterCreationDateTest {
 		List<Sample> samplesFound = dateSearcher.searchSamples(allSamples);
 
 		assertEquals(samples, samplesFound);
+		verify(sample, times(1)).getCreationDate();
+		verify(sample1, times(1)).getCreationDate();
+		verify(sample2, times(1)).getCreationDate();
 	}
 
 	@Test
 	void testNoneSampleFound() {
-
-		dateSearcher.setOperator(operatorEqual);
 
 		List<Sample> samples = new ArrayList<Sample>();
 
@@ -96,6 +136,9 @@ class FilterCreationDateTest {
 		List<Sample> samplesFound = dateSearcher.searchSamples(allSamples);
 
 		assertEquals(samples, samplesFound);
+		verify(sample, times(1)).getCreationDate();
+		verify(sample1, times(1)).getCreationDate();
+		verify(sample2, times(1)).getCreationDate();
 	}
 
 	@Test
@@ -114,6 +157,9 @@ class FilterCreationDateTest {
 		List<Sample> samplesFound = dateSearcher.searchSamples(allSamples);
 
 		assertEquals(samples, samplesFound);
+		verify(sample, times(1)).getCreationDate();
+		verify(sample1, times(1)).getCreationDate();
+		verify(sample2, times(1)).getCreationDate();
 	}
 
 	@Test
@@ -134,5 +180,11 @@ class FilterCreationDateTest {
 		List<Sample> samplesFound = dateSearcher.searchSamples(allSamples);
 
 		assertEquals(samples, samplesFound);
+		verify(sample, times(1)).getCreationDate();
+		verify(sample1, times(1)).getCreationDate();
+		verify(sample2, times(1)).getCreationDate();
 	}
+	
+
+	
 }
