@@ -3,7 +3,6 @@ package a.la.caza.de.las.vinchucas.users;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -40,14 +39,6 @@ public class UserTest {
 	@Test
 	void testCreateAnUser() {
 		assertEquals("Diego", user.getName());
-		assertEquals(user.getWebApplication(), webApplication);
-	}
-	
-	@Test
-	void testIsNotTheSameUser() {
-		assertEquals(user, user);
-		assertNotEquals(user, null);
-		assertNotEquals(user, knowledge);
 		assertEquals(user.getWebApplication(), webApplication);
 	}
 
@@ -127,6 +118,8 @@ public class UserTest {
 		when(webApplication.manyOpinionMadeByUserBeforeAnyDays(user, 30)).thenReturn(5L);
 		user.opineSample(sample, opinion);
 		assertFalse(user.hasExpertKnowledge());
+		verify(sample, times(1)).addOpinion(opinion);
+		verify(knowledge, times(0)).checkStatusUser(user);
 	}
 
 	@Test
@@ -136,6 +129,8 @@ public class UserTest {
 		when(webApplication.manyOpinionMadeByUserBeforeAnyDays(user, 30)).thenReturn(25L);
 		user.opineSample(sample, opinion);
 		assertFalse(user.hasExpertKnowledge());
+		verify(sample, times(1)).addOpinion(opinion);
+		verify(knowledge, times(1)).checkStatusUser(user);
 	}
 
 	@Test
@@ -145,6 +140,8 @@ public class UserTest {
 		when(webApplication.manyOpinionMadeByUserBeforeAnyDays(user, 30)).thenReturn(5L);
 		user.opineSample(sample, opinion);
 		assertFalse(user.hasExpertKnowledge());
+		verify(sample, times(1)).addOpinion(opinion);
+		verify(knowledge, times(1)).checkStatusUser(user);
 	}
 
 	@Test
@@ -154,5 +151,7 @@ public class UserTest {
 		when(webApplication.manyOpinionMadeByUserBeforeAnyDays(user, 30)).thenReturn(25L);
 		user.opineSample(sample, opinion);
 		assertTrue(user.hasExpertKnowledge());
+		verify(sample, times(1)).addOpinion(opinion);
+		verify(knowledge, times(1)).checkStatusUser(user);
 	}
 }

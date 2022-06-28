@@ -8,15 +8,15 @@ import org.junit.jupiter.api.Test;
 import a.la.caza.de.las.vinchucas.samples.verification.level.Vote;
 
 public class VerifySampleStateTest {
-	private VerifySampleState verifySampleState;
+	private VerifySample verifySampleState;
 
 	@BeforeEach
 	void setUp() {
-		verifySampleState = new VerifySampleState();
+		verifySampleState = new VerifySample();
 	}
 
 	@Test
-	void testCreateALocation() {
+	void testCheckIfSampleCanBeUpdated() {
 		verifySampleState.updatedState(null, null);
 		assertEquals(Vote.VERIFIED, verifySampleState.getLevelVerification());
 	}

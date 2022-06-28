@@ -19,7 +19,7 @@ import a.la.caza.de.las.vinchucas.samples.Sample;
  * Describe el estado basico de una muestra
  * Esta no estaria verificada, es votada por al menos 1 usuario quien fue que la creo
  */
-public class BasicVotedSampleState extends SampleState {
+public class BasicVotedSample extends SampleState {
 
 	/**
 	 * Agrega una opinion en la muestra si el usuario no voto
@@ -38,7 +38,7 @@ public class BasicVotedSampleState extends SampleState {
 	@Override
 	public void updatedState(Sample sample, Opinion opinion) {
 		if (super.userIsExpert(opinion)) {
-			sample.setState(new ExpectVotedSampleState());
+			sample.setState(new ExpectVotedSample());
 		}
 	}
 	

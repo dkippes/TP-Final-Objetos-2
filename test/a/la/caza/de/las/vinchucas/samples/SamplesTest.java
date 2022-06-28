@@ -22,7 +22,7 @@ import a.la.caza.de.las.vinchucas.location.Location;
 import a.la.caza.de.las.vinchucas.opinions.Opinion;
 import a.la.caza.de.las.vinchucas.opinions.OpinionType;
 import a.la.caza.de.las.vinchucas.opinions.UndefinedOpinion;
-import a.la.caza.de.las.vinchucas.samples.state.BasicVotedSampleState;
+import a.la.caza.de.las.vinchucas.samples.state.BasicVotedSample;
 import a.la.caza.de.las.vinchucas.samples.verification.level.Vote;
 import a.la.caza.de.las.vinchucas.users.User;
 
@@ -77,7 +77,7 @@ public class SamplesTest {
 
 	@Test
 	void testSampleKnowsHisLevelVerification() throws Exception {
-		BasicVotedSampleState basicState = mock(BasicVotedSampleState.class);
+		BasicVotedSample basicState = mock(BasicVotedSample.class);
 		sample.setState(basicState);
 		sample.getLevelVerification();
 		verify(basicState, times(1)).getLevelVerification();
@@ -95,11 +95,12 @@ public class SamplesTest {
 	void testUserAlreadyVote() throws Exception {
 		when(opinion.getUser()).thenReturn(user);
 		assertTrue(sample.userAlreadyVote(user));
+		verify(opinion, times(4)).getUser();
 	}
 
 	@Test
 	void testAddOpinionWithState() throws Exception {
-		BasicVotedSampleState basicState = mock(BasicVotedSampleState.class);
+		BasicVotedSample basicState = mock(BasicVotedSample.class);
 		sample.setState(basicState);
 		sample.addOpinion(opinion);
 		assertTrue(sample.getOpinionHistory().contains(opinion));
@@ -109,7 +110,8 @@ public class SamplesTest {
 
 	@Test
 	void testAddOpinionWhenTheUserHasBasicKnowledge() throws Exception {
-		sample.addOpinion(getOpinionBasic(user1, OpinionType.CHINCHE_PHTIA));
+		Opinion basicOpinion = getOpinionBasic(user1, OpinionType.CHINCHE_PHTIA);
+		sample.addOpinion(basicOpinion);
 
 		assertEquals(sample.getLevelVerification(), Vote.VOTED);
 		assertTrue(sample.getOpinionHistory().size() == 2);
@@ -222,7 +224,6 @@ public class SamplesTest {
 		sample.addOpinion(getOpinionBasic(user1, OpinionType.CHINCHE_FOLIADA));
 		sample.addOpinion(getOpinionBasic(user2, OpinionType.CHINCHE_FOLIADA));
 		assertEquals(OpinionType.CHINCHE_FOLIADA, sample.getActualResult());
-		;
 	}
 
 	@Test

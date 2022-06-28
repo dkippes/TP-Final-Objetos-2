@@ -7,7 +7,7 @@ import a.la.caza.de.las.vinchucas.exceptions.UserValidationException;
 import a.la.caza.de.las.vinchucas.location.Location;
 import a.la.caza.de.las.vinchucas.opinions.GenericOpinionType;
 import a.la.caza.de.las.vinchucas.opinions.Opinion;
-import a.la.caza.de.las.vinchucas.samples.state.BasicVotedSampleState;
+import a.la.caza.de.las.vinchucas.samples.state.BasicVotedSample;
 import a.la.caza.de.las.vinchucas.samples.state.ISampleState;
 import a.la.caza.de.las.vinchucas.samples.verification.level.Vote;
 import a.la.caza.de.las.vinchucas.users.User;
@@ -29,7 +29,7 @@ public class Sample {
 		this.user = opinion.getUser();
 		this.creationDate = LocalDate.now();
 		this.opinionHistory = opinionHistory;
-		this.state = new BasicVotedSampleState();
+		this.state = new BasicVotedSample();
 		this.addOpinion(opinion);
 	}
 

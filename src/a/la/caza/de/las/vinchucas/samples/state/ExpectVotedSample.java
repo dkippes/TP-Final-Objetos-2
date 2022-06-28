@@ -13,7 +13,7 @@ import a.la.caza.de.las.vinchucas.samples.Sample;
 /**
  * Describe el estado de la muestra como votada por un experto
  */
-public class ExpectVotedSampleState extends SampleState {
+public class ExpectVotedSample extends SampleState {
 
 	/**
 	 * Agrega una opinion en la muestra si el usuario no voto, y es experto
@@ -33,7 +33,7 @@ public class ExpectVotedSampleState extends SampleState {
 	@Override
 	public void updatedState(Sample sample, Opinion opinion) {
 		if(sample.expertUserHasTheSameOpinion(opinion)) {
-			sample.setState(new VerifySampleState());	
+			sample.setState(new VerifySample());	
 		}
 	}
 	

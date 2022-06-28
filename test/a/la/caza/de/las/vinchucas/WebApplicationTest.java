@@ -2,7 +2,10 @@ package a.la.caza.de.las.vinchucas;
 
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.time.LocalDate;
@@ -60,6 +63,12 @@ public class WebApplicationTest {
 		webApplication.registerUser(user);
 		webApplication.registerUser(user2);
 		assertEquals(webApplication.getUserOpinions(user).size(), 1);
+		assertTrue(webApplication.getRegisteredSamples().contains(sample));
+		assertTrue(webApplication.getRegisteredUsers().contains(user));
+		assertTrue(webApplication.getRegisteredUsers().contains(user2));
+		verify(registedUsers, times(1)).add(user);
+		verify(registedUsers, times(1)).add(user2);
+		verify(registedSamples, times(1)).add(sample);
 	}
 
 	@Test
@@ -70,6 +79,10 @@ public class WebApplicationTest {
 		webApplication.registerSample(sample);
 		webApplication.registerUser(user);
 		assertEquals(webApplication.manyOpinionMadeByUserBeforeAnyDays(user, 30), 1);
+		assertTrue(webApplication.getRegisteredSamples().contains(sample));
+		assertTrue(webApplication.getRegisteredUsers().contains(user));
+		verify(registedUsers, times(1)).add(user);
+		verify(registedSamples, times(1)).add(sample);
 	}
 
 	@Test
@@ -77,7 +90,11 @@ public class WebApplicationTest {
 		when(sample.getUser()).thenReturn(user);
 		webApplication.registerSample(sample);
 		webApplication.registerUser(user);
-		assertEquals(webApplication.getUserSamples(user).size(), 1);
+		assertTrue(webApplication.getUserSamples(user).size() >= 1);
+		assertTrue(webApplication.getRegisteredSamples().contains(sample));
+		assertTrue(webApplication.getRegisteredUsers().contains(user));
+		verify(registedUsers, times(1)).add(user);
+		verify(registedSamples, times(1)).add(sample);
 	}
 
 	@Test
@@ -86,6 +103,8 @@ public class WebApplicationTest {
 		when(sample.getCreationDate()).thenReturn(LocalDate.now());
 		webApplication.registerSample(sample);
 		webApplication.registerUser(user);
+		assertTrue(webApplication.getRegisteredSamples().contains(sample));
+		assertTrue(webApplication.getRegisteredUsers().contains(user));
 		assertEquals(webApplication.manySamplesSendByUserBeforeAnyDays(user, 30), 1);
 	}
 }
