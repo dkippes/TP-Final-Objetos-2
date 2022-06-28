@@ -2,6 +2,8 @@ package a.la.caza.de.las.vinchucas.search;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
@@ -54,6 +56,9 @@ class FilterInsectTest {
 		List<Sample> samplesFound = insectSearcher.searchSamples(allSamples);
 
 		assertEquals(samples, samplesFound);
+		verify(sample, times(1)).getActualResult();
+		verify(sample1, times(1)).getActualResult();
+		verify(sample2, times(1)).getActualResult();
 	}
 
 	@Test
@@ -70,6 +75,9 @@ class FilterInsectTest {
 		List<Sample> samplesFound = insectSearcher.searchSamples(allSamples);
 
 		assertEquals(samples, samplesFound);
+		verify(sample, times(1)).getActualResult();
+		verify(sample1, times(1)).getActualResult();
+		verify(sample2, times(1)).getActualResult();
 	}
 
 	@Test
@@ -83,5 +91,8 @@ class FilterInsectTest {
 		List<Sample> samplesFound = insectSearcher.searchSamples(allSamples);
 
 		assertEquals(samples, samplesFound);
+		verify(sample, times(1)).getActualResult();
+		verify(sample1, times(1)).getActualResult();
+		verify(sample2, times(1)).getActualResult();
 	}
 }

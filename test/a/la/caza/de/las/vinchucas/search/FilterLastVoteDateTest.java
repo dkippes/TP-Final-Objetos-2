@@ -2,6 +2,8 @@ package a.la.caza.de.las.vinchucas.search;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.time.LocalDate;
@@ -22,9 +24,11 @@ class FilterLastVoteDateTest {
 	private FilterLastVoteDate filter;
 
 	private LocalDate dateSearched;
-	private LocalDate lastVotationDate;
+	private LocalDate otherDate;
 
 	private OperatorEqual operatorEqual;
+	private OperatorMajor operatorMajor;
+	private OperatorMinor operatorMinor;
 
 	@BeforeEach
 	void setUp() throws Exception {
@@ -38,12 +42,32 @@ class FilterLastVoteDateTest {
 		allSamples.add(sample2);
 
 		dateSearched = LocalDate.now();
-		lastVotationDate = LocalDate.now().plusDays(10);
+		otherDate = LocalDate.now().plusDays(10);
 
 		filter = new FilterLastVoteDate(dateSearched);
 
 		operatorEqual = new OperatorEqual();
+		operatorMajor = new OperatorMajor();
+		operatorMinor = new OperatorMinor();
 		filter.setOperator(operatorEqual);
+	}
+	
+	@Test
+	void testNoneOperatorSet() {
+
+		List<Sample> samples = new ArrayList<Sample>();
+		samples.add(sample);
+
+		when(sample.getLastVotation()).thenReturn(dateSearched);
+		when(sample1.getLastVotation()).thenReturn(otherDate);
+		when(sample2.getLastVotation()).thenReturn(otherDate);
+
+		List<Sample> samplesFound = filter.searchSamples(allSamples);
+
+		assertEquals(samples, samplesFound);
+		verify(sample, times(1)).getLastVotation();
+		verify(sample1, times(1)).getLastVotation();
+		verify(sample2, times(1)).getLastVotation();
 	}
 
 	@Test
@@ -52,12 +76,33 @@ class FilterLastVoteDateTest {
 		samples.add(sample);
 
 		when(sample.getLastVotation()).thenReturn(LocalDate.now());
-		when(sample1.getLastVotation()).thenReturn(lastVotationDate);
-		when(sample2.getLastVotation()).thenReturn(lastVotationDate);
+		when(sample1.getLastVotation()).thenReturn(otherDate);
+		when(sample2.getLastVotation()).thenReturn(otherDate);
 
 		List<Sample> samplesFound = filter.searchSamples(allSamples);
 
 		assertEquals(samples, samplesFound);
+		verify(sample, times(1)).getLastVotation();
+		verify(sample1, times(1)).getLastVotation();
+		verify(sample2, times(1)).getLastVotation();
+	}
+	
+	@Test
+	void testOneSampleFoundWithSetEqualOperator() {
+		filter.setOperator(operatorEqual);
+		List<Sample> samples = new ArrayList<Sample>();
+		samples.add(sample);
+
+		when(sample.getLastVotation()).thenReturn(LocalDate.now());
+		when(sample1.getLastVotation()).thenReturn(otherDate);
+		when(sample2.getLastVotation()).thenReturn(otherDate);
+
+		List<Sample> samplesFound = filter.searchSamples(allSamples);
+
+		assertEquals(samples, samplesFound);
+		verify(sample, times(1)).getLastVotation();
+		verify(sample1, times(1)).getLastVotation();
+		verify(sample2, times(1)).getLastVotation();
 	}
 
 	@Test
@@ -68,24 +113,74 @@ class FilterLastVoteDateTest {
 		samples.add(sample2);
 
 		when(sample.getLastVotation()).thenReturn(LocalDate.now());
-		when(sample1.getLastVotation()).thenReturn(lastVotationDate);
+		when(sample1.getLastVotation()).thenReturn(otherDate);
 		when(sample2.getLastVotation()).thenReturn(LocalDate.now());
 
 		List<Sample> samplesFound = filter.searchSamples(allSamples);
-
+		//verify
 		assertEquals(samples, samplesFound);
+		verify(sample, times(1)).getLastVotation();
+		verify(sample1, times(1)).getLastVotation();
+		verify(sample2, times(1)).getLastVotation();
 	}
 
 	@Test
 	void testNoneSampleFound() {
 		List<Sample> samples = new ArrayList<Sample>();
 
-		when(sample.getLastVotation()).thenReturn(lastVotationDate);
-		when(sample1.getLastVotation()).thenReturn(lastVotationDate);
-		when(sample2.getLastVotation()).thenReturn(lastVotationDate);
+		when(sample.getLastVotation()).thenReturn(otherDate);
+		when(sample1.getLastVotation()).thenReturn(otherDate);
+		when(sample2.getLastVotation()).thenReturn(otherDate);
 
 		List<Sample> samplesFound = filter.searchSamples(allSamples);
 
 		assertEquals(samples, samplesFound);
+		verify(sample, times(1)).getLastVotation();
+		verify(sample1, times(1)).getLastVotation();
+		verify(sample2, times(1)).getLastVotation();
+	}
+	
+	@Test
+	void testMajorDate() {
+
+		filter.setOperator(operatorMajor);
+
+		List<Sample> samples = new ArrayList<Sample>();
+		samples.add(sample1);
+		samples.add(sample2);
+
+		when(sample.getLastVotation()).thenReturn(dateSearched);
+		when(sample1.getLastVotation()).thenReturn(otherDate);
+		when(sample2.getLastVotation()).thenReturn(otherDate);
+
+		List<Sample> samplesFound = filter.searchSamples(allSamples);
+
+		assertEquals(samples, samplesFound);
+		verify(sample, times(1)).getLastVotation();
+		verify(sample1, times(1)).getLastVotation();
+		verify(sample2, times(1)).getLastVotation();
+	}
+
+	@Test
+	void testMinorDate() {
+
+		otherDate = LocalDate.now().minusDays(10);
+
+		filter.setOperator(operatorMinor);
+
+		List<Sample> samples = new ArrayList<Sample>();
+		samples.add(sample1);
+		samples.add(sample2);
+
+		when(sample.getLastVotation()).thenReturn(dateSearched);
+		when(sample1.getLastVotation()).thenReturn(otherDate);
+		when(sample2.getLastVotation()).thenReturn(otherDate);
+
+		List<Sample> samplesFound = filter.searchSamples(allSamples);
+
+		assertEquals(samples, samplesFound);
+		verify(sample, times(1)).getLastVotation();
+		verify(sample1, times(1)).getLastVotation();
+		verify(sample2, times(1)).getLastVotation();
 	}
 }

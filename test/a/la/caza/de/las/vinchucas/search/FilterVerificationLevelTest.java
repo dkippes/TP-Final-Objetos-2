@@ -2,6 +2,8 @@ package a.la.caza.de.las.vinchucas.search;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
@@ -52,8 +54,11 @@ class FilterVerificationLevelTest {
 		when(sample2.getLevelVerification()).thenReturn(otherVerLevel);
 
 		List<Sample> samplesFound = verificationLevelSearcher.searchSamples(allSamples);
-
+        
 		assertEquals(samples, samplesFound);
+		verify(sample, times(1)).getLevelVerification();
+		verify(sample1, times(1)).getLevelVerification();
+		verify(sample2, times(1)).getLevelVerification();
 	}
 
 	@Test
@@ -70,6 +75,9 @@ class FilterVerificationLevelTest {
 		List<Sample> samplesFound = verificationLevelSearcher.searchSamples(allSamples);
 
 		assertEquals(samples, samplesFound);
+		verify(sample, times(1)).getLevelVerification();
+		verify(sample1, times(1)).getLevelVerification();
+		verify(sample2, times(1)).getLevelVerification();
 	}
 
 	@Test
@@ -83,5 +91,8 @@ class FilterVerificationLevelTest {
 		List<Sample> samplesFound = verificationLevelSearcher.searchSamples(allSamples);
 
 		assertEquals(samples, samplesFound);
+		verify(sample, times(1)).getLevelVerification();
+		verify(sample1, times(1)).getLevelVerification();
+		verify(sample2, times(1)).getLevelVerification();
 	}
 }

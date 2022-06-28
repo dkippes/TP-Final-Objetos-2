@@ -15,6 +15,7 @@ public class FilterCreationDate implements IFilter {
 	
 	public FilterCreationDate(LocalDate date) {
 		this.dateSearched = date;
+		this.operator = new OperatorEqual();
 	}
 
 	public void setOperator(IOperator operator) {
