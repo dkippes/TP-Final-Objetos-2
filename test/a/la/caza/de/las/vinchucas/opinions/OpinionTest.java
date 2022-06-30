@@ -14,8 +14,13 @@ import a.la.caza.de.las.vinchucas.users.User;
 import a.la.caza.de.las.vinchucas.users.knowledge.KnowledgeBasic;
 
 public class OpinionTest {
-	private Opinion nothing, imageUnclear, vinchucaInfestans, vinchucaSordida, vinchucaGuasayana, chinchePhtia,
-			chincheFoliada;
+	private Opinion nothing;
+	private Opinion imageUnclear;
+	private Opinion vinchucaInfestans;
+	private Opinion vinchucaSordida;
+	private Opinion vinchucaGuasayana;
+	private Opinion chinchePhtia;
+	private Opinion chincheFoliada;
 	private User user;
 	private WebApplication webApplication;
 	GenericOpinionType undefined;

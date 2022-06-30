@@ -16,7 +16,7 @@ import a.la.caza.de.las.vinchucas.samples.verification.level.Vote;
  * Esta clase abstacta describe el estado de cada muestra.
  */
 public abstract class SampleState implements ISampleState {
-	
+
 	@Override
 	public Vote getLevelVerification() {
 		return Vote.VOTED;
