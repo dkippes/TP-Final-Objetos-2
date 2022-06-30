@@ -76,8 +76,5 @@ class AndFilterTest {
 		assertEquals(samples, samplesFound);
 
 	}
-	// ningun filtro
-	// todos los filtros
-	
 
 }

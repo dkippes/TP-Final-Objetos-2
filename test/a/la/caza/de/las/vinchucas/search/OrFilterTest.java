@@ -77,7 +77,5 @@ class OrFilterTest {
 
 		assertTrue(samplesFound.containsAll(samples));
 	}
-	// ningun filtro
-	// todos los unitarios
 	
 }

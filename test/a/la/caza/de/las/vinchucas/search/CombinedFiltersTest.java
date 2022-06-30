@@ -46,7 +46,6 @@ class CombinedFiltersTest {
 	private OrFilter orFilter;
 	private OrFilter orFilter2;
 
-	private OperatorEqual operatorEqual;
 	private OperatorMajor operatorMajor;
 	private OperatorMinor operatorMinor;
 
@@ -77,12 +76,11 @@ class CombinedFiltersTest {
 		creationDateFilter = new FilterCreationDate(dateSearched);
 		verLevelFilter = new FilterVerificationLevel(verLevelSearched);
 
-
-		operatorEqual = new OperatorEqual();
 		operatorMajor = new OperatorMajor();
 		operatorMinor = new OperatorMinor();
 		
 	}
+	
 
 	@Test
 	void testOrAnd() {
@@ -107,6 +105,18 @@ class CombinedFiltersTest {
 		List<Sample> samplesFound = andFilter.searchSamples(allSamples);
 
 		assertEquals(samples, samplesFound);
+		
+		verify(sample, times(1)).getLastVotation();
+		verify(sample1, times(0)).getLastVotation();
+		verify(sample2, times(0)).getLastVotation();
+		
+		verify(sample, times(1)).getActualResult();
+		verify(sample1, times(0)).getActualResult();
+		verify(sample2, times(0)).getActualResult();
+		
+		verify(sample, times(1)).getLevelVerification();
+		verify(sample1, times(1)).getLevelVerification();
+		verify(sample2, times(1)).getLevelVerification();
 	}
 	
 	@Test
@@ -133,6 +143,18 @@ class CombinedFiltersTest {
 		List<Sample> samplesFound = andFilter.searchSamples(allSamples);
 
 		assertEquals(samples, samplesFound);
+		
+		verify(sample, times(0)).getLastVotation();
+		verify(sample1, times(0)).getLastVotation();
+		verify(sample2, times(0)).getLastVotation();
+		
+		verify(sample, times(0)).getActualResult();
+		verify(sample1, times(0)).getActualResult();
+		verify(sample2, times(0)).getActualResult();
+		
+		verify(sample, times(1)).getLevelVerification();
+		verify(sample1, times(1)).getLevelVerification();
+		verify(sample2, times(1)).getLevelVerification();
 	}
 	
 	@Test
@@ -162,6 +184,18 @@ class CombinedFiltersTest {
 		List<Sample> samplesFound = orFilter.searchSamples(allSamples);
 
 		assertTrue(samples.containsAll(samplesFound));
+		
+		verify(sample, times(1)).getLastVotation();
+		verify(sample1, times(1)).getLastVotation();
+		verify(sample2, times(1)).getLastVotation();
+		
+		verify(sample, times(0)).getActualResult();
+		verify(sample1, times(0)).getActualResult();
+		verify(sample2, times(0)).getActualResult();
+		
+		verify(sample, times(0)).getLevelVerification();
+		verify(sample1, times(0)).getLevelVerification();
+		verify(sample2, times(0)).getLevelVerification();
 	}
 	
 	@Test
@@ -190,6 +224,18 @@ class CombinedFiltersTest {
 		List<Sample> samplesFound = orFilter.searchSamples(allSamples);
 
 		assertTrue(samples.containsAll(samplesFound));
+		
+		verify(sample, times(1)).getLastVotation();
+		verify(sample1, times(0)).getLastVotation();
+		verify(sample2, times(0)).getLastVotation();
+		
+		verify(sample, times(1)).getActualResult();
+		verify(sample1, times(1)).getActualResult();
+		verify(sample2, times(1)).getActualResult();
+		
+		verify(sample, times(1)).getLevelVerification();
+		verify(sample1, times(1)).getLevelVerification();
+		verify(sample2, times(1)).getLevelVerification();
 	}
 	
 	@Test
@@ -222,6 +268,18 @@ class CombinedFiltersTest {
 		List<Sample> samplesFound = andFilter3.searchSamples(allSamples);
 
 		assertEquals(samples, samplesFound);
+		
+		verify(sample, times(1)).getLastVotation();
+		verify(sample1, times(0)).getLastVotation();
+		verify(sample2, times(0)).getLastVotation();
+		
+		verify(sample, times(1)).getActualResult();
+		verify(sample1, times(0)).getActualResult();
+		verify(sample2, times(0)).getActualResult();
+		
+		verify(sample, times(1)).getLevelVerification();
+		verify(sample1, times(1)).getLevelVerification();
+		verify(sample2, times(1)).getLevelVerification();
 	}
 	
 	@Test
@@ -256,6 +314,22 @@ class CombinedFiltersTest {
 		List<Sample> samplesFound = orFilter3.searchSamples(allSamples);
 
 		assertTrue(samples.containsAll(samplesFound));
+		
+		verify(sample, times(1)).getLastVotation();
+		verify(sample1, times(1)).getLastVotation();
+		verify(sample2, times(1)).getLastVotation();
+		
+		verify(sample, times(1)).getActualResult();
+		verify(sample1, times(1)).getActualResult();
+		verify(sample2, times(1)).getActualResult();
+		
+		verify(sample, times(1)).getCreationDate();
+		verify(sample1, times(1)).getCreationDate();
+		verify(sample2, times(1)).getCreationDate();
+		
+		verify(sample, times(1)).getLevelVerification();
+		verify(sample1, times(1)).getLevelVerification();
+		verify(sample2, times(1)).getLevelVerification();
 	}
 	
 	@Test
@@ -280,6 +354,14 @@ class CombinedFiltersTest {
 		List<Sample> samplesFound = andFilter.searchSamples(allSamples);
 
 		assertEquals(samples, samplesFound);
+		
+		verify(sample, times(1)).getCreationDate();
+		verify(sample1, times(1)).getCreationDate();
+		verify(sample2, times(1)).getCreationDate();
+		
+		verify(sample, times(0)).getLastVotation();
+		verify(sample1, times(1)).getLastVotation();
+		verify(sample2, times(1)).getLastVotation();
 	}
 	
 	@Test
@@ -305,6 +387,10 @@ class CombinedFiltersTest {
 		List<Sample> samplesFound = orFilter.searchSamples(allSamples);
 
 		assertEquals(samples, samplesFound);
+		
+		verify(sample, times(2)).getCreationDate();
+		verify(sample1, times(2)).getCreationDate();
+		verify(sample2, times(2)).getCreationDate();
 	}
 	
 }

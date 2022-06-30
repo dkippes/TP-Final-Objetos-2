@@ -70,6 +70,7 @@ class FilterCreationDateTest {
 	@Test
 	void testOneSampleFoundWithSetOperatorEqual() {
 		
+		dateSearcher.setOperator(operatorMajor);
 		dateSearcher.setOperator(operatorEqual);
 
 		List<Sample> samples = new ArrayList<Sample>();

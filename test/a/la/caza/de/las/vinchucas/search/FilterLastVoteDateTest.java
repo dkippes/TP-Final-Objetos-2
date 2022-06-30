@@ -89,6 +89,8 @@ class FilterLastVoteDateTest {
 	
 	@Test
 	void testOneSampleFoundWithSetEqualOperator() {
+		
+		filter.setOperator(operatorMajor);
 		filter.setOperator(operatorEqual);
 		List<Sample> samples = new ArrayList<Sample>();
 		samples.add(sample);
