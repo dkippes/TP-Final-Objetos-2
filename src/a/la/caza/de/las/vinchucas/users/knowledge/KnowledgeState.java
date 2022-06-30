@@ -5,7 +5,7 @@ import a.la.caza.de.las.vinchucas.users.User;
 /**
  * Protocolo de estado de conocimiento usuario.
  */
-public interface IKnowledgeState {
+public interface KnowledgeState {
 	public boolean isUserBasic();
 
 	public boolean isUserExpert();

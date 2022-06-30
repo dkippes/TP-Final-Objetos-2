@@ -5,7 +5,7 @@ import a.la.caza.de.las.vinchucas.users.User;
 /**
  * Esta clase abstracta describe si el conocimiento de un usuario.
  */
-public abstract class Knowledge implements IKnowledgeState {
+public abstract class Knowledge implements KnowledgeState {
 	
 	/**
 	 * Se fija si el conocimiento de un usuario puede ser actualizado segun la condicion pasada
