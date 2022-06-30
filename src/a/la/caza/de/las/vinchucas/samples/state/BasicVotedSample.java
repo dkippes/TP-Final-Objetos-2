@@ -1,11 +1,8 @@
 package a.la.caza.de.las.vinchucas.samples.state;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.TreeMap;
-import java.util.stream.Collectors;
 
 import a.la.caza.de.las.vinchucas.exceptions.UserAlreadyVoteException;
 import a.la.caza.de.las.vinchucas.exceptions.UserValidationException;
@@ -44,15 +41,9 @@ public class BasicVotedSample extends SampleState {
 	
 	@Override
 	public GenericOpinionType getResult(Sample sample) {
-		Map<OpinionType, Integer> mapOpinions = mapOpinionsByOpinionType(sample);
+		List<OpinionType> opinions = sample.getOpinionsAsList();
+		Map<OpinionType, Integer> mapOpinions = mapOpinionsByOpinionType(sample, opinions);
 		return getMostVotedOpinionOrUndefinedIfDraw(mapOpinions);
-	}
-	
-	private Map<OpinionType, Integer> mapOpinionsByOpinionType(Sample sample) {
-		Map<OpinionType, Integer> mapOpinions = new TreeMap<>();
-		getOpinionsAsList(sample).forEach(
-				opinion -> mapOpinions.put(opinion, Collections.frequency(getOpinionsAsList(sample), opinion)));
-		return mapOpinions;
 	}
 	
 	private GenericOpinionType getMostVotedOpinionOrUndefinedIfDraw(Map<OpinionType, Integer> mapOpinions) {
@@ -66,10 +57,5 @@ public class BasicVotedSample extends SampleState {
 		return mapOpinions.containsValue(maxEntry.getValue()) 
 				? UndefinedOpinion.UNDEFINED
 				: maxEntry.getKey(); 
-	}
-	
-	private List<OpinionType> getOpinionsAsList(Sample sample) {
-		return sample.getOpinionHistory().stream()
-				.map(opinion -> opinion.getOpinionType()).collect(Collectors.toList());
 	}
 }

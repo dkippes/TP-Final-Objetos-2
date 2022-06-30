@@ -1,8 +1,14 @@
 package a.la.caza.de.las.vinchucas.samples.state;
 
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
+
 import a.la.caza.de.las.vinchucas.exceptions.UserAlreadyVoteException;
 import a.la.caza.de.las.vinchucas.exceptions.UserIsNotExpertException;
 import a.la.caza.de.las.vinchucas.opinions.Opinion;
+import a.la.caza.de.las.vinchucas.opinions.OpinionType;
 import a.la.caza.de.las.vinchucas.samples.Sample;
 import a.la.caza.de.las.vinchucas.samples.verification.level.Vote;
 
@@ -10,7 +16,7 @@ import a.la.caza.de.las.vinchucas.samples.verification.level.Vote;
  * Esta clase abstacta describe el estado de cada muestra.
  */
 public abstract class SampleState implements ISampleState {
-	
+
 	@Override
 	public Vote getLevelVerification() {
 		return Vote.VOTED;
@@ -55,5 +61,12 @@ public abstract class SampleState implements ISampleState {
 	 */
 	public boolean userIsExpert(Opinion opinion) {
 		return opinion.getUser().hasExpertKnowledge();
+	}
+	
+	public Map<OpinionType, Integer> mapOpinionsByOpinionType(Sample sample, List<OpinionType> opinions) {
+		Map<OpinionType, Integer> mapOpinions = new TreeMap<>();
+		opinions.forEach(opinion -> mapOpinions.put(opinion,
+				Collections.frequency(opinions, opinion)));
+		return mapOpinions;
 	}
 }
