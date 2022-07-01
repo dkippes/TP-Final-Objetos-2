@@ -1,6 +1,7 @@
 package a.la.caza.de.las.vinchucas.users;
 
 import a.la.caza.de.las.vinchucas.WebApplication;
+import a.la.caza.de.las.vinchucas.exceptions.UserIsNotExpertException;
 import a.la.caza.de.las.vinchucas.exceptions.UserValidationException;
 import a.la.caza.de.las.vinchucas.opinions.Opinion;
 import a.la.caza.de.las.vinchucas.samples.Sample;
@@ -58,5 +59,9 @@ public class User implements Cloneable {
 	public KnowledgeState getKnowledge() {
 		this.knowledge.checkStatusUser(this);
 		return knowledge;
+	}
+
+	public void canVote() throws UserIsNotExpertException {
+		this.knowledge.canVote(this);
 	}
 }

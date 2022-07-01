@@ -3,7 +3,9 @@ package a.la.caza.de.las.vinchucas.users;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -14,6 +16,7 @@ import org.junit.jupiter.api.Test;
 import a.la.caza.de.las.vinchucas.WebApplication;
 import a.la.caza.de.las.vinchucas.exceptions.UserValidationException;
 import a.la.caza.de.las.vinchucas.opinions.Opinion;
+import a.la.caza.de.las.vinchucas.opinions.OpinionType;
 import a.la.caza.de.las.vinchucas.samples.Sample;
 import a.la.caza.de.las.vinchucas.users.knowledge.Knowledge;
 import a.la.caza.de.las.vinchucas.users.knowledge.KnowledgeBasic;
@@ -153,5 +156,29 @@ public class UserTest {
 		assertTrue(user.hasExpertKnowledge());
 		verify(sample, times(1)).addOpinion(opinion);
 		verify(knowledge, times(1)).checkStatusUser(user);
+	}
+	
+	@Test
+	void testUserExpertCanVote() throws UserValidationException {
+		Knowledge knowledge = spy(new KnowledgeExpert());
+		user.setKnowledge(knowledge);
+		user.canVote();
+		verify(knowledge, times(1)).canVote(user);
+	}
+	
+	@Test
+	void testUserSpecialistCanVote() throws UserValidationException {
+		Knowledge knowledge = spy(new KnowledgeSpecialist());
+		user.setKnowledge(knowledge);
+		user.canVote();
+		verify(knowledge, times(1)).canVote(user);
+	}
+	
+	@Test
+	void testUserBasicCanNotVote() throws UserValidationException {
+		Knowledge knowledge = spy(new KnowledgeBasic());
+		user.setKnowledge(knowledge);
+		assertThrows(UserValidationException.class, () -> user.canVote());
+		verify(knowledge, times(1)).canVote(user);
 	}
 }

@@ -25,6 +25,7 @@ import a.la.caza.de.las.vinchucas.opinions.UndefinedOpinion;
 import a.la.caza.de.las.vinchucas.samples.state.BasicVotedSample;
 import a.la.caza.de.las.vinchucas.samples.verification.level.Vote;
 import a.la.caza.de.las.vinchucas.users.User;
+import a.la.caza.de.las.vinchucas.users.knowledge.KnowledgeBasic;
 
 public class SamplesTest {
 	private Sample sample;
@@ -243,11 +244,11 @@ public class SamplesTest {
 
 	@Test
 	void testUserIsNotExpertException() throws Exception {
-		User userBasic = mock(User.class);
+		User userBasic = spy(new User("Diego", new KnowledgeBasic(), webApplication));
 		opinionHistory = spy(new ArrayList<>());
 		Sample sample = new Sample(location, photo, getOpinionSpecialist(user, OpinionType.IMAGE_UNCLEAR), opinionHistory);
 		assertThrows(UserValidationException.class,
-				() -> sample.addOpinion(getOpinionBasic(userBasic, OpinionType.IMAGE_UNCLEAR)));
+				() -> sample.addOpinion(getOpinionBasic(userBasic, OpinionType.CHINCHE_FOLIADA)));
 	}
 	
 	@Test

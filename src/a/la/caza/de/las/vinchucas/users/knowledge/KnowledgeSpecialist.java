@@ -1,5 +1,6 @@
 package a.la.caza.de.las.vinchucas.users.knowledge;
 
+import a.la.caza.de.las.vinchucas.exceptions.UserIsNotExpertException;
 import a.la.caza.de.las.vinchucas.users.User;
 
 /**
