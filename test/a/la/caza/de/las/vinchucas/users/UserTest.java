@@ -16,7 +16,6 @@ import org.junit.jupiter.api.Test;
 import a.la.caza.de.las.vinchucas.WebApplication;
 import a.la.caza.de.las.vinchucas.exceptions.UserValidationException;
 import a.la.caza.de.las.vinchucas.opinions.Opinion;
-import a.la.caza.de.las.vinchucas.opinions.OpinionType;
 import a.la.caza.de.las.vinchucas.samples.Sample;
 import a.la.caza.de.las.vinchucas.users.knowledge.Knowledge;
 import a.la.caza.de.las.vinchucas.users.knowledge.KnowledgeBasic;
@@ -162,7 +161,7 @@ public class UserTest {
 	void testUserExpertCanVote() throws UserValidationException {
 		Knowledge knowledge = spy(new KnowledgeExpert());
 		user.setKnowledge(knowledge);
-		user.canVote();
+		user.checkIfCanVote();
 		verify(knowledge, times(1)).canVote(user);
 	}
 	
@@ -170,7 +169,7 @@ public class UserTest {
 	void testUserSpecialistCanVote() throws UserValidationException {
 		Knowledge knowledge = spy(new KnowledgeSpecialist());
 		user.setKnowledge(knowledge);
-		user.canVote();
+		user.checkIfCanVote();
 		verify(knowledge, times(1)).canVote(user);
 	}
 	
@@ -178,7 +177,7 @@ public class UserTest {
 	void testUserBasicCanNotVote() throws UserValidationException {
 		Knowledge knowledge = spy(new KnowledgeBasic());
 		user.setKnowledge(knowledge);
-		assertThrows(UserValidationException.class, () -> user.canVote());
+		assertThrows(UserValidationException.class, () -> user.checkIfCanVote());
 		verify(knowledge, times(1)).canVote(user);
 	}
 }

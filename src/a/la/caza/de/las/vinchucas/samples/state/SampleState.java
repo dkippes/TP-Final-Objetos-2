@@ -41,7 +41,7 @@ public abstract class SampleState implements ISampleState {
 	 * @param Opinion
 	 */
 	public void checkIfUserIsExpert(Opinion opinion) throws UserIsNotExpertException {
-		opinion.getUser().canVote();
+		opinion.getUser().checkIfCanVote();
 	}
 
 	/**

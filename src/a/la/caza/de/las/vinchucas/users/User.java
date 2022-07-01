@@ -61,7 +61,7 @@ public class User implements Cloneable {
 		return knowledge;
 	}
 
-	public void canVote() throws UserIsNotExpertException {
+	public void checkIfCanVote() throws UserIsNotExpertException {
 		this.knowledge.canVote(this);
 	}
 }

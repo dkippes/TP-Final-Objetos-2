@@ -26,4 +26,8 @@ public class KnowledgeExpert extends Knowledge {
 		long opinions = webApplication.manyOpinionMadeByUserBeforeAnyDays(user, 30);
 		super.checkIfKnowledgeCanBeUpdated(user, samples < 10 || opinions < 20, new KnowledgeBasic());
 	}
+	
+	@Override
+	public void canVote(User user) throws UserIsNotExpertException {
+	}
 }
