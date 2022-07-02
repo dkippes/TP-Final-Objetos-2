@@ -1,9 +1,5 @@
 package a.la.caza.de.las.vinchucas.search;
 
-import java.util.List;
-
-import a.la.caza.de.las.vinchucas.samples.Sample;
-
 public abstract class BinaryFilter implements IFilter {
 		protected IFilter filter1;
 		protected IFilter filter2;
@@ -12,6 +8,4 @@ public abstract class BinaryFilter implements IFilter {
 			this.filter1 = filter1;
 			this.filter2 = filter2;
 		}
-
-		abstract public List<Sample> searchSamples(List<Sample> allSamples);
 }
